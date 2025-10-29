@@ -1,11 +1,20 @@
 
--- Bufferline
+-- UI related plugins.
+
 return {
+
+-- Bufferline -----------------------------------------------------------------
   {
     'akinsho/bufferline.nvim',
     version = "*", dependencies = 'nvim-tree/nvim-web-devicons',
-    opts = {},
+    opts = {
+      options = {
+        always_show_bufferline = false,
+      }
+    },
   },
+
+-- Lualine --------------------------------------------------------------------
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -38,7 +47,6 @@ return {
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "branch" },
-
           lualine_y = {
             { "progress", separator = " ", padding = { left = 1, right = 0 } },
             { "location", padding = { left = 0, right = 1 } },
