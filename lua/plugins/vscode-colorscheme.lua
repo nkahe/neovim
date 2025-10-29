@@ -1,0 +1,1 @@
+/home/henri/.config/nvim/lua/plugins/vscode-colorscheme.lua
