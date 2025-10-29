@@ -17,5 +17,6 @@ return {
         move_with_alt = true,
       },
     })
+    require('mini.move').setup()
   end,
 }
