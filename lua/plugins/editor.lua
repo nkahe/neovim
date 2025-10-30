@@ -41,7 +41,7 @@ return {
           { "[", group = "Previous" },
           { "]", group = "Next" },
           { "z", group = "Fold" },
-          { "\\", group = "Toggle" },
+          { "\\", group = "Toggle local options" },
           {
             "<leader>b",
             group = "Buffer",
