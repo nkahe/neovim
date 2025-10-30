@@ -64,6 +64,7 @@ return {
     picker = {
       enabled = true,
       layout = {
+        preset = "ivy",
         preview = false
       },
       sources = {
