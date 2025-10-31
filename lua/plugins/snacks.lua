@@ -45,8 +45,7 @@ return {
           -- { icon = " ", key = "s", desc = "Restore last session", action = function() require("persistence").load({ last = true }) end },
           -- { icon = " ", key = "S", desc = "Select session", action = function() require("persistence").select() end },
           { icon = " ", key = "S", desc = "Select session", action = function() require("mini.sessions").select("read") end, },
-          { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
-          { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+          { icon = "󰒲 ", key = "l", desc = "Open Lazy", action = ":Lazy" },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         },
       },
@@ -58,7 +57,7 @@ return {
     input = { enabled = false },
     notifier = {
       enabled = true,
-      timeout = 3000,
+      timeout = 6000,
     },
 
     picker = {
