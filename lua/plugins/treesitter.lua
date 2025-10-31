@@ -11,7 +11,7 @@ return {
     lazy = false,
     branch = 'main',  -- Master branch is frozen but still default.
     build = ":TSUpdate",
-    init = function()
+    config = function()
       local parser_installed = {
         "bash",
         "css",
@@ -52,25 +52,13 @@ return {
           local noIndent = {}
           if hasStarted and not vim.list_contains(noIndent, ctx.match) then
             vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            -- folding
+            vim.wo.foldmethod = "expr"
+            vim.wo.foldexpr   = "v:lua.vim.treesitter.foldexpr()"
           end
         end,
       })
 
-    end -- init
+    end,
   }
 }
-
-
-
--- return {
-  --   "nvim-treesitter/nvim-treesitter",
-  --   lazy = false,
-  --   branch = 'main',  -- Master branch is frozen but still default.
-  --   build = ":TSUpdate",
-  --   opts = {
-    --     highlight = { enable = true },
-    --     indent = { enable = true },
-    --     folds = { enable = true },
-    --   },
-    -- }
-
