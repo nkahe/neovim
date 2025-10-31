@@ -7,6 +7,7 @@
   "nvim-treesitter": { "branch": "main", "commit": "64f4755b9d6ea9008265b09eb79fd91727311682" },
   "nvim-web-devicons": { "branch": "master", "commit": "8dcb311b0c92d460fac00eac706abd43d94d68af" },
   "snacks.nvim": { "branch": "main", "commit": "76160be5d38cd67e46557cb5d0b3e36ececdfa3c" },
+  "ts-query-loader.nvim": { "branch": "main", "commit": "8b29374d3789924d4223f0e5d30ce80d8c5ecc20" },
   "vim-insert-append-single-character": { "branch": "master", "commit": "8b8e3774d65ce126a04db64f55d052031363c244" },
   "vscode.nvim": { "branch": "main", "commit": "cb9df0873c10a21d05362455ae3bb355eadcef6b" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" }
