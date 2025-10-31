@@ -12,7 +12,7 @@ return {
     branch = 'main',  -- Master branch is frozen but still default.
     build = ":TSUpdate",
     config = function()
-      local parser_installed = {
+      local parsers = {
         "bash",
         "css",
         "diff",
@@ -37,13 +37,14 @@ return {
       }
 
       vim.defer_fn(function()
-        require("nvim-treesitter").install(parser_installed)
+        require("nvim-treesitter").install(parsers)
       end, 1000)
       require("nvim-treesitter").update()
 
+
       -- auto-start highlights & indentation
       vim.api.nvim_create_autocmd("FileType", {
-        desc = "User: enable treesitter highlighting",
+        desc = "Enable treesitter features",
         callback = function(ctx)
           -- highlights
           local hasStarted = pcall(vim.treesitter.start) -- errors for filetypes with no parser

@@ -25,9 +25,3 @@ require("config.10_options")
 require("config.20_keymaps")
 require("config.25_shared-keymaps")
 require("config.70_autocmds")
-
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'javascript', "bash", "sh" },
-  callback = function() vim.treesitter.start() end,
-})
