@@ -18,9 +18,16 @@ _G.Config.new_autocmd = function(event, pattern, callback, desc)
   vim.api.nvim_create_autocmd(event, opts)
 end
 
+require("config.lazy")
+
 -- Source config files.
 require("config.10_options")
 require("config.20_keymaps")
 require("config.25_shared-keymaps")
 require("config.70_autocmds")
-require("config.90_lazy-config")
+
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'javascript', "bash", "sh" },
+  callback = function() vim.treesitter.start() end,
+})
