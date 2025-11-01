@@ -1,4 +1,8 @@
 
+local function augroup(name)
+  return vim.api.nvim_create_augroup("Custom_" .. name, { clear = true })
+end
+
 -- Set title
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
