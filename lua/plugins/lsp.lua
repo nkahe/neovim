@@ -4,6 +4,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
+    'saghen/blink.cmp',
       {
         -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
         -- used for completion, annotations and signatures of Neovim apis.
@@ -19,7 +20,12 @@ return {
       },
       "mason-org/mason.nvim",
       "mason-org/mason-lspconfig.nvim",
-      "nvim-mini/mini.nvim"  -- So mini.completion is available.
+      -- "nvim-mini/mini.nvim"  -- So mini.completion is available.
+    },
+    opts = {
+      servers = {
+        lua_ls = {}
+      }
     },
     -- opts = {
     --   servers = { "bashls", "lua_ls" },
@@ -28,7 +34,7 @@ return {
       --   vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "LSP Hover" })
       -- end
     -- },
-    config = function()
+    config = function(_, opts)
 
       -- Don't enable LSP if using Obsidian.nvim.
       if vim.g.obsidian then
@@ -61,18 +67,20 @@ return {
       --   return MiniCompletion.get_lsp_capabilities()
       -- end
 
-      local MiniCompletion = require("mini.completion")
-      local capabilities = MiniCompletion.get_lsp_capabilities()
+      -- local MiniCompletion = require("mini.completion")
+      -- local capabilities = MiniCompletion.get_lsp_capabilities()
 
       -- Configure Mason LSP after it loads
       -- local mlsp = require("mason-lspconfig")
       -- mlsp.setup()  -- basic setup
 
-      vim.lsp.config("*", { capabilities = capabilities })
+      local blink_capabilities = require('blink.cmp').get_lsp_capabilities()
+
+      vim.lsp.config("*", { capabilities = blink_capabilities })
 
       vim.lsp.enable({ "lua_ls", "bashls", "shellcheck" })
 
-      -- Testaa: vim.api.
+      -- Test: vim.api.
 
       -- manually setup servers listed in opts.servers
       -- for _, server in ipairs(opts.servers) do
@@ -87,6 +95,7 @@ return {
       -- end
     end
   },
+
   {
     "mason-org/mason.nvim",
     opts = {
@@ -95,31 +104,31 @@ return {
     },
   },
 
-  {
-    'echasnovski/mini.completion',
-    version = false,
-    event = 'LspAttach',
-    config = function()
-      -- Customize LSP completion behavior
-      local process_items_opts = { kind_priority = { Text = -1, Snippet = 99 } }
-
-      require('mini.completion').setup({
-        lsp_completion = {
-          source_func = 'omnifunc',
-          auto_setup = false,
-          -- process_items = process_items,
-        },
-      })
-
-      -- Use your existing helper function for autocmd
-      Config.new_autocmd('LspAttach', nil, function(ev)
-        vim.bo[ev.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
-      end, "Set 'omnifunc'")
-
-      -- Add completion-related LSP capabilities
-      -- vim.lsp.config('*', {
-      --   capabilities = MiniCompletion.get_lsp_capabilities(),
-      -- })
-    end,
-  },
+  -- {
+  --   'echasnovski/mini.completion',
+  --   version = false,
+  --   event = 'LspAttach',
+  --   config = function()
+  --     -- Customize LSP completion behavior
+  --     local process_items_opts = { kind_priority = { Text = -1, Snippet = 99 } }
+  --
+  --     require('mini.completion').setup({
+  --       lsp_completion = {
+  --         source_func = 'omnifunc',
+  --         auto_setup = false,
+  --         -- process_items = process_items,
+  --       },
+  --     })
+  --
+  --     -- Use your existing helper function for autocmd
+  --     Config.new_autocmd('LspAttach', nil, function(ev)
+  --       vim.bo[ev.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
+  --     end, "Set 'omnifunc'")
+  --
+  --     -- Add completion-related LSP capabilities
+  --     -- vim.lsp.config('*', {
+  --     --   capabilities = MiniCompletion.get_lsp_capabilities(),
+  --     -- })
+  --   end,
+  -- },
 }

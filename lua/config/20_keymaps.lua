@@ -12,6 +12,9 @@ local xmap_leader = function(suffix, rhs, desc)
   vim.keymap.set('x', '<Leader>' .. suffix, rhs, { desc = desc })
 end
 
+-- Clear search with <esc>
+map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
+
 map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Open Lazy" })
 
 -- mini.sessions

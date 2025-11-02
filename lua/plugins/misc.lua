@@ -51,5 +51,13 @@ return {
     keys = {
       { "<Leader>gg", "<cmd>Neogit kind=floating<CR>",  mode = "n", desc = 'Toggle Neogit' },
     }
-  }
+  },
+
+  -- Doesn't work like this.
+  -- {
+  --   "chrisbra/Recover.vim",
+  --   config = function()
+  --     require('recover.vim').setup()
+  --   end
+  -- }
 }
