@@ -13,7 +13,7 @@ return {
         { "<F1>", "<cmd>WhichKey<cr>", desc = "WhichKey (global)" },
         { "<leader><tab>", group = "tabs" },
         { "<leader>c", group = "Code" },
-        { "<leader>d", group = "debug" },
+        { "<leader>d", group = "Debug" },
         { "<leader>dp", group = "Profiler" },
         { "<leader>g", group = "Git" },
         { "<leader>gh", group = "Hunks" },
