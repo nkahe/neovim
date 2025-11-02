@@ -17,14 +17,19 @@ return {
           },
         },
       },
-      "mason-org/mason.nvim",
+      { "mason-org/mason.nvim",
+        opts = {
+          -- Make different Nvim configs use same servers.
+          install_root_dir = vim.fn.expand("~/.local/share/nvim/mason"),
+        },
+      },
       "mason-org/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       -- "nvim-mini/mini.nvim"  -- So mini.completion is available.
       -- Autoformatting
       "stevearc/conform.nvim",
     },
-
+    -- Servers configurations.
     opts = {
       servers = {
         bashls = true,
@@ -33,13 +38,6 @@ return {
         }
       }
     },
-    -- opts = {
-    --   servers = { "bashls", "lua_ls" },
-      -- on_attach = function(client, bufnr)
-      --   vim.bo[bufnr].omnifunc = "v:lua.MiniCompletion.completefunc_lsp",
-      --   vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "LSP Hover" })
-      -- end
-    -- },
     config = function(_, opts)
 
       -- Don't enable LSP if using Obsidian.nvim.
@@ -76,29 +74,45 @@ return {
       -- local MiniCompletion = require("mini.completion")
       -- local capabilities = MiniCompletion.get_lsp_capabilities()
 
-      -- Configure Mason LSP after it loads
-      -- local mlsp = require("mason-lspconfig")
-      -- mlsp.setup()  -- basic setup
-
       local blink_capabilities = require('blink.cmp').get_lsp_capabilities()
 
-      vim.lsp.config("*", { capabilities = blink_capabilities })
+      local servers_to_install = vim.tbl_filter(function(key)
+        local t = opts.servers[key]
+        if type(t) == "table" then
+          return not t.manual_install
+        else
+          return t
+        end
+      end, vim.tbl_keys(opts.servers))
 
-      vim.lsp.enable({ "lua_ls", "bashls", "shellcheck" })
+      require("mason").setup()
+      local ensure_installed = {
+        "stylua",
+        "lua_ls",
+      }
 
-      -- Test: vim.api.
+      vim.list_extend(ensure_installed, servers_to_install)
+      require("mason-tool-installer").setup { ensure_installed = ensure_installed }
 
-      -- manually setup servers listed in opts.servers
-      -- for _, server in ipairs(opts.servers) do
-      --   if lspconfig[server] and not vim.tbl_isempty(vim.lsp.get_active_clients({ name = server })) then
-      --     -- already active, skip
-      --   else
-      --     lspconfig[server].setup({
-      --       capabilities = type(opts.capabilities) == "function" and opts.capabilities() or opts.capabilities,
-      --       on_attach = opts.on_attach,
-      --     })
-      --   end
-      -- end
+      -- Set global capabilities for all LSP servers
+      vim.lsp.config("*", { capabilities = blink_capabilities, })
+
+      -- Configure and enable each LSP server
+      for name, config in pairs(opts.servers) do
+        if config == true then
+          config = {}
+        end
+
+        -- Only call vim.lsp.config if there are server-specific settings
+        if next(config) ~= nil then
+          -- Remove manual_install flag as it's not an LSP config field
+          local lsp_config = vim.tbl_deep_extend("force", {}, config)
+          lsp_config.manual_install = nil
+          vim.lsp.config(name, lsp_config)
+        end
+
+        vim.lsp.enable(name)
+      end
 
       local disable_semantic_tokens = {
         -- lua = true,
@@ -190,17 +204,9 @@ return {
             end
           end
         end,
-      })
+      })  -- vim.api.nvim_create_autocmd
 
     end -- config
-  },
-
-  {
-    "mason-org/mason.nvim",
-    opts = {
-      ensure_installed = { "bashls", "lua_ls", "shellcheck" },
-      install_root_dir = vim.fn.expand("~/.local/share/nvim/mason"),
-    },
   },
 
   -- {
