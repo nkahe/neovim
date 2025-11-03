@@ -1,5 +1,27 @@
 
 return {
+
+  -- EinfachToll/DidYouMean: Vim plugin which asks for the right file to open
+  -- https://github.com/EinfachToll/DidYouMean
+  {
+    "EinfachToll/DidYouMean"
+  },
+
+
+  -- Flash. https://github.com/folke/flash.nvim
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      { "ö", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "Ö", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-ö>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
+
   {
     "bagohart/vim-insert-append-single-character",
     keys = {
@@ -9,6 +31,7 @@ return {
     },
     vscode = true
   },
+
   {
     "OXY2DEV/markview.nvim",
     -- Do not lazy load this plugin as it is already lazy-loaded.
@@ -38,6 +61,13 @@ return {
     keys = {
       { "<Leader>gg", "<cmd>Neogit kind=floating<CR>",  mode = "n", desc = 'Toggle Neogit' },
     }
+  },
+
+  -- lambdalisue/vim-suda: 🥪 An alternative sudo.vim for Vim and Neovim,
+  -- limited support sudo in Windows - https://github.com/lambdalisue/vim-suda
+  {
+    'lambdalisue/vim-suda',
+    cmd = { 'SudaRead', 'SudaWrite' }
   },
 
   -- rickhowe/wrapwidth: Wraps long lines virtually at a specific column
