@@ -231,6 +231,12 @@ return {
           vim.print = _G.dd
         end
 
+        -- Make lot less striking.
+        vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = "#595959", bg = "NONE" })
+        vim.api.nvim_set_hl(0, "SnacksPickerInputTitle", { fg = "#919191", bg = "NONE" })
+        -- Make easier to read.
+        vim.api.nvim_set_hl(0, "SnacksPickerGitStatusUntracked", { fg = "#5a5a5a", bg = "NONE" })
+
         -- Create some toggle mappings
         Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
         Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
