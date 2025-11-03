@@ -87,7 +87,27 @@ return {
     quickfile = { enabled = true },
     scope = { enabled = true },
     scroll = { enabled = true },
-    statuscolumn = { enabled = true },
+    ---@class snacks.statuscolumn.Config
+    ---@field left snacks.statuscolumn.Components
+    ---@field right snacks.statuscolumn.Components
+    ---@field enabled? boolean
+    statuscolumn = {
+      enabled = true,
+      -- signs = {
+      --   -- whether to show diagnostic/gitsigns icons, etc.
+      --   enabled = true,
+      --
+      --   -- icons for each diagnostic severity
+      --   diagnostics = {
+      --     {
+      --       [vim.diagnostic.severity.ERROR] = "󰅚 ",
+      --       [vim.diagnostic.severity.WARN]  = "󰀪 ",
+      --       [vim.diagnostic.severity.INFO]  = "󰋽 ",
+      --       [vim.diagnostic.severity.HINT]  = "󰌶 ",
+      --     }
+      --   },
+      -- },
+    },
     words = { enabled = true },
     styles = {
       notification = {
