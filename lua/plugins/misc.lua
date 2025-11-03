@@ -5,6 +5,7 @@
 return {
   {
     'nvim-mini/mini.nvim', version = false,
+    event = 'VeryLazy',
     config = function()
       require('mini.basics').setup({
         -- Manage options in 'plugin/10_options.lua'
