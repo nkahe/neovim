@@ -45,6 +45,9 @@ map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Open Lazy" })
 
 -- new file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
+-- floating terminal
+map("n", "<leader>ft", function() Snacks.terminal() end, { desc = "Terminal" })
+
 
 -- from mini.basics toggle buffer local options.
 local toggle_prefix = [[\]]
@@ -95,12 +98,22 @@ nmap_leader('qw', '<Cmd>lua MiniSessions.write()<CR>',          'Write current')
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 map("n", "<leader>qQ", "<cmd>qa!<cr>", { desc = "Quit All without saving" })
 
+-- terminal
+vim.keymap.set("n", "<C-`>", "<CMD>lua Snacks.terminal.toggle()<CR>",
+  { desc = "Toggle terminal", silent = true })
+vim.keymap.set("n", "<Leader>tt", "<CMD>lua Snacks.terminal.toggle()<CR>",
+  { desc = "Toggle terminal", silent = true })
+
+vim.keymap.set("n", "<leader>tf", function()
+  -- A command needs specified to open in float.
+  local shell = vim.o.shell
+  require("snacks.terminal").open(shell, {})
+end, { desc = "Floating terminal" })
+
+
 -- highlights under cursor
 map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 map("n", "<leader>uI", function() vim.treesitter.inspect_tree() vim.api.nvim_input("I") end, { desc = "Inspect Tree" })
-
--- floating terminal
-map("n", "<leader>ft", function() Snacks.terminal() end, { desc = "Terminal" })
 
 -- tabs
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
