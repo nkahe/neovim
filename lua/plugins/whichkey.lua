@@ -11,7 +11,7 @@ return {
       {
         mode = { "n", "x" },
         { "<F1>", "<cmd>WhichKey<cr>", desc = "WhichKey (global)" },
-        { "<leader><tab>", group = "tabs" },
+        { "<leader><tab>", group = "Tabs" },
         { "<leader>c", group = "Code" },
         { "<leader>d", group = "Debug" },
         { "<leader>dp", group = "Profiler" },
