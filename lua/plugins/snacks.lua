@@ -1,16 +1,4 @@
 
-vim.keymap.set("n", "<C-`>", "<CMD>lua Snacks.terminal.toggle()<CR>",
-  { desc = "Toggle terminal", silent = true })
--- vim.keymap.set("n", "<Leader>tt", "<CMD>lua Snacks.terminal.toggle()<CR>",
---   { desc = "Toggle terminal", silent = true })
-
-vim.keymap.set("n", "<leader>tf", function()
-  -- A command needs specified to open in float.
-  local shell = vim.o.shell
-  require("snacks.terminal").open(shell, {})
-end, { desc = "Floating terminal" })
-
-
 return {
   "folke/snacks.nvim",
   priority = 1000,
@@ -18,7 +6,6 @@ return {
   ---@type snacks.Config
   opts = {
     bigfile = { enabled = true },
-
     dashboard = {
       enabled = true,
       preset = {
@@ -52,10 +39,11 @@ return {
 
     explorer = { enabled = true },
     indent = { enabled = true },
-    input = { enabled = false },
+    input = { enabled = true },
     -- Timeout for notifications longer so can actually read them.
     notifier = {
       enabled = true,
+      style = "compact",
       timeout = 6000,
     },
 
@@ -111,10 +99,39 @@ return {
     words = { enabled = true },
     styles = {
       notification = {
-        -- wo = { wrap = true } -- Wrap notifications
-      }
+        border = true,
+        zindex = 100,
+        ft = "markdown",
+        wo = {
+          winblend = 5,
+          wrap = false,
+          conceallevel = 2,
+          colorcolumn = "",
+        },
+        bo = { filetype = "snacks_notif" },
+      },
+        -- Can result large notifications.
+        -- wo = { wrap = true } -- Wrap notificationsjj
+      notification_history = {
+        border = true,
+        zindex = 100,
+        -- Make windows bigger 
+        width = 0.8,
+        height = 0.8,
+        minimal = false,
+        title = " Notification History ",
+        title_pos = "center",
+        ft = "markdown",
+        bo = { filetype = "snacks_notif_history", modifiable = false },
+        wo = {
+          winhighlight = "Normal:SnacksNotifierHistory",
+          wrap = true,
+        },
+        keys = { q = "close" },
+      },
     }
   },
+
   keys = {
     -- Top Pickers & Explorer
     { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
@@ -210,6 +227,7 @@ return {
       end,
     }
   },
+
   init = function()
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
@@ -252,4 +270,5 @@ return {
       end,
     })
   end,
+
 }
