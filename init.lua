@@ -1,6 +1,9 @@
 -- Define config table to be able to pass data between scripts
 _G.Config = {}
 
+-- User in autocmd to set window title prefix before filename.
+_G.Config.windowtitle = 'Custom'
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
@@ -25,3 +28,4 @@ require("config.10_options")
 require("config.20_keymaps")
 require("config.25_shared-keymaps")
 require("config.70_autocmds")
+require("config.user-commands")
