@@ -1,1 +1,0 @@
-/home/henri/.config/nvim/lua/config/keymaps.lua

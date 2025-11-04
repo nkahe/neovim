@@ -25,7 +25,7 @@ require("config.lazy")
 
 -- Source config files.
 require("config.10_options")
-require("config.20_keymaps")
-require("config.25_shared-keymaps")
-require("config.70_autocmds")
+require("config.keymaps")
+require("config.shared-keymaps")
+require("config.autocmds")
 require("config.user-commands")
