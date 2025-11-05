@@ -1,5 +1,10 @@
 
-return {
+---@class snacks.dashboard.Config
+---@field enabled? boolean
+---@field sections snacks.dashboard.Section
+---@field formats table<string, snacks.dashboard.Text|fun(item:snacks.dashboard.Item, ctx:snacks.dashboard.Format.ctx):snacks.dashboard.Text>
+return
+  {
   "folke/snacks.nvim",
   priority = 1000,
   lazy = false,
@@ -32,6 +37,7 @@ return {
           { icon = " ", key = "S", desc = "Select session", action = function() require("mini.sessions").select("read") end, },
           { icon = "󰒲 ", key = "l", desc = "Open Lazy", action = ":Lazy" },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+            { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
         },
       },
 
@@ -248,12 +254,6 @@ return {
         else
           vim.print = _G.dd
         end
-
-        -- Make lot less striking.
-        vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = "#595959", bg = "NONE" })
-        vim.api.nvim_set_hl(0, "SnacksPickerInputTitle", { fg = "#919191", bg = "NONE" })
-        -- Make easier to read.
-        vim.api.nvim_set_hl(0, "SnacksPickerGitStatusUntracked", { fg = "#5a5a5a", bg = "NONE" })
 
         -- Create some toggle mappings
         Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
