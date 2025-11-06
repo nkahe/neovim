@@ -60,8 +60,26 @@ return {
             "diagnostics",
             { 'filename', color = { fg = off_white } },
           },
+
           lualine_x = {
+            -- stylua: ignore
+            {  -- command: showcmd
+            function() return require("noice").api.status.command.get() end,
+              cond = function()
+                return package.loaded["noice"] and require("noice").api.status.command.has()
+              end,
+              color = function() return { fg = Snacks.util.color("Statement") } end,
+            },
+            -- stylua: ignore
+            { -- mode: showmode (@recording messages)
+            function() return require("noice").api.status.mode.get() end,
+              cond = function()
+                return package.loaded["noice"] and require("noice").api.status.mode.has()
+              end,
+              color = function() return { fg = Snacks.util.color("Constant") } end,
+            },
             Snacks.profiler.status(),
+            -- stylua: ignore
             { -- Show number of updates available.
               require("lazy.status").updates,
               cond = require("lazy.status").has_updates,
