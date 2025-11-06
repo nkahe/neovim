@@ -6,13 +6,14 @@ return {
   'nvim-mini/mini.nvim', version = false,
   event = 'VeryLazy',
   config = function()
+    -- Set some basic settings.
     require('mini.basics').setup({
       -- Manage options in 'plugin/10_options.lua'
       options = {
         -- Basic options ('number', 'ignorecase', and many more)
         basic = false,
         -- Extra UI features ('winblend', 'listchars', 'pumheight', ...)
-        extra_ui = true,
+        extra_ui = false,
         -- Presets for window borders ('single', 'double', ...)
         -- Default 'auto' infers from 'winborder' option
         win_borders = 'auto',
@@ -33,6 +34,7 @@ return {
     -- Extra 'mini.nvim' functionality.
     require('mini.extra').setup()
 
+    -- Extend and create a/i textobjects.
     local ai = require('mini.ai')
     ai.setup({
       -- 'mini.ai' can be extended with custom textobjects.
@@ -54,6 +56,7 @@ return {
       search_method = 'cover',
     })
 
+    -- Highlight some patterns.
     local hipatterns = require('mini.hipatterns')
     local hi_words = MiniExtra.gen_highlighter.words
     hipatterns.setup({
@@ -70,7 +73,48 @@ return {
       },
     })
 
+    -- Move text blocks easily.
     require('mini.move').setup()
-    require('mini.sessions').setup()
+
+    -- Close all windows showing Snacks picker list
+    local function close_snacks_picker()
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if vim.bo[buf].filetype == "snacks_picker_list" then
+          pcall(vim.api.nvim_win_close, win, true)
+        end
+      end
+    end
+
+    -- If plugins like Snacks.explorer are open when session is saved, they
+    -- left empty windows. Close them after restoring session.
+    local function close_empty_windows()
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if vim.api.nvim_buf_get_name(buf) == "" and vim.bo[buf].filetype == "" then
+          if #vim.api.nvim_list_wins() > 1 then pcall(vim.api.nvim_win_close, win, true) end
+        end
+      end
+    end
+
+
+    require('mini.sessions').setup({
+      -- Whether to write currently read session before leaving it
+      autowrite = true,
+      hooks = {
+        -- Doesn't get executed if using automatic writing and quitting.
+        -- pre = {
+        --   write = function()
+        --     close_snacks_picker()
+        --   end,
+        -- },
+        post = {
+          read = function()
+            close_empty_windows()
+          end,
+        },
+
+      },
+    })
   end,
 }

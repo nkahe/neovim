@@ -49,8 +49,11 @@ return
     -- Timeout for notifications longer so can actually read them.
     notifier = {
       enabled = true,
-      style = "compact",
+      style = "minimal",
       timeout = 6000,
+      margin = { top = 1, right = 1, bottom = 1 },
+      padding = true, -- add 1 cell of left/right padding to the notification window
+      gap = 0, -- gap between notifications
     },
 
     picker = {

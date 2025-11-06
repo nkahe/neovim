@@ -59,7 +59,8 @@ return {
       graph_style = "unicode", -- or "ascii", "none"
     },
     keys = {
-      { "<Leader>gg", "<cmd>Neogit kind=floating<CR>",  mode = "n", desc = 'Toggle Neogit' },
+      { "<Leader>gg", "<cmd>Neogit<CR>",  mode = "n", desc = 'Toggle Neogit' },
+      -- { "<Leader>gg", "<cmd>Neogit kind=floating<CR>",  mode = "n", desc = 'Toggle Neogit' },
     }
   },
 
