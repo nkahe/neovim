@@ -53,6 +53,7 @@ return {
         "vimdoc",
         "xml",
         "yaml",
+        "zsh"
       }
  
       vim.defer_fn(function()
