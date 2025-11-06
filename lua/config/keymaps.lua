@@ -111,6 +111,14 @@ nmap_leader('qn', '<Cmd>lua ' .. session_new .. '<CR>',         'New')
 nmap_leader('qr', '<Cmd>lua MiniSessions.select("read")<CR>',   'Read')
 nmap_leader('qw', '<Cmd>lua MiniSessions.write()<CR>',          'Write current')
 
+-- Play last recorded macro.
+map({ "n", "x" }, "Q", function()
+  if vim.fn.mode() == "V" then
+    return ':normal! @' .. vim.fn.reg_recorded() .. '<CR>'
+  else
+    return 'Q'
+  end
+end, { expr = true, silent = true, desc = "Play last macro" })
 
 local function close_snacks_picker()
   for _, win in ipairs(vim.api.nvim_list_wins()) do
