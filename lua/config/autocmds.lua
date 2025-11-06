@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
     -- vim.api.nvim_set_hl(0, "TermBackground", { bg = "#121212" })
     -- vim.api.nvim_set_hl(0, "TermCursorLine", { bg = "none" })
     vim.opt_local.winhighlight = "Normal:TermBackground,CursorLine:TermCursorLine"
-    -- vim.cmd("startinsert") -- mini.basics does this already?
+    vim.cmd("startinsert")
   end,
 })
 
@@ -106,30 +106,41 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 -- Dynamic tab title change for Yakuake --------------------------------------
 
 -- Function to update the Yakuake terminal tab title
--- local function update_yakuake_title()
---   -- Get the current buffer name (just the file name, not the full path)
---   local buffer_name = vim.fn.expand('%:t')
---
---   -- If no file is open, we just set the title to "Neovim" or similar
---   if buffer_name == "" then
---     buffer_name = "Neovim"
---   end
---
---   -- Set the Yakuake tab title using the session_id and buffer_name
---   local qdbus_cmd = "qdbus org.kde.yakuake /yakuake/tabs setTabTitle %s \"%s\""
---   vim.fn.system(string.format(qdbus_cmd, Session_id, buffer_name))
--- end
---
--- -- Get the current Yakuake session id using qdbus
--- Session_id = vim.fn.system("qdbus org.kde.yakuake /yakuake/sessions org.kde.yakuake.activeSessionId")
---
--- -- Trim any extra whitespace
--- Session_id = vim.fn.trim(Session_id)
---
--- -- If using Yakuake
--- if Session_id ~= "" then
---   -- Autocmd to update Yakuake title on buffer changed
---   vim.api.nvim_create_autocmd({"BufEnter", "BufWritePost"}, {
---     callback = update_yakuake_title
---   })
--- end
+local function update_yakuake_title()
+
+-- Title prefix can be set in init.lua.
+local prefix = (_G.Config and _G.Config.windowtitle) or "Neovim"
+
+  -- Get the current buffer name (just the file name, not the full path)
+  local buffer_name = vim.fn.expand('%:t')
+
+  if buffer_name == "" then
+    -- if prefix ~= "" then
+      buffer_name = prefix
+    -- else
+    --   buffer_name = "Neovim"
+    -- end
+  else
+    -- if prefix ~= "" then
+      buffer_name = buffer_name .. " - " .. prefix
+    -- end
+  end
+
+  -- Set the Yakuake tab title using the session_id and buffer_name
+  local qdbus_cmd = "qdbus org.kde.yakuake /yakuake/tabs setTabTitle %s \"%s\""
+  vim.fn.system(string.format(qdbus_cmd, Session_id, buffer_name))
+end
+
+-- Get the current Yakuake session id using qdbus
+Session_id = vim.fn.system("qdbus org.kde.yakuake /yakuake/sessions org.kde.yakuake.activeSessionId")
+
+-- Trim any extra whitespace
+Session_id = vim.fn.trim(Session_id)
+
+-- If using Yakuake
+if Session_id ~= "" then
+  -- Autocmd to update Yakuake title on buffer changed
+  vim.api.nvim_create_autocmd({"BufEnter", "BufWritePost"}, {
+    callback = update_yakuake_title
+  })
+end
