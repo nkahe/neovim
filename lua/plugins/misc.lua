@@ -1,12 +1,10 @@
 
 return {
-
   -- EinfachToll/DidYouMean: Vim plugin which asks for the right file to open
   -- https://github.com/EinfachToll/DidYouMean
   {
     "EinfachToll/DidYouMean"
   },
-
 
   -- Flash. https://github.com/folke/flash.nvim
   {
@@ -61,7 +59,8 @@ return {
     keys = {
       { "<Leader>gg", "<cmd>Neogit<CR>",  mode = "n", desc = 'Toggle Neogit' },
       -- { "<Leader>gg", "<cmd>Neogit kind=floating<CR>",  mode = "n", desc = 'Toggle Neogit' },
-    }
+    },
+    cmd = { "Neogit" },
   },
 
   -- lambdalisue/vim-suda: 🥪 An alternative sudo.vim for Vim and Neovim,
