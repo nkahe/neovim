@@ -34,27 +34,112 @@ return {
     -- Extra 'mini.nvim' functionality.
     require('mini.extra').setup()
 
-    -- Extend and create a/i textobjects.
+    -- Extends the a & i text objects, this adds the ability to select
+    -- arguments, function calls, text within quotes and brackets, and to
+    -- repeat those selections to select an outer text object.
+    -- This is based on LazyVim config.
     local ai = require('mini.ai')
     ai.setup({
-      -- 'mini.ai' can be extended with custom textobjects.
+      n_lines = 500,
       custom_textobjects = {
-        -- Make `aB` / `iB` act on around/inside whole *b*uffer
-        B = MiniExtra.gen_ai_spec.buffer(),
-        -- For more complicated textobjects that require structural awareness,
-        -- use tree-sitter. This example makes `aF`/`iF` mean around/inside function
-        -- definition (not call). See `:h MiniAi.gen_spec.treesitter()` for details.
-        F = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
+        o = ai.gen_spec.treesitter({
+          a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+          i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+        }),
+        f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
+        c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
+        t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
+        d = { "%f[%d]%d+" }, -- digits
+        e = { -- Word with case
+          { "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" },
+          "^().*()$",
+        },
+        u = ai.gen_spec.function_call(), -- u for "Usage"
+        U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
       },
-
+      -- From MiniMax -config:
       -- 'mini.ai' by default mostly mimics built-in search behavior: first try
       -- to find textobject covering cursor, then try to find to the right.
       -- Although this works in most cases, some are confusing. It is more robust to
       -- always try to search only covering textobject and explicitly ask to search
       -- for next (`an`/`in`) or last (`an`/`il`).
-      -- Try this. If you don't like it - delete next line and this comment.
       search_method = 'cover',
     })
+
+    -- defer WhichKey registration until it's loaded
+    local function register_ai_with_whichkey()
+      local ok, wk = pcall(require, "which-key")
+      if not ok then
+        return
+      end
+
+      local objects = {
+        { " ", desc = "whitespace" },
+        { '"', desc = '" string' },
+        { "'", desc = "' string" },
+        { "(", desc = "() block" },
+        { ")", desc = "() block with ws" },
+        { "<", desc = "<> block" },
+        { ">", desc = "<> block with ws" },
+        { "?", desc = "user prompt" },
+        { "U", desc = "use/call without dot" },
+        { "[", desc = "[] block" },
+        { "]", desc = "[] block with ws" },
+        { "_", desc = "underscore" },
+        { "`", desc = "` string" },
+        { "a", desc = "argument" },
+        { "b", desc = ")]} block" },
+        { "c", desc = "class" },
+        { "d", desc = "digit(s)" },
+        { "e", desc = "CamelCase / snake_case" },
+        { "f", desc = "function" },
+        { "g", desc = "entire file" },
+        { "i", desc = "indent" },
+        { "o", desc = "block, conditional, loop" },
+        { "q", desc = "quote `\"'" },
+        { "t", desc = "tag" },
+        { "u", desc = "use/call" },
+        { "{", desc = "{} block" },
+        { "}", desc = "{} with ws" },
+      }
+
+      local mappings = {
+        a = "around",
+        i = "inside",
+        an = "around next",
+        in_ = "inside next",
+        al = "around last",
+        il = "inside last",
+      }
+
+      local specs = { mode = { "o", "x" } }
+      for prefix, group in pairs(mappings) do
+        specs[#specs + 1] = { prefix, group = group }
+        for _, obj in ipairs(objects) do
+          local desc = obj.desc
+          if prefix:sub(1, 1) == "i" then
+            desc = desc:gsub(" with ws", "")
+          end
+          specs[#specs + 1] = { prefix .. obj[1], desc = desc }
+        end
+      end
+
+      wk.add(specs, { notify = false })
+    end
+
+    -- Run once WhichKey is loaded
+    if package.loaded["which-key"] then
+      vim.schedule(register_ai_with_whichkey)
+    else
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "LazyLoad",
+        callback = function(event)
+          if event.data == "which-key.nvim" then
+            vim.schedule(register_ai_with_whichkey)
+          end
+        end,
+      })
+    end
 
     -- Highlight some patterns.
     local hipatterns = require('mini.hipatterns')
