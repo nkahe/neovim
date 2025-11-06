@@ -37,7 +37,7 @@ return
           { icon = " ", key = "S", desc = "Select session", action = function() require("mini.sessions").select("read") end, },
           { icon = "󰒲 ", key = "l", desc = "Open Lazy", action = ":Lazy" },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-            { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+          { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
         },
       },
 
@@ -104,8 +104,9 @@ return
       --     }
       --   },
       -- },
-    },
-    words = { enabled = true },
+
+      },
+      words = { enabled = true },
     styles = {
       notification = {
         border = true,
@@ -213,8 +214,18 @@ return
     { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
     -- { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
     { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
-    { "<c-/>",      function() Snacks.terminal() end, desc = "Toggle Terminal" },
-    { "<c-_>",      function() Snacks.terminal() end, desc = "which_key_ignore" },
+    -- Terminal
+    -- This doesn't work on many terminal emulators.
+    -- TODO: Make better keymap.
+    { "<C-`>",      function() Snacks.terminal.toggle() end, desc = "Toggle Terminal" },
+    { "<Leader>tt",      function() Snacks.terminal() end, desc = "Open terminal (horizontal)"},
+    { "<leader>tf", function() local shell = vim.o.shell require("snacks.terminal").open(shell, {}) end,
+      desc = "Floating terminal" },
+    { "<Leader>tv", function() vim.cmd("vsplit | terminal") vim.cmd("startinsert") end,
+      desc = "Open terminal (vertical)",
+    },
+    -- { "<Leader>tv", function() Snacks.terminal.open(vim.o.shell, { win = { position = "right" } }) end,
+    --   desc = "Open terminal (vertical)", },
     { "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
     { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
     {

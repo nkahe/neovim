@@ -123,18 +123,7 @@ end
 
 -- quit
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
--- map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 map("n", "<leader>qQ", "<cmd>qa!<cr>", { desc = "Quit All without saving" })
-
--- terminal
-map("n", "<C-`>", "<CMD>lua Snacks.terminal.toggle()<CR>", { desc = "Toggle terminal", silent = true })
-map("n", "<Leader>tt", "<CMD>lua Snacks.terminal.toggle()<CR>", { desc = "Toggle terminal", silent = true })
-map("n", "<leader>tf", function()
-  -- A command needs specified to open in float.
-  local shell = vim.o.shell
-  require("snacks.terminal").open(shell, {})
-end, { desc = "Floating terminal" })
-
 
 -- highlights under cursor
 map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
