@@ -72,6 +72,64 @@ return
         },
       },
       win = {
+        input = {
+          keys = {
+            -- to close the picker on ESC instead of going to normal mode,
+            -- add the following keymap to your config
+            -- ["<Esc>"] = { "close", mode = { "n", "i" } },
+              ["/"] = { "toggle_focus", desc = "Toggle focus" },
+              ["<C-Down>"] = { "history_forward", mode = { "i", "n" }, desc = "History forward" },
+              ["<C-Up>"] = { "history_back", mode = { "i", "n" }, desc = "History back" },
+              ["<C-c>"] = { "cancel", mode = "i", desc = "Cancel" },
+              ["<C-w>"] = { "<c-s-w>", mode = { "i" }, expr = true, desc = "Delete word" },
+              ["<CR>"] = { "confirm", mode = { "n", "i" }, desc = "Confirm" },
+              ["<Down>"] = { "list_down", mode = { "i", "n" }, desc = "List down" },
+              ["<Esc>"] = { "cancel", desc = "Cancel" },
+              ["<S-CR>"] = { { "pick_win", "jump" }, mode = { "n", "i" }, desc = "Pick win / jump" },
+              ["<S-Tab>"] = { "select_and_prev", mode = { "i", "n" }, desc = "Select and prev" },
+              ["<Tab>"] = { "select_and_next", mode = { "i", "n" }, desc = "Select and next" },
+              ["<Up>"] = { "list_up", mode = { "i", "n" }, desc = "List up" },
+              ["<a-d>"] = { "inspect", mode = { "n", "i" }, desc = "Inspect" },
+              ["<a-f>"] = { "toggle_follow", mode = { "i", "n" }, desc = "Toggle follow" },
+              ["<a-h>"] = { "toggle_hidden", mode = { "i", "n" }, desc = "Toggle hidden" },
+              ["<a-i>"] = { "toggle_ignored", mode = { "i", "n" }, desc = "Toggle ignored" },
+              ["<a-r>"] = { "toggle_regex", mode = { "i", "n" }, desc = "Toggle regex" },
+              ["<a-m>"] = { "toggle_maximize", mode = { "i", "n" }, desc = "Toggle maximize" },
+              ["<a-p>"] = { "toggle_preview", mode = { "i", "n" }, desc = "Toggle preview" },
+              ["<a-w>"] = { "cycle_win", mode = { "i", "n" }, desc = "Cycle win" },
+              ["<c-a>"] = { "select_all", mode = { "n", "i" }, desc = "Select all" },
+              ["<c-b>"] = { "preview_scroll_up", mode = { "i", "n" }, desc = "Preview scroll up" },
+              ["<c-d>"] = { "list_scroll_down", mode = { "i", "n" }, desc = "List scroll down" },
+              ["<c-f>"] = { "preview_scroll_down", mode = { "i", "n" }, desc = "Preview scroll down" },
+              ["<c-g>"] = { "toggle_live", mode = { "i", "n" }, desc = "Toggle live" },
+              ["<c-j>"] = { "list_down", mode = { "i", "n" }, desc = "List down" },
+              ["<c-k>"] = { "list_up", mode = { "i", "n" }, desc = "List up" },
+              ["<c-n>"] = { "list_down", mode = { "i", "n" }, desc = "List down" },
+              ["<c-p>"] = { "list_up", mode = { "i", "n" }, desc = "List up" },
+              ["<c-q>"] = { "qflist", mode = { "i", "n" }, desc = "Qflist" },
+              ["<c-s>"] = { "edit_split", mode = { "i", "n" }, desc = "Edit split" },
+              ["<c-t>"] = { "tab", mode = { "n", "i" }, desc = "Tab" },
+              ["<c-u>"] = { "list_scroll_up", mode = { "i", "n" }, desc = "List scroll up" },
+              ["<c-v>"] = { "edit_vsplit", mode = { "i", "n" }, desc = "Edit vsplit" },
+              ["<c-r>#"] = { "insert_alt", mode = "i", desc = "Insert alt" },
+              ["<c-r>%"] = { "insert_filename", mode = "i", desc = "Insert filename" },
+              ["<c-r><c-a>"] = { "insert_cWORD", mode = "i", desc = "Insert cWORD" },
+              ["<c-r><c-f>"] = { "insert_file", mode = "i", desc = "Insert file" },
+              ["<c-r><c-l>"] = { "insert_line", mode = "i", desc = "Insert line" },
+              ["<c-r><c-p>"] = { "insert_file_full", mode = "i", desc = "Insert file full" },
+              ["<c-r><c-w>"] = { "insert_cword", mode = "i", desc = "Insert cword" },
+              ["<c-w>H"] = { "layout_left", desc = "Layout left" },
+              ["<c-w>J"] = { "layout_bottom", desc = "Layout bottom" },
+              ["<c-w>K"] = { "layout_top", desc = "Layout top" },
+              ["<c-w>L"] = { "layout_right", desc = "Layout right" },
+              ["?"] = { "toggle_help_input", desc = "Toggle help input" },
+              ["G"] = { "list_bottom", desc = "List bottom" },
+              ["gg"] = { "list_top", desc = "List top" },
+              ["j"] = { "list_down", desc = "List down" },
+              ["k"] = { "list_up", desc = "List up" },
+              ["q"] = { "cancel", desc = "Cancel" },
+          },
+        },
         preview = {
           wo = {
             wrap = true,
@@ -89,25 +147,8 @@ return
     ---@field left snacks.statuscolumn.Components
     ---@field right snacks.statuscolumn.Components
     ---@field enabled? boolean
-    statuscolumn = {
-      enabled = true,
-      -- signs = {
-      --   -- whether to show diagnostic/gitsigns icons, etc.
-      --   enabled = true,
-      --
-      --   -- icons for each diagnostic severity
-      --   diagnostics = {
-      --     {
-      --       [vim.diagnostic.severity.ERROR] = "󰅚 ",
-      --       [vim.diagnostic.severity.WARN]  = "󰀪 ",
-      --       [vim.diagnostic.severity.INFO]  = "󰋽 ",
-      --       [vim.diagnostic.severity.HINT]  = "󰌶 ",
-      --     }
-      --   },
-      -- },
-
-      },
-      words = { enabled = true },
+    statuscolumn = { enabled = true },
+    words = { enabled = true },
     styles = {
       notification = {
         border = true,
@@ -218,13 +259,11 @@ return
     -- Terminal
     -- This doesn't work on many terminal emulators.
     -- TODO: Make better keymap.
-    { "<C-`>",      function() Snacks.terminal.toggle() end, desc = "Toggle Terminal" },
-    { "<Leader>tt",      function() Snacks.terminal() end, desc = "Open terminal (horizontal)"},
+    { "<C-`>",      function() Snacks.terminal.toggle() end, desc = "Toggle split" },
+    { "<Leader>tt", function() Snacks.terminal.toggle() end, desc = "Toggle split" },
+    { "<Leader>ts", function() Snacks.terminal() end, desc = "Open in horizontal split"},
     { "<leader>tf", function() local shell = vim.o.shell require("snacks.terminal").open(shell, {}) end,
-      desc = "Floating terminal" },
-    { "<Leader>tv", function() vim.cmd("vsplit | terminal") vim.cmd("startinsert") end,
-      desc = "Open terminal (vertical)",
-    },
+      desc = "Open in floating window" },
     -- { "<Leader>tv", function() Snacks.terminal.open(vim.o.shell, { win = { position = "right" } }) end,
     --   desc = "Open terminal (vertical)", },
     { "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
