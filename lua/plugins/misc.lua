@@ -1,4 +1,6 @@
 
+-- Misc short plugin specs.
+
 return {
   -- EinfachToll/DidYouMean: Vim plugin which asks for the right file to open
   -- https://github.com/EinfachToll/DidYouMean
@@ -22,12 +24,15 @@ return {
 
   {
     "bagohart/vim-insert-append-single-character",
+    init = function()
+      vim.g.InsertSingleCharacter_show_prompt_message = 0
+    end,
     keys = {
       -- For nordic and german keyboard layouts.
       { "ä", "<Plug>(ISC-insert-at-cursor)", mode = "n", desc = "Insert character before cursor" },
       { "Ä", "<Plug>(ISC-append-at-cursor)", mode = "n", desc = "Insert character after cursor" },
     },
-    vscode = true
+    vscode = true  -- Enable in vscode
   },
 
   {

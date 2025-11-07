@@ -6,6 +6,7 @@ return {
 -- Bufferline -----------------------------------------------------------------
   {
     'akinsho/bufferline.nvim',
+    enabled = true,
     version = "*", dependencies = 'nvim-tree/nvim-web-devicons',
     opts = {
       options = {
@@ -17,6 +18,7 @@ return {
 -- Lualine --------------------------------------------------------------------
   {
     "nvim-lualine/lualine.nvim",
+    enabled = true,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     event = "VeryLazy",
     init = function()
