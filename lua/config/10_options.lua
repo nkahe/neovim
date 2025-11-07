@@ -1,1 +1,0 @@
-../../../nvim-minimax/plugin/10_options.lua
