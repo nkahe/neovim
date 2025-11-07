@@ -21,10 +21,11 @@ _G.Config.new_autocmd = function(event, pattern, callback, desc)
   vim.api.nvim_create_autocmd(event, opts)
 end
 
+-- Source config files.
+
 require("config.lazy")
 
--- Source config files.
-require("config.10_options")
+require("config.options")
 require("config.keymaps")
 require("config.shared-keymaps")
 require("config.autocmds-lazyvim")
