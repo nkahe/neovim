@@ -79,6 +79,7 @@ return {
   -- https://github.com/rickhowe/wrapwidth
   {
     "rickhowe/wrapwidth",
+    event = { 'VeryLazy' }
     -- ft = { "markdown", "txt" }
   }
 
