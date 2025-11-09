@@ -34,7 +34,7 @@ return {
     -- Extra 'mini.nvim' functionality.
     require('mini.extra').setup()
 
-    -- Extends the a & i text objects, this adds the ability to select
+   -- Extends the a & i text objects, this adds the ability to select
     -- arguments, function calls, text within quotes and brackets, and to
     -- repeat those selections to select an outer text object.
     -- This is based on LazyVim config.
@@ -180,6 +180,28 @@ return {
       end
     end
 
+    require('mini.operators').setup({
+        -- Wach entry configures one operator.
+        -- `prefix` defines keys mapped during `setup()`: in Normal mode
+        -- to operate on textobject and line, in Visual - on selection.
+
+        -- Evaluate text and replace with output
+        evaluate = { prefix = 'g=' },
+
+        -- Exchange text regions
+        -- NOTE: Default `gx` is remapped to `gX`
+        exchange = { prefix = 'gx' },
+
+        -- Multiply (duplicate) text
+        multiply = { prefix = 'gm' },
+
+        -- Replace text with register
+        -- NOTE: Default `gr*` LSP mappings are removed
+        replace = { prefix = 'cr' },
+
+        -- Sort text
+        sort = { prefix = 'gS' }
+    })
 
     require('mini.sessions').setup({
       -- Whether to write currently read session before leaving it
@@ -203,7 +225,6 @@ return {
             close_empty_windows()
           end,
         },
-
       },
     })
 
