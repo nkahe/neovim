@@ -45,6 +45,7 @@ map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Open Lazy" })
 
 -- new file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
+
 -- floating terminal
 map("n", "<leader>ft", function() Snacks.terminal() end, { desc = "Terminal" })
 
