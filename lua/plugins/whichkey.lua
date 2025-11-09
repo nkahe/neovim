@@ -46,8 +46,12 @@ return {
             return require("which-key.extras").expand.win()
           end,
         },
-        -- better descriptions
-        { "gx", desc = "Open with system app" },
+        -- better descriptions. gx is mapped to mini.operators exchange.
+        { "gra", desc = "Code action" },
+        { "grn", desc = "Rename" },
+        { "gX", desc = "Open with system app" },
+        { "g,", desc = "Go to newer position in change list" },
+        { "g;", desc = "Go to older position in change list" },
         -- Hide non-interesting keys.
         { "<Up>",    hidden = true },
         { "<Down>",  hidden = true },
