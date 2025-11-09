@@ -91,6 +91,7 @@ vim.o.tabstop       = 2       -- Show tab as this number of spaces
 vim.o.confirm = true     -- Confirm to save changes before exiting modified buffer
 vim.o.cursorlineopt = 'screenline,number' -- Show cursor line per screen line
 vim.o.gdefault = true    -- Use global flag for :s by default.
+vim.o.inccommand = "split"
 vim.o.relativenumber = true -- Use relative line numbers.
 vim.o.report = 50        -- Report only operations of atleast this many lines.
 vim.o.scrolloff = 7      -- Minimum number of screen lines to keep above and below the cursor.
