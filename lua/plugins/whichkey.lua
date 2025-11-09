@@ -11,6 +11,7 @@ return {
       {
         mode = { "n", "x" },
         { "<F1>", "<cmd>WhichKey<cr>", desc = "WhichKey (global)" },
+        { "gs", group = "Surround" },
         { "<leader><tab>", group = "Tabs" },
         { "<leader>c", group = "Code" },
         { "<leader>d", group = "Debug" },
@@ -18,6 +19,7 @@ return {
         { "<leader>g", group = "Git" },
         { "<leader>gh", group = "Hunks" },
         { "<leader>f", group = "File/Find" },
+        { "<leader>o", group = "Obsidian" },
         { "<leader>t", group = "Terminal" },
         { "<leader>s", group = "Search" },
         { "<leader>t", group = "Terminal" },
