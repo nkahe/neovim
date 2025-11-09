@@ -21,7 +21,7 @@ function M.dial(increment, g)
   end
 end
 
--- From Lazyvim.
+--Based mostly config from Lazyvim.
 return {
   "monaqa/dial.nvim",
   recommended = true,
@@ -30,6 +30,7 @@ return {
   keys = {
     { "<C-a>", function() return M.dial(true) end, expr = true, desc = "Increment", mode = {"n", "v"} },
     { "<C-x>", function() return M.dial(false) end, expr = true, desc = "Decrement", mode = {"n", "v"} },
+    -- Addition to Lazyvim config.
     { "+", function() return M.dial(true) end, expr = true, desc = "Increment", mode = {"n", "v"} },
     { "-", function() return M.dial(false) end, expr = true, desc = "Decrement", mode = {"n", "v"} },
     { "g<C-a>", function() return M.dial(true, true) end, expr = true, desc = "Increment", mode = {"n", "x"} },
@@ -48,16 +49,7 @@ return {
       -- elements through which we cycle. When we increment, we go down
       -- On decrement we go up
       elements = {
-        "first",
-        "second",
-        "third",
-        "fourth",
-        "fifth",
-        "sixth",
-        "seventh",
-        "eighth",
-        "ninth",
-        "tenth",
+        "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth",
       },
       -- if true, it only matches strings with word boundary. firstDate wouldn't work for example
       word = false,
@@ -68,13 +60,7 @@ return {
 
     local weekdays = augend.constant.new({
       elements = {
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
+        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
       },
       word = true,
       cyclic = true,
@@ -82,28 +68,14 @@ return {
 
     local months = augend.constant.new({
       elements = {
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
+        "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December",
       },
       word = true,
       cyclic = true,
     })
 
     local capitalized_boolean = augend.constant.new({
-      elements = {
-        "True",
-        "False",
-      },
+      elements = { "True", "False" },
       word = true,
       cyclic = true,
     })
