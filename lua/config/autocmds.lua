@@ -35,17 +35,19 @@ vim.api.nvim_create_autocmd({ "BufEnter", "TermClose" }, {
 
 -- Set black background color for terminal and start in insert mode.
 -- Color doesn't work always.
-vim.api.nvim_create_autocmd("TermOpen", {
+vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
   group = augroup("set_terminal_settings"),
   pattern = "*",
   callback = function()
-    -- These custom groups are set in coloscheme config.
-    -- vim.api.nvim_set_hl(0, "TermBackground", { bg = "#121212" })
-    -- vim.api.nvim_set_hl(0, "TermCursorLine", { bg = "none" })
-    vim.opt_local.winhighlight = "Normal:TermBackground,CursorLine:TermCursorLine"
-    vim.cmd("startinsert")
-    local prefix = (_G.Config and _G.Config.windowtitle) or "Neovim"
-    vim.o.titlestring = prefix .. " - terminal"
+     if vim.bo.buftype == "terminal" then
+      -- These custom groups are set in coloscheme config.
+      -- vim.api.nvim_set_hl(0, "TermBackground", { bg = "#121212" })
+      -- vim.api.nvim_set_hl(0, "TermCursorLine", { bg = "none" })
+      vim.opt_local.winhighlight = "Normal:TermBackground,CursorLine:TermCursorLine"
+      vim.cmd("startinsert")
+      local prefix = (_G.Config and _G.Config.windowtitle) or "Neovim"
+      vim.o.titlestring = prefix .. " - terminal"
+    end
   end,
 })
 
