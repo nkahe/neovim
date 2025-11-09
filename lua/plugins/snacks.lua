@@ -196,6 +196,9 @@ return
     ---@field right snacks.statuscolumn.Components
     ---@field enabled? boolean
     statuscolumn = { enabled = true },
+    terminal = {
+      enabled = true,
+    },
     words = { enabled = true },
     styles = {
       notification = {
@@ -230,7 +233,7 @@ return
         keys = { q = "close" },
       },
     }
-  },
+  }, -- opts
 
   keys = {
     -- Top Pickers & Explorer
@@ -288,7 +291,6 @@ return
     { "grr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
     { "gri", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
     { "grt", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
-
     -- Defaults
     -- { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
     -- { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
@@ -311,17 +313,25 @@ return
     -- { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
     { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
     -- Terminal
-    -- This doesn't work on many terminal emulators.
-    -- TODO: Make better keymap.
-    { "<C-`>",      function() Snacks.terminal.toggle() end, desc = "Toggle split" },
+    { "<F12>", function()
+        Snacks.terminal.toggle(nil, {
+          win = {
+            position = "float",
+            style = "terminal",
+            border = "rounded",
+            width = 0.8,
+            height = 0.8,
+          },
+        })
+      end, desc = "Toggle split" },
     { "<Leader>tt", function() Snacks.terminal.toggle() end, desc = "Toggle split" },
     { "<Leader>ts", function() Snacks.terminal() end, desc = "Open in horizontal split"},
     { "<leader>tf", function() local shell = vim.o.shell require("snacks.terminal").open(shell, {}) end,
       desc = "Open in floating window" },
     -- { "<Leader>tv", function() Snacks.terminal.open(vim.o.shell, { win = { position = "right" } }) end,
     --   desc = "Open terminal (vertical)", },
-    { "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
-    { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
+    { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
+    { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
     {
       "<leader>N",
       desc = "Neovim News",
@@ -330,7 +340,7 @@ return
           file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
           width = 0.6,
           height = 0.6,
-          wo = {
+          window = {
             spell = false,
             wrap = false,
             signcolumn = "yes",
@@ -340,7 +350,7 @@ return
         })
       end,
     }
-  },
+  }, -- keys
 
   init = function()
     vim.api.nvim_create_autocmd("User", {
@@ -361,6 +371,29 @@ return
           end
         else
           vim.print = _G.dd
+        end
+
+        vim.keymap.set('t', "<F12>", function()
+          Snacks.terminal.toggle(nil, {
+            win = {
+              position = "float",
+              style = "terminal",
+              border = "rounded",
+              width = 0.8,
+              height = 0.8,
+            },
+          })
+        end, { desc = "Toggle split" })
+
+        if Snacks and Snacks.terminal then
+          local toggle_original = Snacks.terminal.toggle
+          Snacks.terminal.toggle = function(...)
+            toggle_original(...)
+            local buf = vim.api.nvim_get_current_buf()
+            if vim.bo[buf].buftype == "terminal" then
+              vim.opt_local.winhighlight = "Normal:TermBackground,CursorLine:TermCursorLine"
+            end
+          end
         end
 
         -- Create some toggle mappings
