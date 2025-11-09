@@ -4,21 +4,52 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("Custom_" .. name, { clear = true })
 end
 
--- Set title. Prefix is set in init.lua.
-vim.api.nvim_create_autocmd("BufEnter", {
-  group = augroup("window_title"),
+-- Make use of custom prefixes on window title which are based on Neovim
+-- config or spefic sessions.
+vim.api.nvim_create_autocmd({ "BufEnter", "TermClose" }, {
+  group = augroup("set_window_title"),
   callback = function()
-    local filename = vim.fn.expand("%:t") ~= "" and vim.fn.expand("%:t") or "[No Name]"
-    local prefix = (_G.Config and _G.Config.windowtitle) or ""
-    if prefix ~= "" then
-      vim.o.titlestring = prefix .. " - " .. filename
+    -- This is set in TermOpen. 
+    if vim.bo.buftype == "terminal" then
+      return
+    end
+
+    local filename
+    local prefix = (_G.Config and _G.Config.windowtitle) or "Neovim"
+
+    -- Normal buffer
+    filename = vim.fn.expand("%:t")
+    if filename == "" then
+      filename = "[No Name]"
+    end
+
+    local dirpath = vim.fn.expand("%:~:h")
+
+    if dirpath == "" then
+      vim.o.titlestring = string.format("%s - %s", prefix, filename)
     else
-      vim.o.titlestring = filename
+      vim.o.titlestring = string.format("%s - %s (%s)", prefix, filename, dirpath)
     end
   end,
 })
 
--- Recognize some file types from file name.
+-- Set black background color for terminal and start in insert mode.
+-- Color doesn't work always.
+vim.api.nvim_create_autocmd("TermOpen", {
+  group = augroup("set_terminal_settings"),
+  pattern = "*",
+  callback = function()
+    -- These custom groups are set in coloscheme config.
+    -- vim.api.nvim_set_hl(0, "TermBackground", { bg = "#121212" })
+    -- vim.api.nvim_set_hl(0, "TermCursorLine", { bg = "none" })
+    vim.opt_local.winhighlight = "Normal:TermBackground,CursorLine:TermCursorLine"
+    vim.cmd("startinsert")
+    local prefix = (_G.Config and _G.Config.windowtitle) or "Neovim"
+    vim.o.titlestring = prefix .. " - terminal"
+  end,
+})
+
+-- Recognize some file types based on file name.
 vim.filetype.add({
   group = augroup("set_filetype"),
   filename = {
@@ -28,7 +59,7 @@ vim.filetype.add({
 
 -- Disable colorcolumn for floating windows.
 vim.api.nvim_create_autocmd("WinEnter", {
-  group = augroup("disable_colorcolumn"),
+  group = augroup("disable_colorcolumn_for_float"),
   callback = function()
     local cfg = vim.api.nvim_win_get_config(0)
     if cfg.relative ~= "" then
@@ -37,19 +68,6 @@ vim.api.nvim_create_autocmd("WinEnter", {
     end
   end,
   desc = "Disable colorcolumn in floating windows",
-})
-
--- Set black background color for terminal. Doesn't work always.
-vim.api.nvim_create_autocmd("TermOpen", {
-  group = augroup("terminal_background"),
-  pattern = "*",
-  callback = function()
-    -- These custom groups are set in coloscheme config.
-    -- vim.api.nvim_set_hl(0, "TermBackground", { bg = "#121212" })
-    -- vim.api.nvim_set_hl(0, "TermCursorLine", { bg = "none" })
-    vim.opt_local.winhighlight = "Normal:TermBackground,CursorLine:TermCursorLine"
-    vim.cmd("startinsert")
-  end,
 })
 
 -- show cursor line only in active window
@@ -70,6 +88,15 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
       vim.w.auto_cursorline = true
       vim.wo.cursorline = false
     end
+  end,
+})
+
+-- Help pages: <CR> to open links in addition to C-]
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup('open_links_with_enter');
+  pattern = { "help", "man" },
+  callback = function()
+    vim.api.nvim_buf_set_keymap(0, "n", "<CR>", "<C-]>", { silent = true })
   end,
 })
 
