@@ -31,3 +31,8 @@ require("config.shared-keymaps")
 require("config.autocmds-lazyvim")
 require("config.autocmds")
 require("config.user-commands")
+
+
+if not vim.v.servername or vim.v.servername == '' then
+  vim.fn.serverstart(string.format("/tmp/nvim.%d", vim.fn.getpid()))
+end
