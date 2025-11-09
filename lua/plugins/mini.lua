@@ -186,11 +186,18 @@ return {
       autowrite = true,
       hooks = {
         -- Doesn't get executed if using automatic writing and quitting.
-        -- pre = {
-        --   write = function()
-        --     close_snacks_picker()
-        --   end,
-        -- },
+        pre = {
+          read = function()
+            local session_name = MiniSessions.get_latest()
+            if session_name then
+              -- or do something with it, e.g. update title or global var
+              _G.Config.windowtitle = session_name
+            end
+          end,
+          -- write = function()
+          --   close_snacks_picker()
+          -- end,
+        },
         post = {
           read = function()
             close_empty_windows()
@@ -199,5 +206,18 @@ return {
 
       },
     })
+
+    require('mini.surround').setup({
+      mappings = {
+        add = "gsa",         -- Add surrounding in Normal and Visual modes
+        delete = "gsd",      -- Delete surrounding
+        find = "gsf",        -- Find surrounding (to the right)
+        find_left = "gsF",   -- Find surrounding (to the left)
+        highlight = "gsh",   -- Highlight surrounding
+        replace = "gsr",     -- Replace surrounding
+        update_n_lines = "gsn", -- Update `n_lines`
+      },
+    })
   end,
+
 }
