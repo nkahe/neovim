@@ -102,6 +102,17 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- Use relative line numbers only on active window.
+vim.api.nvim_create_autocmd({"InsertEnter","WinLeave"},
+  { group = augroup("line_numbers"),
+    command = "set norelativenumber"
+  })
+
+vim.api.nvim_create_autocmd({"InsertLeave","WinEnter"},
+  { group = augroup("line_numbers"),
+    command = "set relativenumber"
+  })
+
 -- Always open QuickFix windows below current window
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
   group = augroup("open_quickfix_below"),

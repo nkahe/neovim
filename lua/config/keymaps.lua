@@ -39,6 +39,12 @@ map("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete Buffe
 map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete Other Buffers" })
 map("n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
 
+-- These are remapped for switching buffers,
+for _, mode in ipairs({ "n", "x", "o" }) do
+  map(mode, "gH", "H", { desc = "Go to top of window" })
+  map(mode, "gL", "L", { desc = "Go to bottom of window" })
+end
+
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 
 map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Open Lazy" })
@@ -49,7 +55,7 @@ map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 -- floating terminal
 map("n", "<leader>ft", function() Snacks.terminal() end, { desc = "Terminal" })
 
--- C-g to show full path of a file instead of truncated one. LazyVim has similar.
+-- C-g to show full path of a file instead of truncated one.
 vim.keymap.set("n", "<C-g>", function()
   local file = vim.fn.expand("%:p") or "[No Name]"
   local line = vim.fn.line(".")
@@ -64,8 +70,6 @@ end, { desc = "Show full file path and cursor position" })
 vim.api.nvim_set_keymap( "v", "<LocalLeader>W", ":!fmt -w 80<CR>",
   { desc = "Wrap text to 80 char", noremap = true, silent = true }
 )
-
--- '"lua/config/keymaps.lua" line 51 of 147 --34%-- col 1
 
 -- from mini.basics toggle buffer local options.
 local toggle_prefix = [[\]]
