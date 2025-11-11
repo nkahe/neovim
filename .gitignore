@@ -1,0 +1,14 @@
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data
+
+# Old configs
+archive
+
+# In case of Vim-plug
+plugged
