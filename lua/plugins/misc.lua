@@ -48,13 +48,29 @@ return {
   },
 
   {
+    "yousefhadder/markdown-plus.nvim",
+    ft = "markdown",
+    opts = {
+      table = {
+        keymaps = {
+          prefix = "<Leader>T"
+        }
+      }
+    }
+  },
+
+  {
     "OXY2DEV/markview.nvim",
+    enabled = true,
     -- Do not lazy load this plugin as it is already lazy-loaded.
     lazy = false,
     -- Ensure theme loads after this plugin.
     dependencies = { "Mofiqul/vscode.nvim" },
     -- Completion for `blink.cmp`
     -- dependencies = { "saghen/blink.cmp" },
+    keys = {
+      { "<Leader>um", "<cmd>Markview Toggle<CR>", mode = "n", desc = "Toggle Markview" }
+    }
   },
 
   {
