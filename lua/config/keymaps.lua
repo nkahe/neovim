@@ -55,18 +55,6 @@ map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 -- floating terminal
 map("n", "<leader>ft", function() Snacks.terminal() end, { desc = "Terminal" })
 
--- C-g to show full path of a file instead of truncated one.
-vim.keymap.set("n", "<C-g>", function()
-  local file = vim.fn.expand("%:p") or "[No Name]"
-  local line = vim.fn.line(".")
-  local col = vim.fn.col(".")
-  local total = vim.fn.line("$")
-  local percent = math.floor((line / total) * 100)
-  vim.api.nvim_echo({
-    { string.format("%s  line %d of %d --%d%%-- col %d", file, line, total, percent, col), "Normal" }
-  }, false, {})
-end, { desc = "Show full file path and cursor position" })
-
 vim.api.nvim_set_keymap( "v", "<LocalLeader>W", ":!fmt -w 80<CR>",
   { desc = "Wrap text to 80 char", noremap = true, silent = true }
 )

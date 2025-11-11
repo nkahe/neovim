@@ -4,8 +4,8 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("Custom_" .. name, { clear = true })
 end
 
--- Make use of custom prefixes on window title which are based on Neovim
--- config or spefic sessions.
+-- Make use of custom prefixes on window title which are set based on Neovim
+-- config or session.
 vim.api.nvim_create_autocmd({ "BufEnter", "TermClose" }, {
   group = augroup("set_window_title"),
   callback = function()

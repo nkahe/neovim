@@ -2,6 +2,18 @@
 -- Misc short plugin specs.
 
 return {
+  -- Forked from wsdjeg/ctrlg.nvim to better suit with narrower notifications.
+  -- https://github.com/wsdjeg/ctrlg.nvim
+  -- Paths need to be in this format.
+  {
+    name = "ctrlg",
+    dir = vim.fn.stdpath("config") .. "/lua/plugins/local",
+    keys = {
+      { "<C-g>", function() require("plugins.local.ctrlg").display() end, mode = "n",
+      desc = "Display project, CWD, file path", silent = true }
+    },
+  },
+
   -- EinfachToll/DidYouMean: Vim plugin which asks for the right file to open
   -- https://github.com/EinfachToll/DidYouMean
   {
@@ -79,6 +91,7 @@ return {
   -- https://github.com/rickhowe/wrapwidth
   {
     "rickhowe/wrapwidth",
+    enabled = true,
     event = { 'VeryLazy' }
     -- ft = { "markdown", "txt" }
   }
