@@ -1,1 +1,1 @@
-/home/henri/.config/nvim/lua/config/user-commands.lua
+/home/henri/.config/nvim/lazyvim/lua/config/user-commands.lua

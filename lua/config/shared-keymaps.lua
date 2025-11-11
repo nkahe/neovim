@@ -1,1 +1,1 @@
-/home/henri/.config/nvim/lua/config/keymaps.lua
+/home/henri/.config/nvim/lazyvim/lua/config/keymaps.lua
