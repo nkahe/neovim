@@ -33,6 +33,10 @@ require("config.autocmds")
 require("config.user-commands")
 
 
+require("plugins.local.yakuake-titles")
+
+-- Start server so can open files in terminal with Neovim without having to open
+-- them in different process.
 if not vim.v.servername or vim.v.servername == '' then
   vim.fn.serverstart(string.format("/tmp/nvim.%d", vim.fn.getpid()))
 end

@@ -4,6 +4,7 @@
 
 return {
   "Mofiqul/vscode.nvim",
+  enabled = true,
   lazy = false, -- make sure we load this during startup if it is your main colorscheme
   priority = 1000, -- make sure to load this before all the other start plugins
   opts = {
@@ -39,6 +40,7 @@ return {
       SnacksPickerInputBorder = { fg = "#595959", bg = "NONE" },
       SnacksPickerInputTitle = { fg = "#919191", bg = "NONE" },
       SnacksPickerGitStatusUntracked = { fg = "#8b8b8b", bg = "NONE" },
+      SnacksPickerPathHidden = { fg = "#8b8b8b", bg = "NONE" },
 
       SnacksNotifierMinimal = { bg = "#1b1b1b" },
 

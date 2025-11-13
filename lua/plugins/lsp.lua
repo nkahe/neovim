@@ -3,6 +3,7 @@
 
 return {
   "neovim/nvim-lspconfig",
+  enabled = true,
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     'saghen/blink.cmp',

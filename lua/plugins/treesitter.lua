@@ -8,9 +8,8 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     enabled = true,
-    lazy = true,
+    lazy = vim.fn.argc(-1) == 0, -- load treesitter immediately when opening a file from the cmdline
     event = { "BufReadPost", "BufNewFile", "VeryLazy" },
-    cmd = { "TSUpdate", "TSInstall", "TSLog", "TSUninstall" },
     branch = 'main',  -- Master branch is frozen but still default.
     build = ":TSUpdate",
     config = function()
@@ -66,7 +65,7 @@ return {
 
       vim.keymap.set("n", "<Leader>di", "<cmd>InspectTree<CR>", { desc = "Inspect Treesitter tree" })
 
-    end, -- config
+    end
   },
 
   {
@@ -80,7 +79,8 @@ return {
         set_jumps = true, -- whether to set jumps in the jumplist
       },
     },
-    config = function(_, opts)
+    config = function()
+      -- Move cursor to position at text object.
       local move = require("nvim-treesitter-textobjects.move")
 
       local map = function(lhs, rhs, desc)
