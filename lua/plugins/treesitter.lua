@@ -83,7 +83,6 @@ return {
     config = function(_, opts)
       local move = require("nvim-treesitter-textobjects.move")
 
-      -- Helper function to map for n, x, and o modes
       local map = function(lhs, rhs, desc)
         vim.keymap.set({"n", "x", "o"}, lhs, rhs, { desc = desc })
       end
