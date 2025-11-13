@@ -7,7 +7,8 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    -- lazy = false,
+    enabled = true,
+    lazy = true,
     event = { "BufReadPost", "BufNewFile", "VeryLazy" },
     cmd = { "TSUpdate", "TSInstall", "TSLog", "TSUninstall" },
     branch = 'main',  -- Master branch is frozen but still default.
@@ -66,5 +67,50 @@ return {
       vim.keymap.set("n", "<Leader>di", "<cmd>InspectTree<CR>", { desc = "Inspect Treesitter tree" })
 
     end, -- config
-  }
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    event = "VeryLazy",
+    opts = {
+      move = {
+        enable = true,
+        set_jumps = true, -- whether to set jumps in the jumplist
+      },
+    },
+    config = function(_, opts)
+      local move = require("nvim-treesitter-textobjects.move")
+
+      -- Helper function to map for n, x, and o modes
+      local map = function(lhs, rhs, desc)
+        vim.keymap.set({"n", "x", "o"}, lhs, rhs, { desc = desc })
+      end
+
+      -- Next start
+      map("]f", function() move.goto_next_start("@function.outer") end, "Next function start")
+      map("]c", function() move.goto_next_start("@class.outer") end, "Next class start")
+      map("]o", function() move.goto_next_start("@loop.*") end, "Next loop")
+      map("]s", function() move.goto_next_start("@local.scope", "locals") end, "Next scope")
+      map("]z", function() move.goto_next_start("@fold", "folds") end, "Next fold")
+
+      -- Next end
+      map("]F", function() move.goto_next_end("@function.outer") end, "Next function end")
+      map("]C", function() move.goto_next_end("@class.outer") end, "Next class end")
+
+      -- Previous start
+      map("[f", function() move.goto_previous_start("@function.outer") end, "Previous function start")
+      map("[c", function() move.goto_previous_start("@class.outer") end, "Previous class start")
+
+      -- Previous end
+      map("[F", function() move.goto_previous_end("@function.outer") end, "Previous function end")
+      map("[C", function() move.goto_previous_end("@class.outer") end, "Previous class end")
+
+      -- Next / Previous (closer)
+      map("]d", function() move.goto_next("@conditional.outer") end, "Next conditional")
+      map("[d", function() move.goto_previous("@conditional.outer") end, "Previous conditional")
+    end,
+  },
+
 }
