@@ -14,6 +14,17 @@ return {
     },
   },
 
+
+  -- Set tab title dynamically for Yakuake terminal.
+  {
+    name = "yakuake-titles",
+    dir = vim.fn.stdpath("config") .. "/lua/plugins/local",
+    event = "VeryLazy",
+    config = function()
+      require("plugins.local.yakuake-titles")
+    end,
+  },
+
   -- EinfachToll/DidYouMean: Vim plugin which asks for the right file to open
   -- https://github.com/EinfachToll/DidYouMean
   {
