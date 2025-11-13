@@ -110,7 +110,15 @@ vim.api.nvim_create_autocmd({"InsertEnter","WinLeave"},
 
 vim.api.nvim_create_autocmd({"InsertLeave","WinEnter"},
   { group = augroup("line_numbers"),
-    command = "set relativenumber"
+    callback = function()
+      local ft = vim.bo.filetype
+      local bt = vim.bo.buftype
+      -- No line numbers  for these.
+      if bt == "terminal" or ft:match("^snacks_picker") then
+        return
+      end
+      vim.wo.relativenumber = true
+    end,
   })
 
 -- Always open QuickFix windows below current window
