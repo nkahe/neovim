@@ -1,11 +1,13 @@
+
+-- Performant, batteries-included completion plugin
+-- https://github.com/Saghen/blink.cmp
 return {
   'saghen/blink.cmp',
   enabled = true,
   -- optional: provides snippets for the snippet source
   -- dependencies = { 'rafamadriz/friendly-snippets' },
-
   -- use a release tag to download pre-built binaries
-  version = '1.*',
+  -- version = '1.*',
   -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
   -- build = 'cargo build --release',
   -- If you use nix, you can build from source using latest nightly rust with:
@@ -37,6 +39,19 @@ return {
 
     -- Show the documentation popup automatically.
     completion = {
+      menu = {
+        -- accept = {
+        --   -- experimental auto-brackets support
+        --   auto_brackets = {
+        --     enabled = true,
+        --   },
+        -- },
+      -- Enables Treesitter-powered syntax highlighting inside the completion
+      -- menu, using the LSP’s filetype as the source.
+        draw = {
+          treesitter = { "lsp" },
+        },
+      },
       -- documentation = {
       --   auto_show = true,
       --   auto_show_delay_ms = 200,
@@ -60,6 +75,26 @@ return {
       default = { 'lsp', 'path', 'snippets', 'buffer' },
     },
 
+    cmdline = {
+      enabled = true,
+      keymap = {
+        preset = "cmdline",
+        ["<Right>"] = false,
+        ["<Left>"] = false,
+      },
+      completion = {
+        list = { selection = { preselect = false } },
+        -- This lets Blink provide cmdline completion only for : commands and
+        -- stay out of the way for search / or ?.
+        menu = {
+          auto_show = function(ctx)
+            return vim.fn.getcmdtype() == ":"
+          end,
+        },
+        ghost_text = { enabled = true },
+      },
+    },
+
     -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
     -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
     -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
@@ -69,32 +104,31 @@ return {
   },
   opts_extend = { "sources.default" },
 
-  -- TODO: Convert to regular keymaps?
-  keymap = {
-    -- Gave error for some reason, so mappings are set manually below.
-    -- preset = "super-tab"
-    ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-    ['<C-e>'] = { 'hide', 'fallback' },
-    -- From blink documentation.
-    ['<Tab>'] = {
-      function(cmp)
-        if cmp.snippet_active() then return cmp.accept()
-        else return cmp.select_and_accept() end
-      end,
-      'snippet_forward',
-      'fallback'
-    },
-    ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
-
-    ['<Up>'] = { 'select_prev', 'fallback' },
-    ['<Down>'] = { 'select_next', 'fallback' },
-    ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
-    ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
-
-    ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
-    ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
-
-    ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
-  },
+  -- keymap = {
+  --   -- Gave error for some reason, so mappings are set manually below.
+  --   -- preset = "super-tab"
+  --   ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+  --   ['<C-e>'] = { 'hide', 'fallback' },
+  --   -- From blink documentation.
+  --   ['<Tab>'] = {
+  --     function(cmp)
+  --       if cmp.snippet_active() then return cmp.accept()
+  --       else return cmp.select_and_accept() end
+  --     end,
+  --     'snippet_forward',
+  --     'fallback'
+  --   },
+  --   ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+  --
+  --   ['<Up>'] = { 'select_prev', 'fallback' },
+  --   ['<Down>'] = { 'select_next', 'fallback' },
+  --   ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
+  --   ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
+  --
+  --   ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+  --   ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+  --
+  --   ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
+  -- },
 
 }

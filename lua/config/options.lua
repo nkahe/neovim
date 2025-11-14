@@ -116,7 +116,8 @@ vim.o.completeopt = 'menuone,noselect,fuzzy,nosort' -- Use custom behavior
 
 vim.o.guifont = "FiraCode Nerd Font:h12"
 
--- Neovide settings.
+-- Neovide GUI settings.
+-- https://neovide.dev/index.html
 if vim.g.neovide then
   -- Make Neovide animations a lot faster and less distracting.
   vim.g.neovide_cursor_animation_length = 0.03
