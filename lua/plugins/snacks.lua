@@ -1,3 +1,12 @@
+-- Terminal Mappings
+local function term_nav(dir)
+  ---@param self snacks.terminal
+  return function(self)
+    return self:is_floating() and "<c-" .. dir .. ">" or vim.schedule(function()
+      vim.cmd.wincmd(dir)
+    end)
+  end
+end
 
 ---@class snacks.dashboard.Config
 ---@field enabled? boolean
@@ -47,10 +56,11 @@ return
     explorer = { enabled = true },
     indent = { enabled = true },
     input = { enabled = true },
-    -- Timeout for notifications longer so can actually read them.
+    -- Notification style such as wrap is defined in snacks.styles -module.
     notifier = {
       enabled = true,
       style = "minimal",
+        -- Timeout for notifications longer so can actually read them.
       timeout = 6000,
       margin = { top = 1, right = 1, bottom = 1 },
       padding = true, -- add 1 cell of left/right padding to the notification window
@@ -198,8 +208,17 @@ return
     statuscolumn = { enabled = true },
     terminal = {
       enabled = true,
+      win = {
+        keys = {
+          nav_h = { "<C-h>", term_nav("h"), desc = "Go to Left Window", expr = true, mode = "t" },
+          nav_j = { "<C-j>", term_nav("j"), desc = "Go to Lower Window", expr = true, mode = "t" },
+          nav_k = { "<C-k>", term_nav("k"), desc = "Go to Upper Window", expr = true, mode = "t" },
+          nav_l = { "<C-l>", term_nav("l"), desc = "Go to Right Window", expr = true, mode = "t" },
+        },
+      },
     },
     words = { enabled = true },
+
     styles = {
       notification = {
         border = true,
@@ -207,7 +226,7 @@ return
         ft = "markdown",
         wo = {
           winblend = 5,
-          wrap = false,
+          wrap = true,
           conceallevel = 2,
           colorcolumn = "",
         },
@@ -233,6 +252,7 @@ return
         keys = { q = "close" },
       },
     }
+
   }, -- opts
 
   keys = {
@@ -312,24 +332,29 @@ return
     { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
     -- { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
     { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
+
     -- Terminal
     { "<F12>", function()
         Snacks.terminal.toggle(nil, {
-          win = {
-            position = "float",
-            style = "terminal",
-            border = "rounded",
-            width = 0.8,
-            height = 0.8,
+          win = { position = "float", style = "terminal", border = "rounded",
+            width = 0.8, height = 0.8,
           },
         })
-      end, desc = "Toggle split" },
-    { "<Leader>tt", function() Snacks.terminal.toggle() end, desc = "Toggle split" },
+      end, desc = "Toggle floating terminal" },
+    -- These have cliches with Neovide.
+    -- { "<Leader>tt", function() Snacks.terminal.toggle() end, desc = "Toggle terminal" },
     { "<Leader>ts", function() Snacks.terminal() end, desc = "Open in horizontal split"},
     { "<leader>tf", function() local shell = vim.o.shell require("snacks.terminal").open(shell, {}) end,
       desc = "Open in floating window" },
     -- { "<Leader>tv", function() Snacks.terminal.open(vim.o.shell, { win = { position = "right" } }) end,
     --   desc = "Open terminal (vertical)", },
+
+
+    -- map("n", "<leader>fT", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
+    -- map("n", "<leader>ft", function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = "Terminal (Root Dir)" })
+    -- map({"n","t"}, "<c-/>",function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = "Terminal (Root Dir)" })
+    -- map({"n","t"}, "<c-_>",function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = "which_key_ignore" })
+
     { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
     { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
     {
