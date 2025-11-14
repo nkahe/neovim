@@ -1,14 +1,14 @@
 
--- Treesitter
-
 -- Install parsers for selected languages. Enable highlighting, indentation.
--- Configs for older master branch wont work.
-
+-- https://github.com/nvim-treesitter/nvim-treesitter/tree/main
+-- NOTE: be sure to use main branch readme.
 return {
   {
     'nvim-treesitter/nvim-treesitter',
     enabled = true,
-    lazy = vim.fn.argc(-1) == 0, -- load treesitter immediately when opening a file from the cmdline
+    -- load treesitter immediately when opening a file from the cmdline.
+    -- NOTE: Treesitter doesn't officially support lazy loading.
+    lazy = vim.fn.argc(-1) == 0,
     event = { "BufReadPost", "BufNewFile", "VeryLazy" },
     branch = 'main',  -- Master branch is frozen but still default.
     build = ":TSUpdate",
@@ -38,24 +38,23 @@ return {
         "yaml",
         "zsh"
       }
- 
-      vim.defer_fn(function()
-        require("nvim-treesitter").install(parsers)
-      end, 1000)
-      require("nvim-treesitter").update()
+      -- Install above parsers if they haven't.
+      TS = require("nvim-treesitter")
+      vim.defer_fn(function() TS.install(parsers) end, 1000)
+      TS.update()
 
       -- auto-start highlights & indentation
       vim.api.nvim_create_autocmd("FileType", {
         desc = "Enable treesitter features",
         callback = function(ctx)
+
           -- highlights
           local hasStarted = pcall(vim.treesitter.start) -- errors for filetypes with no parser
 
-          -- indent
           local noIndent = {}
           if hasStarted and not vim.list_contains(noIndent, ctx.match) then
+            -- indent
             vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-
             -- folding
             vim.wo.foldmethod = "expr"
             vim.wo.foldexpr   = "v:lua.vim.treesitter.foldexpr()"
@@ -68,8 +67,10 @@ return {
     end
   },
 
+  -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    enabled = true,
     branch = "main",
     dependencies = "nvim-treesitter/nvim-treesitter",
     event = "VeryLazy",
@@ -109,6 +110,13 @@ return {
       -- Next / Previous (closer)
       map("]d", function() move.goto_next("@conditional.outer") end, "Next conditional")
       map("[d", function() move.goto_previous("@conditional.outer") end, "Previous conditional")
+
+      local ts_repeat_move = require "nvim-treesitter-textobjects.repeatable_move"
+
+      -- Repeat movement with ; and ,
+      -- ensure ; goes forward and , goes backward regardless of the last direction
+      map(";", ts_repeat_move.repeat_last_move_next)
+      map(",", ts_repeat_move.repeat_last_move_previous)
     end,
   },
 
