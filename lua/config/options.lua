@@ -18,12 +18,16 @@
 -- General ====================================================================
 vim.g.mapleader = ' ' -- Use `<Space>` as <Leader> key
 
-vim.o.mouse       = 'a'            -- Enable mouse
+vim.o.mouse = 'a'                  -- Enable mouse
 vim.o.mousemoveevent = true        -- Enables mouse hover functionality.
 vim.o.mousescroll = 'ver:25,hor:2' -- Customize mouse scroll
--- Disable "How-to disable mouse" -- from mouse context menu.
-vim.cmd('aunmenu PopUp.How-to\\ disable\\ mouse')
-vim.cmd('aunmenu PopUp.-2-')
+-- Disable "How-to disable mouse" from mouse context menu.
+if vim.fn.exists(':aunmenu PopUp.How-to\\ disable\\ mouse') == 2 then
+  vim.cmd('aunmenu PopUp.How-to\\ disable\\ mouse')
+end
+if vim.fn.exists(':aunmenu PopUp.-2-') == 2 then
+  vim.cmd('aunmenu PopUp.-2-')
+end
 vim.o.switchbuf   = 'usetab'       -- Use already opened buffers when switching
 vim.o.undofile    = true           -- Enable persistent undo
 
@@ -62,13 +66,13 @@ end)
 
 -- Special UI symbols. More is set via 'mini.basics' later.
 vim.o.fillchars = 'eob: ,fold:╌'
-vim.o.listchars = 'extends:…,nbsp:␣,precedes:…,tab:> '
+vim.o.listchars = 'extends:…,nbsp:␣,precedes:…,tab:» '
 
 -- Folds (see `:h fold-commands`, `:h zM`, `:h zR`, `:h zA`, `:h zj`)
 -- vim.o.foldlevel   = 10       -- Fold nothing by default; set to 0 or 1 to fold
 vim.o.foldmethod  = 'indent' -- Fold based on indent level
 vim.o.foldnestmax = 10       -- Limit number of fold levels
-vim.o.foldtext    = ''       -- Show text under fold with its highlighting
+vim.o.foldtext    = 'NONE'   -- Show text under fold with its highlighting
 
 vim.o.foldlevel   = 99       -- Fold nothing by default; set to 0 or 1 to fold
 vim.opt.foldlevelstart = 99  -- Make sure folds are open by default.
