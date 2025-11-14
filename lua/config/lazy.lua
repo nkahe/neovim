@@ -31,5 +31,5 @@ require("lazy").setup({
   -- in it's settings.
   install = { colorscheme = { "vscode" } },
   -- automatically check for plugin updates
-  checker = { enabled = true },
+  -- checker = { enabled = true },
 })
