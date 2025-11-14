@@ -37,17 +37,13 @@ return {
         {
           "<leader>b",
           group = "Buffer",
-          expand = function()
-            return require("which-key.extras").expand.buf()
-          end,
+          expand = function() return require("which-key.extras").expand.buf() end,
         },
         {
           "<leader>w",
           group = "Windows",
           proxy = "<c-w>",
-          expand = function()
-            return require("which-key.extras").expand.win()
-          end,
+          expand = function() return require("which-key.extras").expand.win() end,
         },
         -- better descriptions. gx is mapped to mini.operators exchange.
         { "gra", desc = "Code action" },
@@ -64,12 +60,10 @@ return {
         { "<S-Down>",  hidden = true },
         { "<S-Left>",  hidden = true },
         { "<S-Right>", hidden = true },
-        { "<D-q>", hidden = true },
+        { "<D-q>",     hidden = true },
         {
           "<leader>?",
-          function()
-            require("which-key").show({ global = false })
-          end,
+          function() require("which-key").show({ global = false }) end,
           desc = "Buffer Local Keymaps",
         },
       },

@@ -62,7 +62,13 @@ return {
         end,
       })
 
-      vim.keymap.set("n", "<Leader>di", "<cmd>InspectTree<CR>", { desc = "Inspect Treesitter tree" })
+      vim.keymap.set("n", "<leader>di", function()
+        vim.treesitter.inspect_tree() vim.api.nvim_input("I")
+      end, { desc = "Inspect Treesitter tree" })
+
+      vim.keymap.set("n", "<leader>uI", function()
+        vim.treesitter.inspect_tree() vim.api.nvim_input("I")
+      end, { desc = "Inspect Treesitter tree" })
 
     end
   },
