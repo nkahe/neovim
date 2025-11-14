@@ -73,11 +73,6 @@ map_toggle('r', '<Cmd>setlocal relativenumber! relativenumber?<CR>',  "Toggle 'r
 map_toggle('s', '<Cmd>setlocal spell! spell?<CR>',                    "Toggle 'spell'")
 map_toggle('w', '<Cmd>setlocal wrap! wrap?<CR>',                      "Toggle 'wrap'")
 
-Snacks.toggle.option("showtabline", { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" }):map("<leader>uA")
-Snacks.toggle.scroll():map("<leader>uS")
-Snacks.toggle.profiler():map("<leader>dpp")
-Snacks.toggle.profiler_highlights():map("<leader>dph")
-
 -- location list.
 map("n", "<leader>xl", function()
   local success, err = pcall(vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 and vim.cmd.lclose or vim.cmd.lopen)
