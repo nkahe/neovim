@@ -70,7 +70,7 @@ return
       enabled = true,
       layout = {
         preset = "ivy",
-        preview = nil
+        preview = false
       },
       sources = {
         files = {
@@ -200,6 +200,7 @@ return
 
     quickfile = { enabled = true },
     scope = { enabled = true },
+    scratch = { enabled = true },
     scroll = { enabled = true },
     statuscolumn = { enabled = true },
     terminal = {
@@ -233,7 +234,7 @@ return
       notification_history = {
         border = true,
         zindex = 100,
-        -- Make windows bigger 
+        -- Make window bigger 
         width = 0.8,
         height = 0.8,
         minimal = false,
@@ -247,6 +248,13 @@ return
         },
         keys = { q = "close" },
       },
+        scratch = {
+          -- Make window bigger.
+          width = 0.6,
+          height = 0.6,
+          -- width = 100,
+          -- height = 30,
+        }
     }
 
   }, -- opts
@@ -255,6 +263,7 @@ return
     -- Top Pickers & Explorer
     { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
     { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
+
     { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
     { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
     { "<leader>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
