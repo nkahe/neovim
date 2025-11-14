@@ -1,6 +1,8 @@
 
 -- Misc short plugin specs.
 
+-- if true then return {} end
+
 return {
   -- Forked from wsdjeg/ctrlg.nvim to better suit with narrower notifications.
   -- https://github.com/wsdjeg/ctrlg.nvim
@@ -39,8 +41,9 @@ return {
     keys = {
       { "ö", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
       { "Ö", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      -- r is for replace with register.
+      -- { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
       { "<c-ö>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     },
   },
@@ -58,6 +61,7 @@ return {
     vscode = true  -- Enable in vscode
   },
 
+  -- https://github.com/yousefhadder/markdown-plus.nvim?tab=readme-ov-file
   {
     "yousefhadder/markdown-plus.nvim",
     ft = "markdown",
@@ -105,6 +109,14 @@ return {
       -- { "<Leader>gg", "<cmd>Neogit kind=floating<CR>",  mode = "n", desc = 'Toggle Neogit' },
     },
     cmd = { "Neogit" },
+  },
+
+  -- Improves comment syntax, lets Neovim handle multiple types of comments for
+  -- a single language, and relaxes rules for uncommenting.
+  {
+    "folke/ts-comments.nvim",
+    event = "VeryLazy",
+    opts = {},
   },
 
   -- lambdalisue/vim-suda: 🥪 An alternative sudo.vim for Vim and Neovim,

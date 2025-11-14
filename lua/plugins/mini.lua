@@ -1,4 +1,6 @@
 
+-- if true then return {} end
+
 -- Misc plugins
 
 -- mini.nvim. https://nvim-mini.org/mini.nvim

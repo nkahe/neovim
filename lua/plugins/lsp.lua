@@ -23,7 +23,7 @@ return {
     },
     { "mason-org/mason.nvim",
       opts = {
-        -- Make different Nvim configs use same servers.
+        -- Make different Nvim configs use same language servers.
         install_root_dir = vim.fn.expand("~/.local/share/nvim/mason"),
       },
     },
