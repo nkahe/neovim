@@ -11,10 +11,6 @@ local function term_nav(dir)
   end
 end
 
----@class snacks.dashboard.Config
----@field enabled? boolean
----@field sections snacks.dashboard.Section
----@field formats table<string, snacks.dashboard.Text|fun(item:snacks.dashboard.Item, ctx:snacks.dashboard.Format.ctx):snacks.dashboard.Text>
 return
   {
   "folke/snacks.nvim",
@@ -74,7 +70,7 @@ return
       enabled = true,
       layout = {
         preset = "ivy",
-        preview = false
+        preview = nil
       },
       sources = {
         files = {
@@ -87,6 +83,7 @@ return
       win = {
         input = {
           keys = {
+            -- Add nicer descriptions.
             -- to close the picker on ESC instead of going to normal mode,
             -- add the following keymap to your config
             -- ["<Esc>"] = { "close", mode = { "n", "i" } },
@@ -204,10 +201,6 @@ return
     quickfile = { enabled = true },
     scope = { enabled = true },
     scroll = { enabled = true },
-    ---@class snacks.statuscolumn.Config
-    ---@field left snacks.statuscolumn.Components
-    ---@field right snacks.statuscolumn.Components
-    ---@field enabled? boolean
     statuscolumn = { enabled = true },
     terminal = {
       enabled = true,
@@ -296,7 +289,30 @@ return
     { "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
     { "<leader>sD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
     { "<leader>sh", function() Snacks.picker.help() end, desc = "Help Pages" },
-    { "<leader>sH", function() Snacks.picker.highlights() end, desc = "Highlights" },
+    -- { "<leader>sH", function() Snacks.picker.highlights() end, desc = "Highlights" },
+      { "<leader>sH", function()
+        Snacks.picker.highlights({
+          -- Bind <CR> to the confirm action
+          actions = { ["<CR>"] = "confirm" },
+
+          confirm = function(picker, item)
+            local sel = item or picker:current()
+            if not sel then
+              vim.notify("no item", vim.log.levels.WARN)
+              return
+            end
+
+            local value = sel.text or sel.label or sel.value
+            vim.notify("picked: " .. vim.inspect(value))
+
+            if value then
+              vim.fn.setreg('*', value)
+            end
+
+            picker:close()
+          end,
+        })
+      end, desc = "Highlights" },
     { "<leader>si", function() Snacks.picker.icons() end, desc = "Icons" },
     { "<leader>sj", function() Snacks.picker.jumps() end, desc = "Jumps" },
     { "<leader>sk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
@@ -425,21 +441,21 @@ return
         end
 
         -- Create some toggle mappings
-          Snacks.toggle.diagnostics():map("<leader>ud")
-          Snacks.toggle.dim():map("<leader>uD")
-          Snacks.toggle.indent():map("<leader>ug")
-          Snacks.toggle.inlay_hints():map("<leader>uh")
-          Snacks.toggle.line_number():map("<leader>ul")
-          Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
-          Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>uc")
-          Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
-          Snacks.toggle.option("showtabline", { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" }):map("<leader>uA")
-          Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
-          Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-          Snacks.toggle.profiler():map("<leader>dpp")
-          Snacks.toggle.profiler_highlights():map("<leader>dph")
-          Snacks.toggle.scroll():map("<leader>uS")
-          Snacks.toggle.treesitter():map("<leader>uT")
+        Snacks.toggle.diagnostics():map("<leader>ud")
+        Snacks.toggle.dim():map("<leader>uD")
+        Snacks.toggle.indent():map("<leader>ug")
+        Snacks.toggle.inlay_hints():map("<leader>uh")
+        Snacks.toggle.line_number():map("<leader>ul")
+        Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
+        Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>uc")
+        Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+        Snacks.toggle.option("showtabline", { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" }):map("<leader>uA")
+        Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+        Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+        Snacks.toggle.profiler():map("<leader>dpp")
+        Snacks.toggle.profiler_highlights():map("<leader>dph")
+        Snacks.toggle.scroll():map("<leader>uS")
+        Snacks.toggle.treesitter():map("<leader>uT")
       end,
     })
   end,
