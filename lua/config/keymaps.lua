@@ -1,19 +1,7 @@
 
--- Keymaps. Many are from LazyVim.
+-- Keymaps used in only this configuration. Many from LazyVim.
 
 local map = vim.keymap.set
-
-local nmap = function(lhs, rhs, desc)
-  -- See `:h vim.keymap.set()`
-  vim.keymap.set('n', lhs, rhs, { desc = desc })
-end
-
-local nmap_leader = function(suffix, rhs, desc)
-  vim.keymap.set('n', '<Leader>' .. suffix, rhs, { desc = desc })
-end
-local xmap_leader = function(suffix, rhs, desc)
-  vim.keymap.set('x', '<Leader>' .. suffix, rhs, { desc = desc })
-end
 
 -- Clear search with <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
@@ -92,13 +80,6 @@ end, { desc = "Quickfix List" })
 -- map_toggle('d', '<Cmd>lua print(MiniBasics.toggle_diagnostic())<CR>',                                      'Toggle diagnostic')
 -- map_toggle('h', '<Cmd>let v:hlsearch = 1 - v:hlsearch | echo (v:hlsearch ? "  " : "no") . "hlsearch"<CR>', 'Toggle search highlight')
 
--- sessions
-local session_new = 'MiniSessions.write(vim.fn.input("Session name: "))'
-nmap_leader('qd', '<Cmd>lua MiniSessions.select("delete")<CR>', 'Delete')
-nmap_leader('qn', '<Cmd>lua ' .. session_new .. '<CR>',         'New')
-nmap_leader('qr', '<Cmd>lua MiniSessions.select("read")<CR>',   'Read')
-nmap_leader('qw', '<Cmd>lua MiniSessions.write()<CR>',          'Write current')
-
 -- Play last recorded macro.
 map({ "n", "x" }, "Q", function()
   if vim.fn.mode() == "V" then
@@ -123,7 +104,6 @@ map("n", "<leader>qQ", "<cmd>qa!<cr>", { desc = "Quit All without saving" })
 
 -- highlights under cursor
 map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
-map("n", "<leader>uI", function() vim.treesitter.inspect_tree() vim.api.nvim_input("I") end, { desc = "Inspect Tree" })
 
 -- tabs
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })

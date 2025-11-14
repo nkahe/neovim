@@ -250,6 +250,17 @@ return {
       },
     })
 
+    local nmap_leader = function(suffix, rhs, desc)
+      vim.keymap.set('n', '<Leader>' .. suffix, rhs, { desc = desc })
+    end
+
+    local session_new = 'MiniSessions.write(vim.fn.input("Session name: "))'
+    nmap_leader('qd', '<Cmd>lua MiniSessions.select("delete")<CR>', 'Delete')
+    nmap_leader('qn', '<Cmd>lua ' .. session_new .. '<CR>',         'New')
+    nmap_leader('qr', '<Cmd>lua MiniSessions.select("read")<CR>',   'Read')
+    nmap_leader('qw', '<Cmd>lua MiniSessions.write()<CR>',          'Write current')
+
+
     require('mini.surround').setup({
       mappings = {
         add = "gsa",         -- Add surrounding in Normal and Visual modes
