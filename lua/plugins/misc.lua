@@ -67,9 +67,7 @@ return {
     ft = "markdown",
     opts = {
       table = {
-        keymaps = {
-          prefix = "<Leader>T"
-        }
+        keymaps = { prefix = "<Leader>T" }
       }
     }
   },
@@ -86,6 +84,25 @@ return {
     keys = {
       { "<Leader>um", "<cmd>Markview Toggle<CR>", mode = "n", desc = "Toggle markdown rendering" }
     }
+  },
+
+  -- Search and replace in the current buffer with incremental preview,
+  -- a convenient UI, and modern regex syntax.
+  -- https://github.com/chrisgrieser/nvim-rip-substitute
+  {
+    "chrisgrieser/nvim-rip-substitute",
+    cmd = "RipSubstitute",
+    keys = {
+      {
+        "<leader>fS",
+        function() require("rip-substitute").sub() end,
+        mode = { "n", "x" },
+        desc = " rip substitute",
+      },
+    },
+    opts = {
+      regexOptions = { startWithFixedStringsOn = true }
+    },
   },
 
   -- Improves comment syntax, lets Neovim handle multiple types of comments for
@@ -110,13 +127,14 @@ return {
     enabled = true,
     event = { 'VeryLazy' }
     -- ft = { "markdown", "txt" }
-  }
+  },
 
   -- Doesn't work like this.
-  -- {
-  --   "chrisbra/Recover.vim",
-  --   config = function()
-  --     require('recover.vim').setup()
-  --   end
-  -- }
+  {
+    "chrisbra/Recover.vim",
+   event = { "VeryLazy" },
+   config = function()
+    -- require('recover.vim').setup()
+   end
+   }
 }
