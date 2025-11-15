@@ -48,6 +48,20 @@ return {
     },
   },
 
+  -- LSP renaming with immediate visual feedback
+  -- https://github.com/smjonas/inc-rename.nvim
+  {
+    "smjonas/inc-rename.nvim",
+    opts = {},
+    keys = {
+      { "<F2>", function()
+          return ":IncRename " .. vim.fn.expand("<cword>")
+        end,
+        mode = "n", expr = true, desc = "Rename symbol",
+      },
+    },
+  },
+
   {
     "bagohart/vim-insert-append-single-character",
     init = function()
