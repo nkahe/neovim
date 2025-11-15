@@ -178,6 +178,26 @@ return {
         hex_color = hipatterns.gen_highlighter.hex_color(),
       },
     })
+
+    require('mini.misc').setup()
+
+    vim.keymap.set(
+      "n",
+      "<Leader>fR",
+      function()
+        local buf = vim.api.nvim_get_current_buf()
+        local root = require("mini.misc").find_root(buf)
+        if root then
+          vim.cmd("lcd " .. root)
+          print("Changed CWD to: " .. root)
+        else
+          vim.cmd("lcd ..")
+          print("Root not found, changed to: \n" .. vim.loop.cwd())
+        end
+      end,
+      { desc = "Find root and lcd" }
+    )
+
     -- Move text blocks easily.
     require('mini.move').setup()
 
