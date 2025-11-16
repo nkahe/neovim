@@ -100,20 +100,29 @@ vim.api.nvim_create_autocmd("WinEnter", {
 vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
   group = augroup("cursorline_in_active"),
   callback = function()
-    if vim.w.auto_cursorline then
+    -- if vim.w.auto_cursorline then
       vim.wo.cursorline = true
-      vim.w.auto_cursorline = nil
-    end
+      -- vim.w.auto_cursorline = nil
+    -- end
   end,
 })
 
 vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
   group = augroup("cursorline_in_inactive"),
   callback = function()
-    if vim.wo.cursorline then
-      vim.w.auto_cursorline = true
+    -- if vim.wo.cursorline then
+      -- vim.w.auto_cursorline = true
       vim.wo.cursorline = false
-    end
+    -- end
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("maximize_help_vertically"),
+  pattern = "help",
+  callback = function()
+    vim.cmd("wincmd _") -- maximize height
+    -- vim.cmd("wincmd |") -- maximize width
   end,
 })
 
@@ -127,23 +136,24 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Use relative line numbers only on active window.
-vim.api.nvim_create_autocmd({"InsertEnter","WinLeave"},
-  { group = augroup("line_numbers"),
-    command = "set norelativenumber"
-  })
-
-vim.api.nvim_create_autocmd({"InsertLeave","WinEnter"},
-  { group = augroup("line_numbers"),
-    callback = function()
-      local ft = vim.bo.filetype
-      local bt = vim.bo.buftype
-      -- No line numbers  for these.
-      if bt == "terminal" or ft:match("^snacks_picker") then
-        return
-      end
-      vim.wo.relativenumber = true
-    end,
-  })
+-- vim.api.nvim_create_autocmd({"InsertEnter","WinLeave"},
+--   { group = augroup("line_numbers"),
+--     command = "set norelativenumber"
+--   })
+--
+-- vim.api.nvim_create_autocmd({"InsertLeave","WinEnter"},
+--   { group = augroup("line_numbers"),
+--     callback = function()
+--       local ft = vim.bo.filetype
+--       local bt = vim.bo.buftype
+--       -- No line numbers  for these.
+--       if bt == "terminal" or ft:match("^snacks_picker") or
+--         ft == "rip-substitute" then
+--         return
+--       end
+--       vim.wo.relativenumber = true
+--     end,
+--   })
 
 -- Always open QuickFix windows below current window
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
