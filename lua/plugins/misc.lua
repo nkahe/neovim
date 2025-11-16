@@ -4,6 +4,12 @@
 -- if true then return {} end
 
 return {
+
+ {
+    'AbdelrahmanDwedar/awesome-nvim-colorschemes',
+    enabled = false
+ },
+
   -- Forked from wsdjeg/ctrlg.nvim to better suit with narrower notifications.
   -- https://github.com/wsdjeg/ctrlg.nvim
   -- Paths need to be in this format.
@@ -30,10 +36,30 @@ return {
   -- EinfachToll/DidYouMean: Vim plugin which asks for the right file to open
   -- https://github.com/EinfachToll/DidYouMean
   {
-    "EinfachToll/DidYouMean"
+    "EinfachToll/DidYouMean",
+
+    -- Prevent plugin firing by Snacks.scratch.
+    config = function ()
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "SnacksScratchOpened",
+        callback = function(ev)
+          -- Disable DidYouMean by marking the buffer as "existing"
+          vim.b[ev.buf].didyoumean_disable = true
+        end,
+      })
+
+      -- prevent running on buffers with the variable
+      vim.api.nvim_create_autocmd("BufNewFile", {
+        callback = function(ev)
+          if vim.b[ev.buf].didyoumean_disable then
+            return true  -- stopping DidYouMean
+          end
+        end,
+      })
+    end
   },
 
-  -- Flash. https://github.com/folke/flash.nvim
+  -- https://github.com/folke/flash.nvim
   {
     "folke/flash.nvim",
     event = "VeryLazy",
@@ -127,20 +153,19 @@ return {
     opts = {},
   },
 
-  -- lambdalisue/vim-suda: 🥪 An alternative sudo.vim for Vim and Neovim,
+  -- An alternative sudo.vim for Vim and Neovim,
   -- limited support sudo in Windows - https://github.com/lambdalisue/vim-suda
   {
     'lambdalisue/vim-suda',
     cmd = { 'SudaRead', 'SudaWrite' }
   },
 
-  -- rickhowe/wrapwidth: Wraps long lines virtually at a specific column
+  -- Wraps long lines virtually at a specific column
   -- https://github.com/rickhowe/wrapwidth
   {
     "rickhowe/wrapwidth",
     enabled = true,
-    event = { 'VeryLazy' }
-    -- ft = { "markdown", "txt" }
+    ft = { "markdown", "txt" }
   },
 
   -- Doesn't work like this.
