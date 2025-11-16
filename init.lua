@@ -7,6 +7,9 @@ _G.Config.windowtitle = 'Custom'
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+ -- base46 themes: put this in your main init.lua file ( before lazy setup )
+ vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46_cache/"
+
 -- Define custom autocommand group and helper to create an autocommand.
 -- Autocommands are Neovim's way to define actions that are executed on events
 -- (like creating a buffer, setting an option, etc.).
@@ -25,15 +28,24 @@ end
 
 require("config.lazy")
 
+-- put this after lazy setup 
+
+-- (method 1, For heavy lazyloaders)
+ -- dofile(vim.g.base46_cache .. "defaults")
+ -- dofile(vim.g.base46_cache .. "statusline")
+
+-- -- (method 2, for non lazyloaders) to load all highlights at once
+for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
+  dofile(vim.g.base46_cache .. v)
+end
+
+
 require("config.options")
 require("config.keymaps")
 require("config.shared-keymaps")
 require("config.autocmds-lazyvim")
 require("config.autocmds")
 require("config.user-commands")
-
-
-require("plugins.local.yakuake-titles")
 
 -- Start server so can open files in terminal with Neovim without having to open
 -- them in different process.
