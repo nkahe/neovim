@@ -107,9 +107,9 @@ vim.filetype.add({
   },
 })
 
--- Disable colorcolumn for floating windows.
+-- Disable colorcolumn for certain windows.
 vim.api.nvim_create_autocmd("WinEnter", {
-  group = augroup("disable_colorcolumn_for_float"),
+  group = augroup("disable_colorcolumn"),
   callback = function()
     local cfg = vim.api.nvim_win_get_config(0)
     if cfg.relative ~= "" then
@@ -138,24 +138,6 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
       -- vim.w.auto_cursorline = true
       vim.wo.cursorline = false
     -- end
-  end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("maximize_help_vertically"),
-  pattern = "help",
-  callback = function()
-    vim.cmd("wincmd _") -- maximize height
-    -- vim.cmd("wincmd |") -- maximize width
-  end,
-})
-
--- Help pages: <CR> to open links in addition to C-]
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup('open_links_with_enter');
-  pattern = { "help", "man" },
-  callback = function()
-    vim.api.nvim_buf_set_keymap(0, "n", "<CR>", "<C-]>", { silent = true })
   end,
 })
 
