@@ -1,28 +1,47 @@
 local options = {
 
-  -- After changing theme, run:
+  -- NOTE: After changing theme, run:
   -- lua require("base46").compile()
-  -- require("base46").load_all_highlights()
+  -- lua require("base46").load_all_highlights()
   base46 = {
     theme = "oceanic-next", -- default theme
-    hl_add = {},
+    hl_add = {
+      NoiceCmdlinePopupBorder = { fg = "teal" },
+      NoiceCmdlinePopupBorderSearch = { fg = "teal" },
+      SnacksPickerListCursorne = { bg = "one_bg2" },
+      SnacksPickerDir = { fg = "nord_blue" },
+      TermBackground = { bg = "#0b1216" },
+      TermCursorLine = { bg = "none" }
+    },
     hl_override = {
       Comment = { fg = "teal" },
       ["@comment"] = { fg = "teal", },
+      IncSearch = { fg = "black", bg = 'teal' },
       WhichKeyDesc = { fg = "blue" },
     },
     integrations = {
+      -- Needed to add atleast these.
+      NoiceCmdlinePopupBorder = { fg = "teal" },
+      NoiceCmdlinePopupBorderSearch = { fg = "teal" },
+      SnacksPickerListCursorLine = { bg = "one_bg2" },
+      SnacksPickerDir = { fg = "nord_blue" },
   },
--- changed_themes allows only custom hex colors
+-- NOTE: changed_themes allows only custom hex colors
     changed_themes = {
-      -- ["oceanic-next"] = {
-      -- Comment = { fg = '#15bf84' },
-      -- ["@comment"] = { fg = '#15bf84' },
-      -- polish_hl = {
-      --   Comment = { fg = '#15bf84'},
-      --   ["@comment"] = { fg = '#15bf84'},
-      -- },
-      -- },
+      ["oceanic-next"] = {
+        base_30 = {
+          black = "#192830",
+          black2 = "#203038",
+        },
+        base_16 = {
+          base00 = "#192830",
+        },
+        -- These weren't enough.
+        NoiceCmdlinePopupBorder = { fg = "#50a4a4" },
+        NoiceCmdlinePopupBorderSearch = { fg = "#50a4a4" },
+      SnacksPickerListCursorLine = { bg = "#2e3e47" },
+      SnacksPickerDir = { fg = "#598cbf" },
+      },
     },
     transparency = false,
     theme_toggle = { "oceanic-next", "oceanic_light" },
