@@ -4,6 +4,30 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("Custom_" .. name, { clear = true })
 end
 
+-- Command mode aliases.
+local aliases = {
+  ["~config"] = vim.fn.expand("~/.config"),
+  ["~custom"] = vim.fn.expand("~/.config/nvim/custom"),
+  ["~ndata"] = vim.fn.expand("~/.local/share/nvim"),
+  ["~notes"] = vim.fn.expand("~/Nextcloud/notes"),
+  ["~nvim"] = vim.fn.expand("~/.config/nvim"),
+  ["~share"] = vim.fn.expand("~/.local/share"),
+}
+
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+  group = augroup("command_mode_aliases"),
+  pattern = ":",
+  callback = function()
+    local cmd = vim.fn.getcmdline()
+
+    for alias, target in pairs(aliases) do
+      cmd = cmd:gsub(alias, target)
+    end
+
+    vim.fn.setcmdline(cmd)
+  end,
+})
+
 -- Make use of custom prefixes on window title which are set based on Neovim
 -- config or session.
 vim.api.nvim_create_autocmd({ "BufEnter", "TermClose" }, {
