@@ -1,7 +1,8 @@
 
--- Install parsers for selected languages. Enable highlighting, indentation.
+-- Install parsers for selected languages and enable features.
 -- https://github.com/nvim-treesitter/nvim-treesitter/tree/main
--- NOTE: be sure to use main branch readme.
+-- NOTE: make sure to read main branch readme.
+-- https://github.com/MeanderingProgrammer/treesitter-modules.nvim
 return {
   {
     'nvim-treesitter/nvim-treesitter',
@@ -14,6 +15,14 @@ return {
     build = ":TSUpdate",
     config = function()
       local parsers = {
+        -- Included by defaults
+        "c",
+        "lua",
+        "markdown",
+        "query", -- Treesitter
+        "vim",
+        "vimdoc",
+        -- Other
         "bash",
         "css",
         "diff",
@@ -22,53 +31,62 @@ return {
         "jsdoc",
         "json",
         "jsonc",
-        "lua",
         "luadoc",
         "luap",
-        "markdown",
         "markdown_inline",
         "printf",
-        "query",
         "regex",
         "todotxt",
         "toml",
-        "vim",
-        "vimdoc",
         "xml",
         "yaml",
         "zsh"
       }
-      -- Install above parsers if they haven't.
-      TS = require("nvim-treesitter")
-      vim.defer_fn(function() TS.install(parsers) end, 1000)
-      TS.update()
+
+      -- Install above parsers if they are missing.
+      vim.defer_fn(function()
+        require('nvim-treesitter').install(parsers)
+      end, 1000)
+
+      local augroup = vim.api.nvim_create_augroup
 
       -- auto-start highlights & indentation
       vim.api.nvim_create_autocmd("FileType", {
-        desc = "Enable treesitter features",
-        callback = function(ctx)
+        group = augroup("Custom_enable_treesitter_features", {}),
+        callback = function(args)
+          local buf = args.buf
+          local filetype = args.match
+
+          -- checks if a parser exists for the current language
+          local language = vim.treesitter.language.get_lang(filetype) or filetype
+          if not vim.treesitter.language.add(language) then
+            return
+          end
 
           -- highlights
-          local hasStarted = pcall(vim.treesitter.start) -- errors for filetypes with no parser
+          -- local hasStarted = pcall(vim.treesitter.start(buf, language))
+          vim.treesitter.start(buf, language)
 
-          local noIndent = {}
-          if hasStarted and not vim.list_contains(noIndent, ctx.match) then
+          -- local noIndent = {}
+          -- if hasStarted and not vim.list_contains(noIndent, filetype) then
+            -- if hasStarted then
             -- indent
-            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
             -- folding
             vim.wo.foldmethod = "expr"
             vim.wo.foldexpr   = "v:lua.vim.treesitter.foldexpr()"
-          end
+          -- end
         end,
       })
 
-      vim.keymap.set("n", "<leader>di", function()
-        vim.treesitter.inspect_tree() vim.api.nvim_input("I")
-      end, { desc = "Inspect Treesitter tree" })
+      function map_inspect(keymap)
+        vim.keymap.set("n", "<leader>" .. keymap, function()
+          vim.treesitter.inspect_tree() vim.api.nvim_input("I")
+        end, { desc = "Inspect Treesitter tree" })
+      end
 
-      vim.keymap.set("n", "<leader>uI", function()
-        vim.treesitter.inspect_tree() vim.api.nvim_input("I")
-      end, { desc = "Inspect Treesitter tree" })
+      map_inspect('di')
+      map_inspect('uI')
 
     end
   },
