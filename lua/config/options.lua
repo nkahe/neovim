@@ -1,33 +1,24 @@
--- ┌──────────────────────────┐
--- │ Built-in Neovim behavior │
--- └──────────────────────────┘
---
--- This file defines Neovim's built-in behavior. The goal is to improve overall
--- usability in a way that works best with MINI.
---
--- Here `vim.o.xxx = value` sets default value of option `xxx` to `value`.
--- See `:h 'xxx'` (replace `xxx` with actual option name).
---
--- Option values can be customized on per buffer or window basis.
--- See 'after/ftplugin/' for common example.
+
+-- Built-in Neovim behavior
 
 -- stylua: ignore start
 -- The next part (until `-- stylua: ignore end`) is aligned manually for easier
--- reading. Consider preserving this or remove `-- stylua` lines to autoformat.
+-- reading.
 
 -- General ====================================================================
-vim.g.mapleader = ' ' -- Use `<Space>` as <Leader> key
 
 vim.o.mouse = 'a'                  -- Enable mouse
 vim.o.mousemoveevent = true        -- Enables mouse hover functionality.
 vim.o.mousescroll = 'ver:25,hor:2' -- Customize mouse scroll
+
+local function has_menu(path)
+  return vim.fn.exists("menu:" .. path) == 1
+end
+
 -- Disable "How-to disable mouse" from mouse context menu.
-if vim.fn.exists(':aunmenu PopUp.How-to\\ disable\\ mouse') == 2 then
-  vim.cmd('aunmenu PopUp.How-to\\ disable\\ mouse')
-end
-if vim.fn.exists(':aunmenu PopUp.-2-') == 2 then
-  vim.cmd('aunmenu PopUp.-2-')
-end
+vim.cmd('silent! aunmenu PopUp.How-to\\ disable\\ mouse')
+vim.cmd('silent! aunmenu PopUp.-2-')
+
 vim.o.switchbuf   = 'usetab'       -- Use already opened buffers when switching
 vim.o.undofile    = true           -- Enable persistent undo
 
@@ -49,60 +40,70 @@ vim.o.linebreak      = true       -- Wrap lines at 'breakat' (if 'wrap' is set)
 vim.o.list           = true       -- Show helpful text indicators
 vim.o.number         = true       -- Show line numbers
 vim.o.pumheight      = 10         -- Make popup menu smaller
-vim.o.ruler          = false      -- Don't show cursor coordinates
+vim.o.ruler          = false      -- Don't show default cursor coordinates
 vim.o.shortmess      = 'CFOSWaco' -- Disable some built-in completion messages
+vim.o.showbreak      = "↪ "       -- Show before wrapped lines.
 vim.o.showmode       = false      -- Don't show mode in command line
 vim.o.signcolumn     = 'yes'      -- Always show signcolumn (less flicker)
 vim.o.splitbelow     = true       -- Horizontal splits will be below
 vim.o.splitkeep      = 'screen'   -- Reduce scroll during window split
 vim.o.splitright     = true       -- Vertical splits will be to the right
 vim.o.winborder      = 'single'   -- Use border in floating windows
-vim.o.wrap           = false      -- Don't visually wrap lines (toggle with \w)
+vim.o.wrap           = false      -- Don't visually wrap lines
 
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 vim.schedule(function()
-  vim.o.clipboard = "unnamed"     -- Use primary clipboard by default.
+  -- Sync with primary (select) clipboard.
+  vim.o.clipboard = vim.env.SSH_CONNECTION and "" or "unnamed"
 end)
 
 -- Special UI symbols. More is set via 'mini.basics' later.
-vim.o.fillchars = 'eob: ,fold:╌'
+vim.opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = "╌",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
+
 vim.o.listchars = 'extends:…,nbsp:␣,precedes:…,tab:» '
 
 -- Folds (see `:h fold-commands`, `:h zM`, `:h zR`, `:h zA`, `:h zj`)
--- vim.o.foldlevel   = 10       -- Fold nothing by default; set to 0 or 1 to fold
-vim.o.foldmethod  = 'indent' -- Fold based on indent level
-vim.o.foldnestmax = 10       -- Limit number of fold levels
-vim.o.foldtext    = 'NONE'   -- Show text under fold with its highlighting
-
-vim.o.foldlevel   = 99       -- Fold nothing by default; set to 0 or 1 to fold
-vim.opt.foldlevelstart = 99  -- Make sure folds are open by default.
 
 -- Editing ====================================================================
-vim.o.autoindent    = true    -- Use auto indent
-vim.o.expandtab     = true    -- Convert tabs to spaces
-vim.o.formatoptions = 'rqnl1j'-- Improve comment editing
-vim.o.ignorecase    = true    -- Ignore case during search
-vim.o.incsearch     = true    -- Show search matches while typing
-vim.o.infercase     = true    -- Infer case in built-in completion
-vim.o.shiftwidth    = 2       -- Use this number of spaces for indentation
-vim.o.smartcase     = true    -- Respect case if search pattern has upper case
-vim.o.smartindent   = true    -- Make indenting smart
-vim.o.spelloptions  = 'camel' -- Treat camelCase word parts as separate words
-vim.o.tabstop       = 2       -- Show tab as this number of spaces
+vim.o.autoindent    = true      -- Use auto indent
+vim.o.autowrite     = true -- Enable auto write
+vim.o.expandtab     = true      -- Convert tabs to spaces
+vim.o.foldmethod     = 'indent' -- Fold based on indent level
+vim.o.foldnestmax    = 10       -- Limit number of fold levels
+vim.o.foldtext       = 'NONE'   -- Show text under fold with its highlighting
+vim.o.foldlevel      = 99       -- Fold nothing by default; set to 0 or 1 to fold
+vim.o.foldlevelstart = 99       -- Make sure folds are open by default.
+vim.o.formatoptions = 'rqnl1j'  -- Improve comment editing
+vim.o.ignorecase    = true      -- Ignore case during search
+vim.o.infercase     = true      -- Infer case in built-in completion
+vim.o.shiftwidth    = 2         -- Use this number of spaces for indentation
+vim.o.smartcase     = true      -- Respect case if search pattern has upper case
+vim.o.smartindent   = true      -- Make indenting smart
+vim.o.smoothscroll  = true
+vim.o.spelloptions  = 'camel'   -- Treat camelCase word parts as separate words
+vim.o.tabstop       = 2         -- Show tab as this number of spaces
 -- vim.o.virtualedit   = 'block' -- Allow going past end of line in blockwise mode
 
 -- Own additions
-vim.o.confirm = true     -- Confirm to save changes before exiting modified buffer
+vim.o.confirm       = true      -- Confirm to save changes before exiting modified buffer
 vim.o.cursorlineopt = 'screenline,number' -- Show cursor line per screen line
-vim.o.gdefault = true    -- Use global flag for :s by default.
-vim.o.inccommand = "split"
-vim.o.relativenumber = true -- Use relative line numbers.
-vim.o.report = 50        -- Report only operations of atleast this many lines.
-vim.o.scrolloff = 7      -- Minimum number of screen lines to keep above and below the cursor.
-vim.o.selectmode = "key" -- When to start Select mode.
-vim.o.spell = false      -- Spellcheck
-vim.o.title = true       -- the title of the window will be set to the value of -- 'titlestring'
-vim.o.virtualedit = "block,onemore" -- Cursor can go paste last character and after block
+vim.o.gdefault      = true      -- Use global flag for :s by default.
+vim.o.inccommand    = "split"
+vim.o.relativenumber = true     -- Use relative line numbers.
+vim.o.report        = 50        -- Report only operations of atleast this many lines.
+vim.o.scrolloff     = 7         -- Minimum number of screen lines to keep above and below the cursor.
+vim.o.selectmode    = "key"     -- When to start Select mode.
+vim.o.sidescrolloff = 8         -- Columns of context
+vim.o.spell         = false     -- Spellcheck
+vim.o.title         = true      -- the title of the window will be set to the value of -- 'titlestring'
+vim.o.virtualedit   = "block,onemore" -- Cursor can go paste last character and after block
 -- vim.o.pumblend = 10  -- Transparency for pop-up menus.
 -- vim.o.winblend = 10  -- Transparency for floating windows.
 -- vim.opt.listchars = "tab:→ ,trail:·,extends:…,precedes:…,nbsp:␣"
@@ -139,9 +140,6 @@ _G.Config.new_autocmd('FileType', nil, f, "Proper 'formatoptions'")
 
 -- Diagnostics ================================================================
 
--- Neovim has built-in support for showing diagnostic messages. This configures
--- a more conservative display while still being useful.
--- See `:h vim.diagnostic` and `:h vim.diagnostic.config()`.
 local diagnostic_opts = {
   -- Show signs on top of any other sign, but only for warnings and errors
   signs = { priority = 9999, severity = { min = 'WARN', max = 'ERROR' } },
@@ -175,7 +173,7 @@ local function apply_diagnostics()
   vim.diagnostic.config(diagnostic_opts)
 end
 
--- Apply diagnostics. try MiniDeps, then Lazy.nvim, else fallback
+-- Apply diagnostics. Use MiniDeps or Lazy.nvim if available, else fallback.
 -- Defer startup for speed.
 local ok_mini, MiniDeps = pcall(require, "mini.deps")
 if ok_mini and MiniDeps.later then
