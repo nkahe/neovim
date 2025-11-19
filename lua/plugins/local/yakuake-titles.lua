@@ -1,10 +1,16 @@
 
 -- Set tab title dynamically for Yakuake terminal.
 
+if vim.g.neovide then
+  return
+end
+
 -- Find out if we are running in Yakuake.
 local function read_proc(cmd)
   local h = io.popen(cmd)
-  if not h then return nil end
+  if not h then
+    return nil
+  end
   local res = h:read("*l")
   h:close()
   return res
@@ -14,15 +20,25 @@ local function is_yakuake()
   local pid = vim.fn.getpid()
   while pid ~= 1 do
     local proc = read_proc("ps -p " .. pid .. " -o comm=")
-    if proc == "yakuake" then return true end
+    if proc == "yakuake" then
+      return true
+    end
+
     local ppid = read_proc("ps -p " .. pid .. " -o ppid=")
-    if not ppid or ppid == "" then break end
-    pid = tonumber(ppid)
+    local next_pid = tonumber(ppid)
+
+    if not next_pid then
+      break
+    end
+
+    pid = next_pid
   end
   return false
 end
 
-if not is_yakuake() then return end
+if not is_yakuake() then
+  return
+end
 
 -- Function to update the Yakuake terminal tab title
 local function update_yakuake_title()
