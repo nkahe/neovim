@@ -6,6 +6,7 @@ local options = {
   base46 = {
     theme = "oceanic-next", -- default theme
     hl_add = {
+      -- Needed to add atleast these.
       NoiceCmdlinePopupBorder = { fg = "teal" },
       NoiceCmdlinePopupBorderSearch = { fg = "teal" },
       SnacksPickerListCursorne = { bg = "one_bg2" },
@@ -39,8 +40,8 @@ local options = {
         -- These weren't enough.
         NoiceCmdlinePopupBorder = { fg = "#50a4a4" },
         NoiceCmdlinePopupBorderSearch = { fg = "#50a4a4" },
-      SnacksPickerListCursorLine = { bg = "#2e3e47" },
-      SnacksPickerDir = { fg = "#598cbf" },
+        SnacksPickerListCursorLine = { bg = "#2e3e47" },
+        SnacksPickerDir = { fg = "#598cbf" },
       },
     },
     transparency = false,
