@@ -173,7 +173,7 @@ return {
         fixme = hi_words({ 'FIXME' }, 'MiniHipatternsFixme'),
         hack = hi_words({ 'HACK' }, 'MiniHipatternsHack'),
         todo = hi_words({ 'TODO' }, 'MiniHipatternsTodo'),
-        note = hi_words({ 'NOTE' }, 'MiniHipatternsNote'),
+        note = hi_words({ 'NOTE', 'HUOM' }, 'MiniHipatternsNote'),
         -- Highlight hex color string (#aabbcc) with that color as a background
         hex_color = hipatterns.gen_highlighter.hex_color(),
       },
@@ -192,7 +192,7 @@ return {
           print("Changed CWD to: " .. root)
         else
           vim.cmd("lcd ..")
-          print("Root not found, changed to: \n" .. vim.loop.cwd())
+          print("Root not found, changed to: \n" .. vim.fn.getcwd())
         end
       end,
       { desc = "Find root and lcd" }
@@ -249,6 +249,11 @@ return {
       -- Whether to write currently read session before leaving it
       autowrite = true,
       hooks = {
+        -- -- Before successful action
+        -- pre = { read = nil, write = nil, delete = nil },
+        -- -- After successful action
+        -- post = { read = nil, write = nil, delete = nil },
+
         -- Doesn't get executed if using automatic writing and quitting.
         pre = {
           read = function()

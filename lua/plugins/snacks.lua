@@ -31,9 +31,11 @@ return
           { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
           { icon = " ", key = "s", desc = "Load latest session",
             action = function()
+
               local MiniSessions = require("mini.sessions")
               local latest = MiniSessions.get_latest()
               if latest then
+                _G.Config.windowtitle = latest
                 MiniSessions.read(latest)
               else
                 vim.notify("No sessions found", vim.log.levels.WARN)
@@ -43,7 +45,9 @@ return
           -- Defaults
           -- { icon = " ", key = "s", desc = "Restore last session", action = function() require("persistence").load({ last = true }) end },
           -- { icon = " ", key = "S", desc = "Select session", action = function() require("persistence").select() end },
-          { icon = " ", key = "S", desc = "Select session", action = function() require("mini.sessions").select("read") end, },
+          { icon = " ", key = "S", desc = "Select session", action = function()
+              require("mini.sessions").select("read")
+            end, },
           { icon = "󰒲 ", key = "l", desc = "Open Lazy", action = ":Lazy" },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
@@ -406,6 +410,7 @@ return
   }, -- keys
 
   init = function()
+
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
       callback = function()

@@ -22,9 +22,9 @@ return {
 
     vim.list_extend(
       messages,
-      { { pwd, 'Special' }, { '/', 'Special' }, { file, 'Directory' } },
+      { { 'CWD: ' }, { pwd .. '\n', 'Special' }, { 'File: ' }, { file, 'Directory' } },
       1,
-      3
+      4
     )
     vim.api.nvim_echo(messages, false, {})
   end,

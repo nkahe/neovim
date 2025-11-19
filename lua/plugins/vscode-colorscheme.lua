@@ -30,12 +30,12 @@ return {
       SnacksPickerTree = { fg = '#404040', bg = 'NONE', },
       SnacksPickerDirectory = { bg ='NONE' },
       SnacksPickerCol = { bg ='#252525' },
+      SnacksPickerGitStatusUntracked = { fg = "#8b8b8b", bg = "NONE" },
+      SnacksPickerPathHidden = { fg = "#8b8b8b", bg = "NONE" },
 
       -- Make input box less striking.
       SnacksPickerInputBorder = { fg = "#595959", bg = "NONE" },
       SnacksPickerInputTitle = { fg = "#919191", bg = "NONE" },
-      SnacksPickerGitStatusUntracked = { fg = "#8b8b8b", bg = "NONE" },
-      SnacksPickerPathHidden = { fg = "#8b8b8b", bg = "NONE" },
 
       SnacksNotifierMinimal = { bg = "#1b1b1b" },
 

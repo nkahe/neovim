@@ -88,6 +88,7 @@ return {
       -- Override mode backgrounds
       custom.normal.a.bg = "#598cbf"
       custom.normal.a.fg = "#000000"
+      custom.insert.a.bg = "#598cbf"
       -- custom.insert.a.bg  = ""
       -- custom.visual.a.bg  = ""
       -- custom.replace.a.bg = ""
@@ -109,7 +110,7 @@ return {
           disabled_filetypes = { statusline =
             { "dashboard", "alpha", "ministarter", "snacks_dashboard" }
           },
-          -- Get rid off '' and '' which color can't be changed.
+          -- Get rid off '' and ''.
           component_separators = { left = '', right = ' '},
         },
         sections = {
