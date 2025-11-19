@@ -141,7 +141,21 @@ return {
       },
     },
     opts = {
-      regexOptions = { startWithFixedStringsOn = true }
+      regexOptions = {
+        startWithFixedStringsOn = true,
+        startWithIgnoreCase = true,
+      },
+      keymaps = { -- normal mode (if not stated otherwise)
+        abort = "q",
+        confirm = "<CR>",
+        insertModeConfirm = "<C-CR>",
+        prevSubstitutionInHistory = "<Up>",
+        nextSubstitutionInHistory = "<Down>",
+        toggleFixedStrings = "<M-r>", -- ripgrep's `--fixed-strings`
+        toggleIgnoreCase = "<M-c>", -- ripgrep's `--ignore-case`
+        openAtRegex101 = "R",
+        showHelp = "?",
+      },
     },
   },
 
