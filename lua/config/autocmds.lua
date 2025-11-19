@@ -4,6 +4,32 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("Custom_" .. name, { clear = true })
 end
 
+-- Make --NVIM_SESSION=<session_name> Neovim command line parameter to set
+-- read session at start.
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = augroup('start_with_session'),
+  callback = function()
+    local session = vim.env.NVIM_SESSION
+    if not session or session == "" then
+      return
+    end
+
+    -- don't override when files were passed
+    if vim.fn.argc() > 0 then
+      return
+    end
+
+    _G.Config.windowtitle = session
+
+    vim.schedule(function()
+      pcall(function()
+        require("mini.sessions").read(session)
+      end)
+    end)
+
+  end,
+})
+
 -- Command mode aliases.
 local aliases = {
   ["~config"] = vim.fn.expand("~/.config"),
