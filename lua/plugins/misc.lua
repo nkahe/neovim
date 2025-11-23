@@ -37,26 +37,7 @@ return {
   -- https://github.com/EinfachToll/DidYouMean
   {
     "EinfachToll/DidYouMean",
-
-    -- Prevent plugin firing by Snacks.scratch.
-    config = function ()
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "SnacksScratchOpened",
-        callback = function(ev)
-          -- Disable DidYouMean by marking the buffer as "existing"
-          vim.b[ev.buf].didyoumean_disable = true
-        end,
-      })
-
-      -- prevent running on buffers with the variable
-      vim.api.nvim_create_autocmd("BufNewFile", {
-        callback = function(ev)
-          if vim.b[ev.buf].didyoumean_disable then
-            return true  -- stopping DidYouMean
-          end
-        end,
-      })
-    end
+    enabled = false
   },
 
   -- https://github.com/folke/flash.nvim
