@@ -112,9 +112,24 @@ return {
     }
   },
 
+-- markdown preview
+-- https://github.com/iamcco/markdown-preview.nvim
+{
+  "iamcco/markdown-preview.nvim",
+  cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+  build = "cd app && npm install",
+  init = function()
+    vim.g.mkdp_filetypes = { "markdown" }
+  end,
+  ft = { "markdown" },
+    keys = {
+      { "<Leader>mp", "<cmd>MarkdownPreviewToggle<CR>", mode = "n", desc = "Toggle preview" }
+    }
+},
+
   {
     "OXY2DEV/markview.nvim",
-    enabled = true,
+ startWithIgnoreCase = false,   enabled = true,
     -- Do not lazy load this plugin as it is already lazy-loaded.
     lazy = false,
     -- Ensure theme loads after this plugin.
