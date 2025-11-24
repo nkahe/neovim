@@ -329,12 +329,17 @@ return {
       })
 
       require("neo-tree").setup(opts)
-      vim.api.nvim_set_hl(0, "NeoTreeTabInactive", { fg = "#5f6f78", bg = "#122027" })
-      vim.api.nvim_set_hl(0, "NeoTreeTabSeparatorInactive", { fg = "#122027", bg = "#122027" })
+      local darker_black = "#122027"
+      vim.api.nvim_set_hl(0, "NeoTreeTabInactive", { fg = "#5f6f78", bg = darker_black })
+      vim.api.nvim_set_hl(0, "NeoTreeTabSeparatorInactive", { fg = darker_black, bg = darker_black })
       vim.api.nvim_set_hl(0, "NeoTreeGitConflict",  { fg = "#738490" })
       vim.api.nvim_set_hl(0, "NeoTreeGitModified",  { fg = "#738490" })
       vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { fg = "#738490" })
       vim.api.nvim_set_hl(0, "NeoTreeGitUnstaged",  { fg = "#738490" })
+      vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = darker_black })
+      vim.api.nvim_set_hl(0, "NeoTreeNormalNC",  { bg = darker_black })
+      vim.api.nvim_set_hl(0, "NeoTreeNormal",    { bg = darker_black })
+      vim.api.nvim_set_hl(0, "NeoTreeNormalNC",  { bg = darker_black })
     end,
   }
 
