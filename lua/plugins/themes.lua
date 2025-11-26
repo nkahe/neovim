@@ -1,5 +1,14 @@
 
+if vim.g.vscode then
+  return {}
+end
+
 return {
+
+ {
+    'AbdelrahmanDwedar/awesome-nvim-colorschemes',
+    enabled = false
+ },
 
   {
     "nvchad/base46",
@@ -11,11 +20,19 @@ return {
   },
 
   {
+    "rebelot/kanagawa.nvim",
+    enabled = false,
+    config = function()
+      vim.cmd('colorscheme kanagawa')
+    end,
+  },
+
+  {
     'roflolilolmao/oceanic-next.nvim',
     enabled = false,
     priority = 1000,
     config = function()
-      -- vim.cmd('colorscheme OceanicNext') 
+      vim.cmd('colorscheme OceanicNext') 
     end,
   },
 

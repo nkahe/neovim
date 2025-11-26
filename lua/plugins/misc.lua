@@ -5,11 +5,6 @@
 
 return {
 
- {
-    'AbdelrahmanDwedar/awesome-nvim-colorschemes',
-    enabled = false
- },
-
   -- Forked from wsdjeg/ctrlg.nvim to better suit with narrower notifications.
   -- https://github.com/wsdjeg/ctrlg.nvim
   -- Paths need to be in this format.
