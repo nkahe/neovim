@@ -4,6 +4,16 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("Custom_" .. name, { clear = true })
 end
 
+-- Compile and apply Base46 theme when changes are saved.
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "nvconfig.lua",
+  callback = function()
+    require("base46").compile()
+    require("base46").load_all_highlights()
+    vim.notify("Theme compiled", vim.log.INFO)
+  end,
+})
+
 -- Make --NVIM_SESSION=<session_name> Neovim command line parameter to set
 -- read session at start.
 vim.api.nvim_create_autocmd("VimEnter", {
@@ -97,6 +107,8 @@ vim.api.nvim_create_autocmd({ "TermOpen", "WinEnter" }, {
   end,
 })
 
+-- Set background color for terminal. Neovim doesn't have exclusive highlights
+-- groups for it natively.
 -- Adding "VimResized" didn't have an effect.
 vim.api.nvim_create_autocmd({ "TermOpen", "WinEnter"  }, {
   group = augroup("set_terminal_background_color"),
