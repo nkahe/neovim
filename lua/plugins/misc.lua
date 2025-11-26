@@ -82,6 +82,8 @@ return {
     vscode = true  -- Enable in vscode
   },
 
+  -- provides modern markdown editing capabilities, implementing features found
+  -- in popular editors.
   -- https://github.com/yousefhadder/markdown-plus.nvim?tab=readme-ov-file
   {
     "yousefhadder/markdown-plus.nvim",
@@ -108,17 +110,29 @@ return {
     }
 },
 
+  -- Render markdown.
   {
     "OXY2DEV/markview.nvim",
- startWithIgnoreCase = false,   enabled = true,
+    enabled = true,
+    startWithIgnoreCase = false,
     -- Do not lazy load this plugin as it is already lazy-loaded.
     lazy = false,
     -- Ensure theme loads after this plugin.
-    dependencies = { "Mofiqul/vscode.nvim" },
+    -- dependencies = { "Mofiqul/vscode.nvim" },
     -- Completion for `blink.cmp`
     -- dependencies = { "saghen/blink.cmp" },
     keys = {
       { "<Leader>um", "<cmd>Markview Toggle<CR>", mode = "n", desc = "Toggle markdown rendering" }
+    },
+    options = {
+      headings = {
+        heading_1 = { sign = "" },
+        heading_2 = { sign = "" },
+        heading_3 = { sign = "" },
+        heading_4 = { sign = "" },
+        heading_5 = { sign = "" },
+      },
+      code_blocks = { sign = false }
     },
   },
 
