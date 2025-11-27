@@ -1,7 +1,8 @@
 
 -- NOTE: spell check is defined in autocmds.lua to work with LazyVim.
 
--- vim.opt.textwidth = 90     -- Set the soft wrap column
+-- Disable diagnostics by default.
+vim.diagnostic.enable(false)
 
 vim.cmd('setlocal wrap nospell')
 
@@ -15,5 +16,3 @@ vim.schedule(function()
     vim.notify("'Wrapwidth' is off", vim.log.levels.INFO)
   end
 end)
--- Disable diagnostics by default.
-vim.diagnostic.enable(false)
