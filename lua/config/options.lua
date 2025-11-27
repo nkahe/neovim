@@ -5,11 +5,27 @@
 -- The next part (until `-- stylua: ignore end`) is aligned manually for easier
 -- reading.
 
+-- Settings in this section are applied when running under VSCode.
+
+--  Schedule the setting after `UiEnter` because it can increase startup-time.
+vim.schedule(function()
+  -- Sync with primary (select) clipboard.
+  vim.o.clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus"
+end)
+
+if vim.g.vscode then
+  return {}
+end
+
+-- Non VSCode settings after this ---------------------------------------------
+
 -- General ====================================================================
+
+local opt = vim.opt
 
 vim.o.mouse = 'a'                  -- Enable mouse
 vim.o.mousemoveevent = true        -- Enables mouse hover functionality.
-vim.o.mousescroll = 'ver:25,hor:2' -- Customize mouse scroll
+vim.o.mousescroll = 'ver:5,hor:5' -- Customize mouse scroll
 
 local function has_menu(path)
   return vim.fn.exists("menu:" .. path) == 1
@@ -51,12 +67,6 @@ vim.o.splitright     = true       -- Vertical splits will be to the right
 vim.o.winborder      = 'single'   -- Use border in floating windows
 vim.o.wrap           = false      -- Don't visually wrap lines
 
---  Schedule the setting after `UiEnter` because it can increase startup-time.
-vim.schedule(function()
-  -- Sync with primary (select) clipboard.
-  vim.o.clipboard = vim.env.SSH_CONNECTION and "" or "unnamed"
-end)
-
 -- Special UI symbols. More is set via 'mini.basics' later.
 vim.opt.fillchars = {
   foldopen = "",
@@ -72,9 +82,9 @@ vim.o.listchars = 'extends:…,nbsp:␣,precedes:…,tab:» '
 -- Folds (see `:h fold-commands`, `:h zM`, `:h zR`, `:h zA`, `:h zj`)
 
 -- Editing ====================================================================
-vim.o.autoindent    = true      -- Use auto indent
-vim.o.autowrite     = true -- Enable auto write
-vim.o.expandtab     = true      -- Convert tabs to spaces
+vim.o.autoindent     = true     -- Use auto indent
+vim.o.autowrite      = true     -- Enable auto write
+vim.o.expandtab      = true     -- Convert tabs to spaces
 vim.o.foldmethod     = 'indent' -- Fold based on indent level
 vim.o.foldnestmax    = 10       -- Limit number of fold levels
 vim.o.foldtext       = 'NONE'   -- Show text under fold with its highlighting
@@ -82,28 +92,34 @@ vim.o.foldlevel      = 99       -- Fold nothing by default; set to 0 or 1 to fol
 vim.o.foldlevelstart = 99       -- Make sure folds are open by default.
 vim.o.formatoptions = 'rqnl1j'  -- Improve comment editing
 vim.o.ignorecase    = true      -- Ignore case during search
-vim.o.infercase     = true      -- Infer case in built-in completion
+vim.o.infercase     = true      -- Infer case in built-in completion 
+vim.o.linebreak     = true      -- Wrap lines at convenient points
 vim.o.shiftwidth    = 2         -- Use this number of spaces for indentation
 vim.o.smartcase     = true      -- Respect case if search pattern has upper case
 vim.o.smartindent   = true      -- Make indenting smart
 vim.o.smoothscroll  = true
 vim.o.spelloptions  = 'camel'   -- Treat camelCase word parts as separate words
 vim.o.tabstop       = 2         -- Show tab as this number of spaces
+opt.timeoutlen = vim.g.vscode and 1000 or 300 -- Lower than default (1000) to quickly trigger which-key
 -- vim.o.virtualedit   = 'block' -- Allow going past end of line in blockwise mode
 
 -- Own additions
 vim.o.confirm       = true      -- Confirm to save changes before exiting modified buffer
 vim.o.cursorlineopt = 'screenline,number' -- Show cursor line per screen line
 vim.o.gdefault      = true      -- Use global flag for :s by default.
+vim.o.grepformat    = "%f:%l:%c:%m"
+vim.o.grepprg       = "rg --vimgrep"
 vim.o.inccommand    = "split"
 vim.o.relativenumber = true     -- Use relative line numbers.
 vim.o.report        = 50        -- Report only operations of atleast this many lines.
-vim.o.scrolloff     = 7         -- Minimum number of screen lines to keep above and below the cursor.
+vim.o.scrolloff     = 8         -- Minimum number of screen lines to keep above and below the cursor.
 vim.o.selectmode    = "key"     -- When to start Select mode.
 vim.o.sidescrolloff = 8         -- Columns of context
 vim.o.spell         = false     -- Spellcheck
 vim.o.title         = true      -- the title of the window will be set to the value of -- 'titlestring'
+vim.o.updatetime    = 300       -- Save swap file and trigger CursorHold
 vim.o.virtualedit   = "block,onemore" -- Cursor can go paste last character and after block
+vim.o.wildmode      = "longest:full,full" -- Command-line completion mode
 -- vim.o.pumblend = 10  -- Transparency for pop-up menus.
 -- vim.o.winblend = 10  -- Transparency for floating windows.
 -- vim.opt.listchars = "tab:→ ,trail:·,extends:…,precedes:…,nbsp:␣"

@@ -1,6 +1,10 @@
 
 -- UI related plugins.
 
+if vim.g.vscode then
+  return {}
+end
+
 -- Configs are mostly from LazyVim.
 return {
 

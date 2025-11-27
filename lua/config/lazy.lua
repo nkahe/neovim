@@ -20,17 +20,45 @@ vim.opt.rtp:prepend(lazypath)
 -- loading lazy.nvim so that mappings are correct.
 -- This is also a good place to setup other settings (vim.opt)
 
+
+local vscode_plugins = {
+  -- "dial.nvim",
+  -- "flit.nvim",
+  -- "leap.nvim",
+  -- "mini.ai",
+  -- "mini.comment",
+  -- "mini.move",
+  -- "mini.pairs",
+  -- "mini.surround",
+  -- "mini",
+  "nvim-treesitter",
+  "nvim-treesitter-textobjects",
+  -- "nvim-ts-context-commentstring",
+  -- "vim-repeat",
+  -- "yanky.nvim",
+  -- Add other plugins you want to enable in VSCode
+}
+
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
     -- import your plugins
     { import = "plugins" },
   },
+  defaults = {
+    -- Only load enabled plugins in VSCode
+    cond = vim.g.vscode and function(plugin)
+      return vim.tbl_contains(vscode_plugins, plugin.name)
+    end or nil,
+  },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins. Colorscheme enabled
   -- in it's settings.
   -- Using base46 so this isn't needed.
   -- install = { colorscheme = { "oceanic-next" } },
+  -- Automatically check for plugin updates
+  checker = { enabled = false },
+  change_detection = { enabled = not vim.g.vscode },
   cresbeznapr = {
     egc = {
       -- disable some rtp plugins.
@@ -48,6 +76,4 @@ require("lazy").setup({
       },
     },
   },
-  -- automatically check for plugin updates
-  -- checker = { enabled = true },
 })

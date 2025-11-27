@@ -33,10 +33,6 @@ for _, mode in ipairs({ "n", "x", "o" }) do
   map(mode, "gL", "L", { desc = "Go to bottom of window" })
 end
 
-map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-
-map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Open Lazy" })
-
 -- diagnostic
 local diagnostic_goto = function(next, severity)
   return function()
@@ -57,9 +53,6 @@ map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
 -- new file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
-
--- floating terminal
-map("n", "<leader>ft", function() Snacks.terminal() end, { desc = "Terminal" })
 
 vim.api.nvim_set_keymap( "v", "<LocalLeader>W", ":!fmt -w 80<CR>",
   { desc = "Wrap text to 80 char", noremap = true, silent = true }
@@ -134,3 +127,18 @@ map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 -- lua
 -- map({"n", "x"}, "<localleader>r", function() Snacks.debug.run() end, { desc = "Run Lua", ft = "lua" })
+
+
+--------------------------------------------------------------------------------
+-- No VSCode compatible mappings after this
+--------------------------------------------------------------------------------
+
+if vim.g.vscode then return end
+
+map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+
+-- floating terminal
+map("n", "<leader>ft", function() Snacks.terminal() end, { desc = "Terminal" })
+
+map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Open Lazy" })
+
