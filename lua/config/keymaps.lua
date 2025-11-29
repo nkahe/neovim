@@ -43,6 +43,7 @@ local diagnostic_goto = function(next, severity)
     })
   end
 end
+
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
 map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
@@ -109,10 +110,6 @@ local function close_snacks_picker()
   end
 end
 
--- quit
-map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
-map("n", "<leader>qQ", "<cmd>qa!<cr>", { desc = "Quit All without saving" })
-
 -- highlights under cursor
 map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 
@@ -141,4 +138,8 @@ map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "<leader>ft", function() Snacks.terminal() end, { desc = "Terminal" })
 
 map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Open Lazy" })
+
+-- quit
+map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
+map("n", "<leader>qQ", "<cmd>qa!<cr>", { desc = "Quit All without saving" })
 

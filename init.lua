@@ -34,6 +34,11 @@ require("config.lazy")
  -- dofile(vim.g.base46_cache .. "defaults")
  -- dofile(vim.g.base46_cache .. "statusline")
 
+require("config.options")
+require("config.keymaps")
+require("config.shared-keymaps")
+
+-- If run embedded in VSCode use these specific settings and skip not useful ones.
 if vim.g.vscode then
   require("plugins.local.vscode")
 else
@@ -41,17 +46,16 @@ else
   for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
     dofile(vim.g.base46_cache .. v)
   end
+
+  require("config.autocmds-lazyvim")
+  require("config.autocmds")
+  require("config.user-commands")
+
+  -- Start server so can open files in terminal with Neovim without having to open
+  -- them in different process.
+  if not vim.v.servername or vim.v.servername == '' then
+    vim.fn.serverstart(string.format("/tmp/nvim.%d", vim.fn.getpid()))
+  end
+
 end
 
-require("config.options")
-require("config.keymaps")
-require("config.shared-keymaps")
-require("config.autocmds-lazyvim")
-require("config.autocmds")
-require("config.user-commands")
-
--- Start server so can open files in terminal with Neovim without having to open
--- them in different process.
-if not vim.v.servername or vim.v.servername == '' then
-  vim.fn.serverstart(string.format("/tmp/nvim.%d", vim.fn.getpid()))
-end

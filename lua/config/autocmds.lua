@@ -1,8 +1,4 @@
 
-if vim.g.vscode then
-  return {}
-end
-
 -- Helper to set autogroup with prefix.
 local function augroup(name)
   return vim.api.nvim_create_augroup("Custom_" .. name, { clear = true })
