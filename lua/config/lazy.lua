@@ -22,17 +22,16 @@ vim.opt.rtp:prepend(lazypath)
 
 -- vscode.lua has additional settings for some of these.
 local vscode_plugins = {
-  -- "dial.nvim",
-  -- "flit.nvim",
-  -- "leap.nvim",
+  "dial.nvim",
+  "flash.nvim",
   "mini.nvim",
   "nvim-treesitter",
   "nvim-treesitter-textobjects",
+  "vim-insert-append-single-character",
   -- "nvim-ts-context-commentstring",
   -- "snacks.nvim",
   -- "vim-repeat",
   -- "yanky.nvim",
-  -- Add other plugins you want to enable in VSCode
 }
 
 -- Setup lazy.nvim
@@ -61,7 +60,7 @@ require("lazy").setup({
       disabled_plugins = {
         "gzip",
         "matchit",
-        -- Snacks / VSCode does this.
+        -- Snacks I think does this.
         "matchparen",
         -- disabling netrw diables ability to edit remote files with scp.
         "netrwPlugin",
