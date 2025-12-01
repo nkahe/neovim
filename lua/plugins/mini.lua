@@ -211,15 +211,27 @@ return {
       end
     end
 
-    -- If plugins like Snacks.explorer are open when session is saved, they
-    -- left empty windows. Close them after restoring session.
+    -- If plugins like filetrees are open when session is saved, they
+    -- left empty residue window + buffer. This closes window and deletes
+    -- the buffer.
+    -- For neotree buf and ft is empty and name_
+    -- "neo-tree filesystem [id]
     local function close_empty_windows()
+
       for _, win in ipairs(vim.api.nvim_list_wins()) do
         local buf = vim.api.nvim_win_get_buf(win)
-        if vim.api.nvim_buf_get_name(buf) == "" and vim.bo[buf].filetype == "" then
-          if #vim.api.nvim_list_wins() > 1 then pcall(vim.api.nvim_win_close, win, true) end
+        local ft = vim.bo[buf].filetype
+        local name = vim.api.nvim_buf_get_name(buf)
+
+        local is_neotree = name:match("neo%-tree ")
+        local is_empty = (name == "" and ft == "")
+
+        if (is_empty or is_neotree) and #vim.api.nvim_list_wins() > 1 then
+          pcall(vim.api.nvim_win_close, win, true)
+          vim.api.nvim_buf_delete(buf, { force = true })
         end
       end
+
     end
 
     require('mini.operators').setup({
@@ -247,6 +259,7 @@ return {
 
     require('mini.sessions').setup({
       -- Whether to write currently read session before leaving it
+      autoread = false,
       autowrite = true,
       hooks = {
         -- -- Before successful action
