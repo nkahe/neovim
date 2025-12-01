@@ -85,7 +85,7 @@ return {
         end, { desc = "Inspect Treesitter tree" })
       end
 
-      map_inspect('di')
+      map_inspect('ði')
       map_inspect('uI')
 
     end
@@ -132,8 +132,9 @@ return {
       map("[C", function() move.goto_previous_end("@class.outer") end, "Previous class end")
 
       -- Next / Previous (closer)
-      map("]d", function() move.goto_next("@conditional.outer") end, "Next conditional")
-      map("[d", function() move.goto_previous("@conditional.outer") end, "Previous conditional")
+      -- d is used for diagnostics.
+      -- map("]d", function() move.goto_next("@conditional.outer") end, "Next conditional")
+      -- map("[d", function() move.goto_previous("@conditional.outer") end, "Previous conditional")
 
       local ts_repeat_move = require "nvim-treesitter-textobjects.repeatable_move"
 
