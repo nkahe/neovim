@@ -7,12 +7,6 @@
 
 -- Settings in this section are applied when running under VSCode.
 
---  Schedule the setting after `UiEnter` because it can increase startup-time.
-vim.schedule(function()
-  -- Sync with primary (select) clipboard.
-  vim.o.clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus"
-end)
-
 -- Editing ====================================================================
 vim.o.autoindent    = true      -- Use auto indent
 vim.o.autowrite     = true      -- Enable auto write
@@ -66,6 +60,17 @@ vim.o.splitbelow     = true       -- Horizontal splits will be below
 vim.o.splitkeep      = 'screen'   -- Reduce scroll during window split
 vim.o.splitright     = true       -- Vertical splits will be to the right
 vim.o.winborder      = 'single'   -- Use border in floating windows
+
+local user = os.getenv("USER") or ""
+
+-- Sync with system clipboard if we don't happen to run as root (doesn't work in 
+-- Wpayland) or connected with SSH.
+if user ~= "root" and not vim.env.SSH_TTY then
+  --  Schedule the setting after `UiEnter` because it can increase startup-time.
+  vim.schedule(function()
+    vim.o.clipboard = "unnamedplus"
+  end)
+end
 
 if vim.g.vscode then return {} end
 
