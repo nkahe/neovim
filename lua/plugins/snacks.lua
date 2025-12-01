@@ -17,7 +17,6 @@ return
   enabled = true,
   priority = 1000,
   lazy = false,
-  ---@type snacks.Config
   opts = {
     bigfile = { enabled = true },
     dashboard = {
@@ -31,7 +30,6 @@ return
           { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
           { icon = " ", key = "s", desc = "Load latest session",
             action = function()
-
               local MiniSessions = require("mini.sessions")
               local latest = MiniSessions.get_latest()
               if latest then
@@ -40,7 +38,7 @@ return
               else
                 vim.notify("No sessions found", vim.log.levels.WARN)
               end
-            end,
+            end
           },
           -- Defaults
           -- { icon = " ", key = "s", desc = "Restore last session", action = function() require("persistence").load({ last = true }) end },
@@ -50,15 +48,39 @@ return
             end, },
           { icon = "󰒲 ", key = "l", desc = "Open Lazy", action = ":Lazy" },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-          { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+          { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1,
+            action = function(project_dir)
+              local Sessions = require("mini.sessions")
+
+              -- turn /home/.../foo -> "foo"
+              local name = vim.fs.basename(project_dir)
+
+              -- if a session for that name exists, load it.
+              local detected = Sessions.detected
+              if detected[name] then
+                _G.Config.windowtitle = name
+                Sessions.read(name)
+                return
+              end
+
+              -- fallback: just open the directory and pick a file.
+              vim.cmd("cd " .. vim.fn.fnameescape(project_dir))
+              require("snacks").dashboard.pick("files")
+            end,
+          },
         },
       },
-
     },
 
+    -- Defaults:
+    -- <leader>e	Explorer Snacks (root dir)
+    -- <leader>E	Explorer Snacks (cwd)
     explorer = { enabled = true },
+
     indent = { enabled = true },
+
     input = { enabled = true },
+
     -- Notification style such as wrap is defined in snacks.styles -module.
     notifier = {
       enabled = true,
@@ -203,10 +225,15 @@ return
     },
 
     quickfile = { enabled = true },
+
     scope = { enabled = true },
+
     scratch = { enabled = true },
+
     scroll = { enabled = true },
+
     statuscolumn = { enabled = true },
+
     terminal = {
       enabled = true,
       win = {
@@ -218,6 +245,7 @@ return
         },
       },
     },
+
     words = { enabled = true },
 
     styles = {
@@ -271,7 +299,7 @@ return
     { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
     { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
     { "<leader>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
-    { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
+    -- { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
     -- find
     { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
     { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
@@ -366,13 +394,15 @@ return
     { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
 
     -- Terminal
-    { "<F12>", function()
+
+    -- Quake style dropdown menu.
+    { "`", function()
         Snacks.terminal.toggle(nil, {
           win = { position = "float", style = "terminal", border = "rounded",
-            width = 0.8, height = 0.8,
+            row = 0, width = 0.7, height = 0.8,
           },
         })
-      end, desc = "Toggle floating terminal" },
+      end, desc = "Toggle floating terminal", mode = { "n", "t" } },
     -- These have cliches with Neovide.
     -- { "<Leader>tt", function() Snacks.terminal.toggle() end, desc = "Toggle terminal" },
     { "<Leader>ts", function() Snacks.terminal() end, desc = "Open in horizontal split"},
@@ -431,18 +461,7 @@ return
           vim.print = _G.dd
         end
 
-        vim.keymap.set('t', "<F12>", function()
-          Snacks.terminal.toggle(nil, {
-            win = {
-              position = "float",
-              style = "terminal",
-              border = "rounded",
-              width = 0.8,
-              height = 0.8,
-            },
-          })
-        end, { desc = "Toggle split" })
-
+        -- Make toggle terminal use custom terminal colors.
         if Snacks and Snacks.terminal then
           local toggle_original = Snacks.terminal.toggle
           Snacks.terminal.toggle = function(...)
@@ -466,8 +485,8 @@ return
         Snacks.toggle.option("showtabline", { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" }):map("<leader>uA")
         Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
         Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-        Snacks.toggle.profiler():map("<leader>dpp")
-        Snacks.toggle.profiler_highlights():map("<leader>dph")
+        Snacks.toggle.profiler():map("<leader>ðpp")
+        Snacks.toggle.profiler_highlights():map("<leader>ðph")
         Snacks.toggle.scroll():map("<leader>uS")
         Snacks.toggle.treesitter():map("<leader>uT")
       end,
