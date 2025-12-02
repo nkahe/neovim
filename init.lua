@@ -23,11 +23,9 @@ _G.Config.new_autocmd = function(event, pattern, callback, desc)
   local opts = { group = gr, pattern = pattern, callback = callback, desc = desc }
   vim.api.nvim_create_autocmd(event, opts)
 end
-
 -- Source config files.
 
 require("config.lazy")
-
 -- put this after lazy setup 
 
 -- (method 1, For heavy lazyloaders)
@@ -40,7 +38,7 @@ require("config.shared-keymaps")
 
 -- If run embedded in VSCode use these specific settings and skip not useful ones.
 if vim.g.vscode then
-  require("plugins.local.vscode")
+  require("config.vscode")
 else
   -- (method 2, for non lazyloaders) to load all highlights at once
   for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
