@@ -3,15 +3,15 @@
 
 local map = vim.keymap.set
 
--- Clear search with <esc>
-map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
-
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
 map( "n", "<leader>ur",
   "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
   { desc = "Redraw / Clear hlsearch / Diff Update" }
 )
+
+-- Clear search with <esc>
+map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
 
 --keywordprg
 map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
@@ -44,7 +44,6 @@ local diagnostic_goto = function(next, severity)
   end
 end
 
-map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
 map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
 map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
@@ -55,11 +54,7 @@ map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 -- new file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
-vim.api.nvim_set_keymap( "v", "<LocalLeader>W", ":!fmt -w 80<CR>",
-  { desc = "Wrap text to 80 char", noremap = true, silent = true }
-)
-
--- from mini.basics toggle buffer local options.
+-- From mini.basics toggle buffer local options.
 local toggle_prefix = [[\]]
 local map_toggle = function(lhs, rhs, desc)
   map('n', toggle_prefix .. lhs, rhs, { desc = desc })
@@ -134,12 +129,12 @@ if vim.g.vscode then return end
 
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 
--- floating terminal
-map("n", "<leader>ft", function() Snacks.terminal() end, { desc = "Terminal" })
-
-map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Open Lazy" })
+map( "v", "<LocalLeader>W", ":!fmt -w 80<CR>",
+  { desc = "Wrap text to 80 char", noremap = true, silent = true }
+)
 
 -- quit
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 map("n", "<leader>qQ", "<cmd>qa!<cr>", { desc = "Quit All without saving" })
+
 

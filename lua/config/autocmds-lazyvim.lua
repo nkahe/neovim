@@ -1,5 +1,5 @@
 
--- Some autocmds from LazyVim.
+-- Some default autocmds from LazyVim.
 -- https://www.lazyvim.org/
 
 -- Helper to set autogroup with prefix.

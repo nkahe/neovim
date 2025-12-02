@@ -397,17 +397,18 @@ return
 
     -- Quake style dropdown menu.
     { "`", function()
-        Snacks.terminal.toggle(nil, {
-          win = { position = "float", style = "terminal", border = "rounded",
-            row = 0, width = 0.7, height = 0.8,
-          },
-        })
-      end, desc = "Toggle floating terminal", mode = { "n", "t" } },
+      Snacks.terminal.toggle(nil, {
+        win = { position = "float", style = "terminal", border = "rounded",
+          row = 0, width = 0.7, height = 0.8,
+        },
+      })
+    end, desc = "Toggle floating terminal", mode = { "n", "t" } },
     -- These have cliches with Neovide.
     -- { "<Leader>tt", function() Snacks.terminal.toggle() end, desc = "Toggle terminal" },
     { "<Leader>ts", function() Snacks.terminal() end, desc = "Open in horizontal split"},
     { "<leader>tf", function() local shell = vim.o.shell require("snacks.terminal").open(shell, {}) end,
       desc = "Open in floating window" },
+
     -- { "<Leader>tv", function() Snacks.terminal.open(vim.o.shell, { win = { position = "right" } }) end,
     --   desc = "Open terminal (vertical)", },
 

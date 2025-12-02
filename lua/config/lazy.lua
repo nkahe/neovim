@@ -20,6 +20,8 @@ vim.opt.rtp:prepend(lazypath)
 -- loading lazy.nvim so that mappings are correct.
 -- This is also a good place to setup other settings (vim.opt)
 
+vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Open Lazy" })
+
 -- vscode.lua has additional settings for some of these.
 local vscode_plugins = {
   "dial.nvim",
