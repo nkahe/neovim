@@ -2,26 +2,22 @@
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
-  opts = {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-    defaults = {},
-    spec = {
+  opts = function(_, opts)
+    opts.spec = vim.list_extend(opts.spec or {}, {
       {
         mode = { "n", "x" },
         { "<F1>", "<cmd>WhichKey<cr>", desc = "WhichKey (global)" },
         { "gs", group = "Surround" },
         { "<leader><tab>", group = "Tabs" },
         { "<leader>c", group = "Code" },
-        { "<leader>d", group = "Debug" },
-        { "<leader>dp", group = "Profiler" },
+        { "<leader>ð", group = "Debug" },
+        { "<leader>ðp", group = "Profiler" },
         { "<leader>f", group = "File/Find" },
         { "<leader>g", group = "Git" },
         { "<leader>gh", group = "Hunks" },
         { "<leader>h", group = "Headings" },
         { "<leader>m", group = "Markdown" },
-        { "<leader>o", group = "Obsidian" },
+        { "<leader>o", group = "Obsidian", icon = "󱞁" },
         { "<leader>t", group = "Terminal" },
         { "<leader>T", group = "Tables" },
         { "<leader>s", group = "Search" },
@@ -67,6 +63,20 @@ return {
           desc = "Buffer Local Keymaps",
         },
       },
-    },
-  } --opts
+  }) -- opts.spec
+
+  -- Extend key replacements. Make mappings display AltGr-<key> instead of
+  -- resulting character.
+  opts.replace = opts.replace or {}
+  opts.replace.key = vim.list_extend(opts.replace.key or {}, {
+    { "ð", "AltGr-d" },
+    { "Ð", "AltGr-D" },
+    { "ß", "AltGr-b" },
+    { "ẞ", "AltGr-B" },
+    -- { "š", "AltGr-s" },
+  })
+
+  return opts
+   end -- opts function
+
 } -- whickey
