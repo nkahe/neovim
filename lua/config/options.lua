@@ -100,11 +100,12 @@ vim.o.colorcolumn    = '80,+1'    -- Draw column on the right of maximum width
 vim.o.cursorlineopt = 'screenline,number' -- Show cursor line per screen line
 -- Folding. In Treesitter settings expr fold method is set if language supports
 -- Treesitter.
-vim.o.foldmethod     = 'indent' -- Fold based on indent level
-vim.o.foldnestmax    = 10       -- Limit number of fold levels
-vim.o.foldtext       = 'NONE'   -- Show text under fold with its highlighting
-vim.o.foldlevel      = 99       -- Fold nothing by default; set to 0 or 1 to fold
-vim.o.foldlevelstart = 99       -- Make sure folds are open by default.
+vim.opt.diffopt:append("vertical")  -- Appends 'vertical' to the existing diffopt
+vim.o.foldmethod     = 'indent'   -- Fold based on indent level
+vim.o.foldnestmax    = 10         -- Limit number of fold levels
+vim.o.foldtext       = 'NONE'     -- Show text under fold with its highlighting
+vim.o.foldlevel      = 99         -- Fold nothing by default; set to 0 or 1 to fold
+vim.o.foldlevelstart = 99         -- Make sure folds are open by default.
 vim.o.linebreak      = true       -- Wrap lines at 'breakat' (if 'wrap' is set)
 vim.o.list           = true       -- Show helpful text indicators
 vim.o.ruler          = false      -- Don't show default cursor coordinates
