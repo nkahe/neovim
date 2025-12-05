@@ -44,10 +44,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
 local aliases = {
   ["~config"] = vim.fn.expand("~/.config"),
   ["~custom"] = vim.fn.expand("~/.config/nvim/custom"),
-  ["~ndata"] = vim.fn.expand("~/.local/share/nvim"),
-  ["~notes"] = vim.fn.expand("~/Nextcloud/notes"),
-  ["~nvim"] = vim.fn.expand("~/.config/nvim"),
-  ["~share"] = vim.fn.expand("~/.local/share"),
+  ["~ndata"]  = vim.fn.expand("~/.local/share/nvim"),
+  ["~notes"]  = vim.fn.expand("~/Nextcloud/notes"),
+  ["~nvim"]   = vim.fn.expand("~/.config/nvim"),
+  ["~share"]  = vim.fn.expand("~/.local/share"),
 }
 
 vim.api.nvim_create_autocmd("CmdlineLeave", {
@@ -81,6 +81,22 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
+-- Configs for diff-mode.
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "*",
+  group = augroup("diff_config"),
+  callback = function()
+    if vim.wo.diff then
+      local map = vim.keymap.set
+      -- These keys are mapped in Treesitter config. Restore default for diff buffers.
+      map("n", "[c", "[c", { buffer = true, remap = true, desc = "Previous change"})
+      map("n", "]c", "]c", { buffer = true, remap = true, desc = "Next change"})
+      map("n", "\\o", "<Cmd>diffoff!<CR>", { buffer = true, desc = "Diff off! (tab)"})
+      map("n", "\\u", "<Cmd>diffupdate<CR>", { buffer = true, desc = "Diff update"})
+      map("n", "\\O", "<Cmd>diffoff<CR>", { buffer = true, desc = "Diff off (window)"})
+    end
+  end,
+})
 
 -- Make use of custom prefixes on window title which are set based on Neovim
 -- config or session.
