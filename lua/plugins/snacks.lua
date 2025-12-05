@@ -23,6 +23,7 @@ return
       enabled = true,
       preset = {
         keys = {
+          -- Same as in Lazyvim but change session manager to mini.sessions.
           { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
           { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
           { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
@@ -115,7 +116,8 @@ return
       win = {
         input = {
           keys = {
-            -- Add nicer descriptions.
+            -- Change nicer descriptions.
+
             -- to close the picker on ESC instead of going to normal mode,
             -- add the following keymap to your config
             -- ["<Esc>"] = { "close", mode = { "n", "i" } },
@@ -174,6 +176,7 @@ return
         },
         list = {
             keys = {
+              -- Change nicer descriptions.
               ["/"] = { "toggle_focus", desc = "Toggle focus between list and input" },
               ["<2-LeftMouse>"] = { "confirm", desc = "Open or confirm selection" },
               ["<CR>"] = { "confirm", desc = "Open or confirm selection" },
@@ -182,7 +185,7 @@ return
               ["<S-CR>"] = { { "pick_win", "jump" }, desc = "Pick window / jump" },
               ["<S-Tab>"] = { "select_and_prev", mode = { "n", "x" }, desc = "Select & move up" },
               ["<Tab>"] = { "select_and_next", mode = { "n", "x" }, desc = "Select & move down" },
-              ["<Up>"] = { "list_up", desc = "Move up" },
+              ["<Up>" ] = { "list_up", desc = "Move up" },
               ["<a-d>"] = { "inspect", desc = "Inspect item" },
               ["<a-f>"] = { "toggle_follow", desc = "Toggle follow" },
               ["<a-h>"] = { "toggle_hidden", desc = "Toggle hidden files" },
@@ -244,7 +247,7 @@ return
       enabled = true,
       win = {
         keys = {
-          nav_h = { "<C-h>", term_nav("h"), desc = "Go to Left Window", expr = true, mode = "t" },
+          nav_h = { "<C-h>", term_nav("h"), desc = "Go to Left Window",  expr = true, mode = "t" },
           nav_j = { "<C-j>", term_nav("j"), desc = "Go to Lower Window", expr = true, mode = "t" },
           nav_k = { "<C-k>", term_nav("k"), desc = "Go to Upper Window", expr = true, mode = "t" },
           nav_l = { "<C-l>", term_nav("l"), desc = "Go to Right Window", expr = true, mode = "t" },
@@ -305,6 +308,7 @@ return
   }, -- opts
 
   keys = {
+    -- Change nicer descriptions.
     -- Top Pickers & Explorer
     { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
     { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
@@ -425,7 +429,6 @@ return
     -- { "<Leader>tv", function() Snacks.terminal.open(vim.o.shell, { win = { position = "right" } }) end,
     --   desc = "Open terminal (vertical)", },
 
-
     -- map("n", "<leader>fT", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
     -- map("n", "<leader>ft", function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = "Terminal (Root Dir)" })
     -- map({"n","t"}, "<c-/>",function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = "Terminal (Root Dir)" })
@@ -455,6 +458,7 @@ return
 
   init = function()
 
+    -- From LazyVim but make toggle terminal use custom terminal colors.
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
       callback = function()
@@ -475,19 +479,26 @@ return
           vim.print = _G.dd
         end
 
-        -- Make toggle terminal use custom terminal colors.
+          vim.api.nvim_set_hl(0, "TermBackgroundFallback", { bg = "#121212" })
+          vim.api.nvim_set_hl(0, "NoBackground", { bg = "none" })
+        -- Make toggle terminal use custom terminal color. For termnals started
+        -- without Snacks similar setting is in autocmds.lua.
         if Snacks and Snacks.terminal then
           local toggle_original = Snacks.terminal.toggle
           Snacks.terminal.toggle = function(...)
             toggle_original(...)
             local buf = vim.api.nvim_get_current_buf()
             if vim.bo[buf].buftype == "terminal" then
-              vim.opt_local.winhighlight = "Normal:TermBackground,CursorLine:TermCursorLine"
+                local bg_group = vim.g.TermBackground and "TermBackground" or "TermBackgroundFallback"
+                vim.opt_local.winhighlight = table.concat({
+                  "Normal:" .. bg_group,
+                  "CursorLine:NoBackground",
+                }, ",")
             end
           end
         end
 
-        -- Create some toggle mappings
+        -- Create some toggle mappings. 
         Snacks.toggle.diagnostics():map("<leader>ud")
         Snacks.toggle.dim():map("<leader>uD")
         Snacks.toggle.indent():map("<leader>ug")

@@ -7,6 +7,7 @@ end
 -- Compile and apply Base46 theme when changes are saved.
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "nvconfig.lua",
+  group = augroup('compile_base46_theme'),
   callback = function()
     require("base46").compile()
     require("base46").load_all_highlights()
@@ -127,8 +128,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "TermClose" }, {
   end,
 })
 
--- Set black background color for terminal and start in insert mode.
--- Color doesn't work always.
+-- Set title for terminals and start in insert mode.
 vim.api.nvim_create_autocmd({ "TermOpen", "WinEnter" }, {
   group = augroup("set_terminal_settings"),
   pattern = "*",
@@ -143,16 +143,23 @@ vim.api.nvim_create_autocmd({ "TermOpen", "WinEnter" }, {
 
 -- Set background color for terminal. Neovim doesn't have exclusive highlights
 -- groups for it natively.
--- Adding "VimResized" didn't have an effect.
+-- NOTE: For Snacks.terminal this doesn't work but it has similar setting added
+-- in it's config.
+
+-- Fallback if colors aren't defined.
+vim.api.nvim_set_hl(0, "TermBackgroundFallback", { bg = "#121212" })
+vim.api.nvim_set_hl(0, "NoBackground", { bg = "none" })
+
 vim.api.nvim_create_autocmd({ "TermOpen", "WinEnter"  }, {
   group = augroup("set_terminal_background_color"),
   pattern = "*",
   callback = function()
-      -- These custom groups are set in coloscheme config.
-      -- vim.api.nvim_set_hl(0, "TermBackground", { bg = "#121212" })
-      -- vim.api.nvim_set_hl(0, "TermCursorLine", { bg = "none" })
     if vim.bo.buftype == "terminal" or vim.bo.filetype == "snacks_terminal" then
-      vim.opt_local.winhighlight = "Normal:TermBackground,CursorLine:TermCursorLine"
+      local bg_group = vim.g.TermBackground and "TermBackground" or "TermBackgroundFallback"
+      vim.opt_local.winhighlight = table.concat({
+        "Normal:" .. bg_group,
+        "CursorLine:NoBackground",
+      }, ",")
     end
   end,
 })

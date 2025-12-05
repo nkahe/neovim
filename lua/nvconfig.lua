@@ -14,9 +14,8 @@ local options = {
       SnacksPickerCursorline        = { bg = "one_bg" },
       SnacksPickerDir = { fg = "nord_blue" },
       SnacksIndent    = { fg = "one_bg2" },
-      -- Custom groups used in autocmd.
+      -- Custom group used in autocmd and in snacks.terminal config.
       TermBackground  = { bg = "#0b1216" },
-      TermCursorLine  = { bg = "none" }
     },
     hl_override = {
       Comment   = { fg = "light_grey" },
