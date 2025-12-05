@@ -186,16 +186,16 @@ return {
     },
     lazy = false,   -- neo-tree will lazily load itself
     cmd = "Neotree",
+    enabled = true,
     keys = {
-      -- {
-      --   "<leader>fe",
-      --   function()
-      --     require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
-      --   end,
-      --   desc = "Explorer NeoTree (Root Dir)",
-      -- },
       {
-        "<leader>e", "<cmd>Neotree toggle<CR>", desc = "Explorer NeoTree",
+        "<leader>e", function()
+          local buf = vim.api.nvim_get_current_buf()
+          local root = require("mini.misc").find_root(buf) or vim.loop.cwd()
+          require("neo-tree.command").execute({ toggle = true, dir = root })
+        end, desc = "Explorer NeoTree (root)",
+
+        -- local root = require("mini.misc").find_root(buf)
       },
       -- Lazyvim default
       -- { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (Root Dir)", remap = true },
@@ -205,7 +205,7 @@ return {
         end,
         desc = "Explorer NeoTree (cwd)",
       },
-      { "<leader>fe", "<leader>e", desc = "Explorer NeoTree", remap = true },
+      { "<leader>fe", "<leader>e", desc = "Explorer NeoTree (root)", remap = true },
       { "<leader>fE", "<leader>E", desc = "Explorer NeoTree (cwd)", remap = true },
       {
         "<leader>ge", function()
