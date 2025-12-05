@@ -75,7 +75,13 @@ return
     -- Defaults:
     -- <leader>e	Explorer Snacks (root dir)
     -- <leader>E	Explorer Snacks (cwd)
-    explorer = { enabled = true },
+    explorer = {
+      enabled = false,
+      layout = {
+        -- Doesn't work for input.
+        hidden = { "preview", "input" },
+      },
+    },
 
     indent = { enabled = true },
 
@@ -247,6 +253,13 @@ return
     },
 
     words = { enabled = true },
+
+    zen = {
+      enabled = true,
+      toggles = {
+        dim = false,
+      }
+    },
 
     styles = {
       notification = {
