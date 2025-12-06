@@ -70,21 +70,23 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
 })
 
 
--- Hot reloading. Watches for saves specifically in the `lua/config/keymaps.lua`
+-- Hot reloading configs. Watches for saves specifically in the `lua/config/keymaps.lua`
 -- and `lua/config/options.lua`.
 local config_path = vim.fn.stdpath("config") .. "/lua/config/"
 
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = config_path .. "*",
-  group = augroup("hot_reload"),
-  callback = function(args)
-    local file = args.file
-    if file:match("%.lua$") then
-      vim.cmd("source " .. args.file)
-      vim.notify("Sourced " .. vim.fn.fnamemodify(file, ":t"))
-    end
-  end,
-})
+if vim.fn.isdirectory(config_path) == 1 then
+  vim.api.nvim_create_autocmd("BufWritePost", {
+    pattern = config_path .. "*",
+    group = augroup("hot_reload"),
+    callback = function(args)
+      local file = args.file
+      if file:match("%.lua$") then
+        vim.cmd("source " .. args.file)
+        vim.notify("Sourced " .. vim.fn.fnamemodify(file, ":t"))
+      end
+    end,
+  })
+end
 
 -- Configs for diff-mode.
 vim.api.nvim_create_autocmd("BufEnter", {
