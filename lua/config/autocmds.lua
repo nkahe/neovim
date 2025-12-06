@@ -5,15 +5,19 @@ local function augroup(name)
 end
 
 -- Compile and apply Base46 theme when changes are saved.
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = "nvconfig.lua",
-  group = augroup('compile_base46_theme'),
-  callback = function()
-    require("base46").compile()
-    require("base46").load_all_highlights()
-    vim.notify("Theme compiled", vim.log.INFO)
-  end,
-})
+
+local ok, base46 = pcall(require, "base46")
+if ok then
+  vim.api.nvim_create_autocmd("BufWritePost", {
+    pattern = "nvconfig.lua",
+    group = augroup('compile_base46_theme'),
+    callback = function()
+      base46.compile()
+      base46.load_all_highlights()
+      vim.notify("Theme compiled and loaded", vim.log.INFO)
+    end,
+  })
+end
 
 -- Make --NVIM_SESSION=<session_name> Neovim command line parameter to set
 -- read session at start.
