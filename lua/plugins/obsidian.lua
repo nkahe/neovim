@@ -32,13 +32,24 @@ return {
   dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim"  },
   keys = {
     { "<Leader>sO", "<cmd>Obsidian search<CR>",       desc = "Obsidian search" },
+    { "<Leader>ob", "<cmd>Obsidian backlinks<CR>",    desc = "Search backlinks" },
+    { "<Leader>of", "<cmd>Obsidian follow_link<CR>",  desc = "Follow link" },
     { "<Leader>on", "<cmd>Obsidian new<CR>",          desc = "New note" },
     { "<Leader>oo", "<cmd>Obsidian open<CR>",         desc = "Open in Obsidian app" },
     { "<Leader>or", "<cmd>Obsidian rename<CR>",       desc = "Rename note" },
+    { "<Leader>op", "<cmd>Obsidian paste_img<CR>",    desc = "Paste image" },
     { "<Leader>os", "<cmd>Obsidian search<CR>",       desc = "Search note" },
-    { "<Leader>oq", "<cmd>Obsidian quick_switch<CR>", desc = "Quick switch" },
+    { "<Leader>ot", "<cmd>Obsidian toc<CR>",          desc = "Search toc" },
+    { "<Leader>oq", "<cmd>Obsidian quick_switch<CR>", desc = "Quick switch to note" },
     "BufReadPre " .. localnotes_dir .. "/*.md",
     { "<Leader>ow", "<cmd>Obsidian workspace<CR>",    desc = "Change workspace" },
+
+   { "<Leader>oe", "<cmd>Obsidian extract_note<CR>", mode = "x",
+      desc = "Extract note" },
+   { "<Leader>ol", "<cmd>Obsidian link<CR>", mode = "x",
+      desc = "Link selection to note" },
+   { "<Leader>on", "<cmd>Obsidian link_new<CR>", mode = "x",
+      desc = "Link new note to selection" },
   },
   init = function()
     -- Used in autocmd.
