@@ -50,6 +50,11 @@ return {
     },
   },
 
+  {
+    "tpope/vim-fugitive",
+    cmd = { "Git", "G", "Gcommit", "Gpush", "Gpull", "Gdiffsplit" },
+  },
+
   -- LSP renaming with immediate visual feedback
   -- https://github.com/smjonas/inc-rename.nvim
   {

@@ -46,12 +46,14 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 -- close some filetypes with <q>.
+-- Add Fugitive.
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("close_with_q"),
   pattern = {
     "PlenaryTestPopup",
     "checkhealth",
     "dbout",
+    "fugitive",
     "gitsigns-blame",
     "grug-far",
     "help",
