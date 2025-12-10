@@ -31,6 +31,7 @@ local options = {
       ["@punctuation.delimiter"] = { fg = 'base08' },
       ["@punctuation.bracket"]   = { fg = 'base08' },
       ["@constructor"] = { fg = 'base08' },
+      ["@variable.parameter"] = { fg = "base0A" },
     },
     integrations = { "blink", "flash", "git", "git-conflict", "lsp", "mason",
       "neogit", "semantic_tokens", "syntax", "treesitter", "trouble", "whichkey"
@@ -41,11 +42,13 @@ local options = {
         base_30 = {
           black  = "#192830", -- Make little darker.
           black2 = "#203038",
+          orange = "#ed9b64", -- Little less saturated
           -- Make lighter, used in comments.
-          light_grey = "#738490" 
+          light_grey = "#738490"
         },
         base_16 = {
           base00 = "#192830",
+          base0A = "#ed9b64",
         },
         -- These weren't enough.
         NoiceCmdlinePopupBorder       = { fg = "#50a4a4" },
