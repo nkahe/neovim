@@ -49,10 +49,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
 local aliases = {
   ["~config"] = vim.fn.expand("~/.config"),
   ["~custom"] = vim.fn.expand("~/.config/nvim/custom"),
-  ["~ndata"]  = vim.fn.expand("~/.local/share/nvim"),
-  ["~notes"]  = vim.fn.expand("~/Nextcloud/notes"),
-  ["~nvim"]   = vim.fn.expand("~/.config/nvim"),
-  ["~share"]  = vim.fn.expand("~/.local/share"),
+  ["~ndata" ] = vim.fn.expand("~/.local/share/nvim"),
+  ["~notes" ] = vim.fn.expand("~/Nextcloud/notes"),
+  [ "~nvim" ] = vim.fn.expand("~/.config/nvim"),
+  ["~share" ] = vim.fn.expand("~/.local/share"),
 }
 
 vim.api.nvim_create_autocmd("CmdlineLeave", {
@@ -153,7 +153,7 @@ vim.api.nvim_create_autocmd({ "TermOpen", "WinEnter" }, {
 -- in it's config.
 
 -- Fallback if colors aren't defined.
-vim.api.nvim_set_hl(0, "TermBackgroundFallback", { bg = "#121212" })
+vim.api.nvim_set_hl(0, "TermBgFallback", { bg = "#121212" })
 vim.api.nvim_set_hl(0, "NoBackground", { bg = "none" })
 
 vim.api.nvim_create_autocmd({ "TermOpen", "WinEnter"  }, {
@@ -161,7 +161,7 @@ vim.api.nvim_create_autocmd({ "TermOpen", "WinEnter"  }, {
   pattern = "*",
   callback = function()
     if vim.bo.buftype == "terminal" or vim.bo.filetype == "snacks_terminal" then
-      local bg_group = vim.g.TermBackground and "TermBackground" or "TermBackgroundFallback"
+      local bg_group = vim.g.TermBackground and "TermBackground" or "TermBgFallback"
       vim.opt_local.winhighlight = table.concat({
         "Normal:" .. bg_group,
         "CursorLine:NoBackground",
@@ -198,8 +198,7 @@ vim.api.nvim_create_autocmd("WinEnter", {
   group = augroup("disable_colorcolumn"),
   callback = function()
     local cfg = vim.api.nvim_win_get_config(0)
-    if cfg.relative ~= "" then
-      -- This is a floating window
+    if cfg.relative ~= "" then  -- For floating windows
       vim.wo.colorcolumn = ""
     end
   end,
@@ -250,7 +249,8 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
 -- Always open QuickFix windows below current window
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
   group = augroup("open_quickfix_below"),
-  pattern = "[^l]*", -- Applies to Quickfix commands, not location list
+  -- Applies to Quickfix commands, not location list
+  pattern = "[^l]*", -- Words starting with 'lä.
   callback = function()
     vim.cmd("botright copen")
   end,
@@ -261,7 +261,7 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
   group = augroup("open_locationlist_below"),
   pattern = "lgrep",
   callback = function()
-    vim.cmd("lopen") -- Open the location list
+    vim.cmd("lopen")
   end,
 })
 

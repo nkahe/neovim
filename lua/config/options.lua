@@ -100,7 +100,8 @@ vim.o.colorcolumn    = '80,+1'    -- Draw column on the right of maximum width
 vim.o.cursorlineopt = 'screenline,number' -- Show cursor line per screen line
 -- Folding. In Treesitter settings expr fold method is set if language supports
 -- Treesitter.
-vim.opt.diffopt:append("vertical")  -- Appends 'vertical' to the existing diffopt
+-- Two latter are default in Neovim 0.12.
+vim.opt.diffopt:append("vertical", "indent-heuristic", "inline:char")  
 vim.o.foldmethod     = 'indent'   -- Fold based on indent level
 vim.o.foldnestmax    = 10         -- Limit number of fold levels
 vim.o.foldtext       = 'NONE'     -- Show text under fold with its highlighting
@@ -134,7 +135,7 @@ vim.o.listchars = 'extends:…,nbsp:␣,precedes:…,tab:» '
 vim.o.complete    = '.,w,b,kspell'                  -- Use less sources
 vim.o.completeopt = 'menuone,noselect,fuzzy,nosort' -- Use custom behavior
 
-vim.o.guifont = "FiraCode Nerd Font:h12"
+vim.o.guifont = "FiraCode Nerd Font Mono:h12"
 
 -- Neovide GUI settings.
 -- https://neovide.dev/index.html

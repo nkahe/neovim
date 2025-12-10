@@ -36,10 +36,14 @@ return {
     end,
   },
 
-  { "nvzone/volt", lazy = true },
+  { "nvzone/volt",
+    enabled = false,
+    lazy = true
+  },
 
   {
     "nvzone/minty",
+    enabled = false,
     cmd = { "Shades", "Huefy" },
     config = function ()
       vim.keymap.net('n', '<Leader>uH', '<mc>Huefy<CR>', { desc = "Huefy" })

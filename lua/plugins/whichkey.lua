@@ -29,7 +29,7 @@ return {
         { "[", group = "Previous" },
         { "]", group = "Next" },
         { "z", group = "Fold" },
-        { "\\", group = "Toggle local options" },
+        { "\\", group = "Local commands" },
         {
           "<leader>b",
           group = "Buffer",
@@ -41,12 +41,14 @@ return {
           proxy = "<c-w>",
           expand = function() return require("which-key.extras").expand.win() end,
         },
+
         -- better descriptions. gx is mapped to mini.operators exchange.
         { "gra", desc = "Code action" },
         { "grn", desc = "Rename" },
-        { "gX", desc = "Open with system app" },
-        { "g,", desc = "Go to newer position in change list" },
-        { "g;", desc = "Go to older position in change list" },
+        -- gx is used for mini.operators exchange.
+        { "gX",  desc = "Open with system app" },
+        { "g,",  desc = "Go to newer position in change list" },
+        { "g;",  desc = "Go to older position in change list" },
         -- Hide non-interesting keys.
         { "<Up>",    hidden = true },
         { "<Down>",  hidden = true },
