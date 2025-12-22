@@ -1,5 +1,5 @@
 
--- Install parsers for selected languages and enable features.
+-- Install parsers for selected languages and enable Treesitter features.
 -- https://github.com/nvim-treesitter/nvim-treesitter/tree/main
 -- NOTE: make sure to read main branch readme.
 -- https://github.com/MeanderingProgrammer/treesitter-modules.nvim

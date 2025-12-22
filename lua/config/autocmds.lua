@@ -4,21 +4,6 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("Custom_" .. name, { clear = true })
 end
 
--- Compile and apply Base46 theme when changes are saved.
-
-local ok, base46 = pcall(require, "base46")
-if ok then
-  vim.api.nvim_create_autocmd("BufWritePost", {
-    pattern = "nvconfig.lua",
-    group = augroup('compile_base46_theme'),
-    callback = function()
-      base46.compile()
-      base46.load_all_highlights()
-      vim.notify("Theme compiled and loaded", vim.log.INFO)
-    end,
-  })
-end
-
 -- Make --NVIM_SESSION=<session_name> Neovim command line parameter to set
 -- read session at start.
 vim.api.nvim_create_autocmd("VimEnter", {
@@ -87,6 +72,22 @@ if vim.fn.isdirectory(config_path) == 1 then
     end,
   })
 end
+
+-- Compile and apply Base46 theme when changes are saved.
+
+local ok, base46 = pcall(require, "base46")
+if ok then
+  vim.api.nvim_create_autocmd("BufWritePost", {
+    pattern = "nvconfig.lua",
+    group = augroup('compile_base46_theme'),
+    callback = function()
+      base46.compile()
+      base46.load_all_highlights()
+      vim.notify("Theme compiled and loaded", vim.log.INFO)
+    end,
+  })
+end
+
 
 -- Configs for diff-mode.
 vim.api.nvim_create_autocmd("BufEnter", {

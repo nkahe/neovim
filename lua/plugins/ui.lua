@@ -5,10 +5,9 @@ if vim.g.vscode then
   return {}
 end
 
--- Configs are mostly from LazyVim.
 return {
 
--- Bufferline
+-- Bufferline. From LazyVim.
   {
     'akinsho/bufferline.nvim',
     enabled = true,
@@ -61,7 +60,8 @@ return {
 
   },
 
--- Lualine
+-- Lualine. From Lazyvim with some small tweaks such as some changed colors,
+-- some components placed slightly differenly.
   {
     "nvim-lualine/lualine.nvim",
     enabled = true,
@@ -177,6 +177,7 @@ return {
     end,
   },
 
+  -- From LazyVim with some commented changes.
   {
     "nvim-neo-tree/neo-tree.nvim",
     dependencies = {
@@ -191,6 +192,7 @@ return {
       {
         "<leader>e", function()
           local buf = vim.api.nvim_get_current_buf()
+          -- Use root definition from Mini.misc instead of LazyVim.
           local root = require("mini.misc").find_root(buf) or vim.loop.cwd()
           require("neo-tree.command").execute({ toggle = true, dir = root })
         end, desc = "Explorer NeoTree (root)",

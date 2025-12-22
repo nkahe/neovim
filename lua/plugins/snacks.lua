@@ -78,10 +78,6 @@ return
     -- <leader>E	Explorer Snacks (cwd)
     explorer = {
       enabled = false,
-      layout = {
-        -- Doesn't work for input.
-        hidden = { "preview", "input" },
-      },
     },
 
     indent = { enabled = true },
@@ -101,6 +97,12 @@ return
 
     picker = {
       enabled = true,
+      explorer = {
+        layout = {
+          -- Doesn't work for input.
+          hidden = { "preview", "input" },
+        },
+      },
       layout = {
         preset = "ivy",
         preview = false
@@ -308,7 +310,7 @@ return
   }, -- opts
 
   keys = {
-    -- Change nicer descriptions.
+    -- Lazyvim defaults with nicer descriptions and some additions.
     -- Top Pickers & Explorer
     { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
     { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
@@ -348,6 +350,7 @@ return
     { "<leader>sD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
     { "<leader>sh", function() Snacks.picker.help() end, desc = "Help Pages" },
     -- { "<leader>sH", function() Snacks.picker.highlights() end, desc = "Highlights" },
+      -- Added: Make <CR> to copy picked color settings to clipboard.
       { "<leader>sH", function()
         Snacks.picker.highlights({
           -- Bind <CR> to the confirm action
@@ -399,8 +402,8 @@ return
     { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
     { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
     -- Other
-    { "<leader>uz",  function() Snacks.zen() end, desc = "Toggle Zen Mode" },
-    { "<leader>uZ",  function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
+    { "<leader>uz", function() Snacks.zen() end, desc = "Toggle Zen Mode" },
+    { "<leader>uZ", function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
     { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
     { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
     { "<leader>n",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
@@ -412,7 +415,7 @@ return
 
     -- Terminal
 
-    -- Quake style dropdown menu.
+    -- Added: Quake style dropdown menu.
     { "`", function()
       Snacks.terminal.toggle(nil, {
         win = { position = "float", style = "terminal", border = "rounded",
