@@ -220,9 +220,9 @@ return {
   -- Wraps long lines virtually at a specific column.
   -- https://github.com/rickhowe/wrapwidth
   {
-    -- "rickhowe/wrapwidth",
-    name = "wrapwidth",
-    dir = vim.fn.stdpath("config") .. "/lua/plugins/local/wrapwidth",
+    "nkahe/wrapwidth",
+    -- name = "wrapwidth",
+    -- dir = vim.fn.stdpath("config") .. "/lua/plugins/local/wrapwidth",
     enabled = true,
     ft = { "markdown", "txt" }
   },
