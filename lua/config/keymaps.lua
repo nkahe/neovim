@@ -127,6 +127,10 @@ map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 if vim.g.vscode then return end
 
+vim.keymap.set("n", "<leader>z", function()
+  require("plugins.local.centerfloat").toggle()
+end)
+
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 
 map( "v", "<LocalLeader>W", ":!fmt -w 80<CR>",
@@ -136,5 +140,3 @@ map( "v", "<LocalLeader>W", ":!fmt -w 80<CR>",
 -- quit
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 map("n", "<leader>qQ", "<cmd>qa!<cr>", { desc = "Quit All without saving" })
-
-
