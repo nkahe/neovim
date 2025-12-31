@@ -87,6 +87,7 @@ return {
   -- https://github.com/yousefhadder/markdown-plus.nvim?tab=readme-ov-file
   {
     "yousefhadder/markdown-plus.nvim",
+    enabled = true,
     ft = "markdown",
     opts = {
       table = {
@@ -99,6 +100,7 @@ return {
 -- https://github.com/iamcco/markdown-preview.nvim
 {
   "iamcco/markdown-preview.nvim",
+  enabled = true,
   cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
   build = "cd app && npm install",
   init = function()
@@ -110,7 +112,6 @@ return {
     }
 },
 
-  -- Render markdown.
   {
     "OXY2DEV/markview.nvim",
     enabled = true,
@@ -124,16 +125,18 @@ return {
     keys = {
       { "<Leader>um", "<cmd>Markview Toggle<CR>", mode = "n", desc = "Toggle markdown rendering" }
     },
-    options = {
-      headings = {
-        heading_1 = { sign = "" },
-        heading_2 = { sign = "" },
-        heading_3 = { sign = "" },
-        heading_4 = { sign = "" },
-        heading_5 = { sign = "" },
+    opts = {
+      markdown = {
+        headings = {
+          heading_1 = { sign = "" },
+          heading_2 = { sign = "" },
+          heading_3 = { sign = "" },
+          heading_4 = { sign = "" },
+          heading_5 = { sign = "" },
+        },
+        code_blocks = { sign = false }
       },
-      code_blocks = { sign = false }
-    },
+    }
   },
 
   {
