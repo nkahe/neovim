@@ -7,6 +7,7 @@ local localnotes_dir = vim.fn.expand('~/Documents/local_notes')
 
 return {
   "obsidian-nvim/obsidian.nvim",
+  enabled = true,
   version = "*",  -- recommended, use latest release instead of latest commit
   lazy = true,
   cmd = "Obsidian",
