@@ -125,16 +125,53 @@ return {
     keys = {
       { "<Leader>um", "<cmd>Markview Toggle<CR>", mode = "n", desc = "Toggle markdown rendering" }
     },
+    init = function()
+      local green, blue, cyan, purple = "#063524", "#203243", "#1b3231", "#342534"
+      vim.api.nvim_set_hl(0, "MarkviewCode", { bg = "#1f2e36" })
+      vim.api.nvim_set_hl(0, "MarkviewHeading1", { fg = "#C594C5", bg = purple })
+      vim.api.nvim_set_hl(0, "MarkviewHeading2", { fg = "#6699CC", bg = blue })
+      vim.api.nvim_set_hl(0, "MarkviewHeading3", { fg = "#62B3B2", bg = cyan })
+      -- vim.api.nvim_set_hl(0, "MarkviewHeading4", { fg = "#D8DEE9", bg = red })
+      -- vim.api.nvim_set_hl(0, "MarkviewHeading5", { bg = "#203038" })
+    end,
     opts = {
       markdown = {
-        headings = {
-          heading_1 = { sign = "" },
-          heading_2 = { sign = "" },
-          heading_3 = { sign = "" },
-          heading_4 = { sign = "" },
-          heading_5 = { sign = "" },
+        code_blocks = {
+          sign = false,
+          style = "block"
         },
-        code_blocks = { sign = false }
+        headings = {
+          heading_1 = {
+            style = "label",
+            icon = "I ",
+            icon_hl = "white",
+            -- border = "=",
+            -- border_hl = "MarkviewHeading1",
+            padding_left = " ",
+            padding_right = "       ",
+            sign = ""
+          },
+          heading_2 = {
+            style = "label",
+            icon = "II ",
+            icon_hl = "white",
+            padding_left = " ",
+            padding_right = "      ",
+            sign = ""
+          },
+          heading_3 = {
+            style = "label",
+            icon = "III ",
+            icon_hl = "white",
+            padding_left = " ",
+            padding_right = "      ",
+            sign = ""
+          },
+          heading_4 = { style = "label", sign = "" },
+          heading_5 = { style = "label", sign = "" },
+          heading_6 = { style = "label", sign = "" },
+          shift_width = 0,
+        },
       },
     }
   },
