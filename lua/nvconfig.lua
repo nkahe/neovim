@@ -16,11 +16,13 @@ local options = {
       SnacksIndent    = { fg = "one_bg2" },
       -- Custom group used in autocmd and in snacks.terminal config.
       TermBackground  = { bg = "#0b1216" },
+      -- MarkviewCode = { bg = "white" }
     },
     hl_override = {
       Comment   = { fg = "light_grey" },
       -- Make text in search hilights easier to read.
       IncSearch = { fg = "#000000" },
+      -- MarkviewCode = { bg = "white" },
       Search    = { fg = "#000000" },
       WhichKeyDesc = { fg = "blue" },
       -- Treesitter
@@ -54,6 +56,7 @@ local options = {
         NoiceCmdlinePopupBorder       = { fg = "#50a4a4" },
         NoiceCmdlinePopupBorderSearch = { fg = "#50a4a4" },
         SnacksPickerListCursorLine    = { bg = "#2e3e47" },
+         -- MarkviewCode = { bg = "#ffffff" },
       },
     },
     transparency = false,
