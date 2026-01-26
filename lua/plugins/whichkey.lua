@@ -9,6 +9,7 @@ return {
         { "<F1>", "<cmd>WhichKey<cr>", desc = "WhichKey (global)" },
         { "gs", group = "Surround" },
         { "<leader><tab>", group = "Tabs" },
+        { "<leader>a", group = "AI" },
         { "<leader>c", group = "Code" },
         { "<leader>ð", group = "Debug" },
         { "<leader>ðp", group = "Profiler" },
