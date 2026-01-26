@@ -22,7 +22,7 @@ return {
         "query", -- Treesitter
         "vim",
         "vimdoc",
-        -- Other
+        -- Added
         "bash",
         "css",
         "diff",
@@ -30,7 +30,6 @@ return {
         "javascript",
         "jsdoc",
         "json",
-        "jsonc",
         "luadoc",
         "luap",
         "markdown_inline",
@@ -38,6 +37,7 @@ return {
         "regex",
         "todotxt",
         "toml",
+        "typescript",
         "xml",
         "yaml",
         "zsh"

@@ -38,6 +38,7 @@ return {
     servers = {
       bashls = true,
       lua_ls = true,
+      ts_ls = true,
     }
   },
   config = function(_, opts)
