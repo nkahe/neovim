@@ -126,6 +126,17 @@ return {
       { "<Leader>um", "<cmd>Markview Toggle<CR>", mode = "n", desc = "Toggle markdown rendering" }
     },
     init = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "markdown",
+        callback = function(event)
+          -- NOTE: "toggle" with lowercase t.
+          vim.keymap.set("n", "\\m", ("<cmd>Markview toggle<CR>"), {
+            buffer = event.buf,
+            desc = "Toggle Markview for buffer"
+          })
+        end
+      })
+
       local green, blue, cyan, purple = "#063524", "#203243", "#1b3231", "#342534"
       vim.api.nvim_set_hl(0, "MarkviewCode", { bg = "#1f2e36" })
       vim.api.nvim_set_hl(0, "MarkviewHeading1", { fg = "#C594C5", bg = purple })
