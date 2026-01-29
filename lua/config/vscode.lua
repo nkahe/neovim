@@ -23,7 +23,7 @@ vim.cmd([[
     autocmd ModeChanged *:[vV\x16]* call VSCodeNotify('nvim-theme.visual')
     autocmd ModeChanged *:[R]* call VSCodeNotify('nvim-theme.replace')
     " autocmd InsertEnter * call VSCodeNotify('nvim-theme.insert')
-    autocmd InsertEnter * call SetCursorLineNrColorInsert(v:insertmode)
+    autocmd InsertEnter * call v:lua.SetCursorLineNrColorInsert(v:insertmode)
     autocmd InsertLeave * call VSCodeNotify('nvim-theme.normal')
     autocmd CursorHold * call VSCodeNotify('nvim-theme.normal')
     autocmd ModeChanged [vV\x16]*:* call VSCodeNotify('nvim-theme.normal')
