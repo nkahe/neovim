@@ -119,6 +119,7 @@ return {
         -- map("n", "gr", vim.lsp.buf.references, { desc = "References", nowait = true })
         -- map("n", "gI", vim.lsp.buf.implementation, { desc = "Goto Implementation" })
         -- -- TODO: mappings from g?
+        map("n", "<F12>", vim.lsp.buf.definition, { desc = "Goto Definition" })
         map("n", "ct", vim.lsp.buf.type_definition, { desc = "Goto T[y]pe Definition" })
         -- map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
         -- map("n", "K", function() return vim.lsp.buf.hover() end, { desc = "Hover" })
