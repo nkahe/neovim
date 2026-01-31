@@ -3,6 +3,10 @@ if not vim.g.vscode then
   return {}
 end
 
+
+-- NOTE: Alt -keybindings  are interpreted by VSCode and defined in it's
+-- config User/keybindings.json.
+
 -- Helper to set autogroup with prefix.
 -- function augroup(name)
 --   return vim.api.nvim_create_augroup("Custom_" .. name, { clear = true })
@@ -138,24 +142,6 @@ vim.keymap.set("n", "<leader>,", "<cmd>Find<cr>")
   vim.keymap.set("n", "L", function()
     vim.fn.VSCodeCall("workbench.action.nextEditor")
   end, { desc = "Next Tab" })
-
-  -- Map Alt+j to move line down
-  vim.keymap.set("n", "<A-j>", function()
-    vim.fn.VSCodeCall("editor.action.moveLinesDownAction")
-  end, { desc = "Move Line Down" })
-
-  -- Map Alt+k to move line up
-  vim.keymap.set("n", "<A-k>", function()
-    vim.fn.VSCodeCall("editor.action.moveLinesUpAction")
-  end, { desc = "Move Line Up" })
-
-  vim.keymap.set("v", "<M-j>", function()
-    vim.fn.VSCodeCall("editor.action.moveLinesDownAction")
-  end, { desc = "Move Line Down" })
-
-  vim.keymap.set("v", "<M-k>", function()
-    vim.fn.VSCodeCall("editor.action.moveLinesUpAction")
-  end, { desc = "Move Line Up" })
 
 -- Add other plugins with VSCode-specific configs. Enabled plugins are
 -- defined in lazy.lua.
