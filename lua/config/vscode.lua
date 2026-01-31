@@ -35,6 +35,7 @@ vim.cmd([[
 --   pattern = "vscode.lua",
 --   group = augroup('source_vscode_settings'),
   -- callback = function()
+
 vim.keymap.set('n', "<leader>fv", function()
     local config_dir = vim.fn.stdpath("config")
     print("Neovim config directory: " .. config_dir)
@@ -52,6 +53,16 @@ vim.keymap.set('n', "<leader>fv", function()
 -- vim.keymap.set('n', '<leader><leader>', function()
 --     vim.fn.VSCodeNotify('workbench.action.quickOpen')
 --   end, { desc = 'QuickOpen' })
+
+vim.keymap.set({ "n", "x" }, "j", function()
+  return vim.v.count == 0 and "gj" or "j"
+end, { expr = true, remap = true })
+-- NOTE: this kind of mapping doesn't work:
+-- vim.keymap.set({ 'n', 'x' }, 'j', 'gj', { noremap = true })
+
+vim.keymap.set({ "n", "x" }, "k", function()
+  return vim.v.count == 0 and "gk" or "k"
+end, { expr = true, remap = true })
 
 vim.keymap.set("n", "<leader><space>", "<cmd>Find<cr>")
 vim.keymap.set("n", "<leader>,", "<cmd>Find<cr>")
@@ -151,6 +162,7 @@ vim.keymap.set("n", "<leader>,", "<cmd>Find<cr>")
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    -- VSCode has it's own hilight.
     opts = { highlight = { enable = false } },
   },
 
@@ -177,7 +189,7 @@ return {
       require("mini.comment").setup()
       -- NOTE: Alt+hjl is interpreted by VSCode.
       require("mini.operators").setup()
-      require("mini.move").setup()
+      -- require("mini.move").setup()
       -- require("mini.pairs").setup()
       require("mini.surround").setup()
     end,
