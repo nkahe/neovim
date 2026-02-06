@@ -32,7 +32,8 @@ return {
     { "<C-x>", function() return M.dial(false) end, expr = true, desc = "Decrement", mode = {"n", "v"} },
     -- Addition to Lazyvim config.
     { "+", function() return M.dial(true) end, expr = true, desc = "Increment", mode = {"n", "v"} },
-    { "-", function() return M.dial(false) end, expr = true, desc = "Decrement", mode = {"n", "v"} },
+    -- Changed to Oil for now.
+    -- { "-", function() return M.dial(false) end, expr = true, desc = "Decrement", mode = {"n", "v"} },
     { "g<C-a>", function() return M.dial(true, true) end, expr = true, desc = "Increment", mode = {"n", "x"} },
     { "g<C-x>", function() return M.dial(false, true) end, expr = true, desc = "Decrement", mode = {"n", "x"} },
   },

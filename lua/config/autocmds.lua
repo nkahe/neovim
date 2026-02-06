@@ -107,7 +107,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 -- Make use of custom prefixes on window title which are set based on Neovim
--- config or session.
+-- config, session or manually set (user-command).
 vim.api.nvim_create_autocmd({ "BufEnter", "TermClose" }, {
   group = augroup("set_window_title"),
   callback = function()
