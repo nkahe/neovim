@@ -82,6 +82,13 @@ return {
     vscode = true  -- Enable in vscode
   },
 
+  -- Pasted code automatically lands at the correct indentation level.
+  {
+    'nemanjamalesija/smart-paste.nvim',
+    event = 'VeryLazy',
+    config = true,
+  },
+
   -- provides modern markdown editing capabilities, implementing features found
   -- in popular editors.
   -- https://github.com/yousefhadder/markdown-plus.nvim?tab=readme-ov-file
