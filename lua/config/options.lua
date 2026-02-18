@@ -19,6 +19,7 @@ vim.o.smartcase     = true      -- Respect case if search pattern has upper case
 vim.o.smartindent   = true      -- Make indenting smart
 vim.o.spelloptions  = 'camel'   -- Treat camelCase word parts as separate words
 vim.o.tabstop       = 2         -- Show tab as this number of spaces
+vim.o.tags          = './.ctags.d/tags;,./tags;,tags'
 vim.opt.timeoutlen = vim.g.vscode and 1000 or 300 -- Lower than default (1000) to quickly trigger which-key
 -- vim.o.virtualedit   = 'block' -- Allow going past end of line in blockwise mode
 

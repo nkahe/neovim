@@ -194,6 +194,15 @@ vim.filetype.add({
   },
 })
 
+-- Refresh project tags for selected file types after save.
+vim.api.nvim_create_autocmd("BufWritePost", {
+  group = augroup("update_ctags"),
+  pattern = { "*.vbs", "*.zsh" },
+  callback = function(args)
+    require("plugins.local.symbols").refresh_tags_for_project(args.buf)
+  end,
+})
+
 -- Disable colorcolumn for certain windows.
 vim.api.nvim_create_autocmd("WinEnter", {
   group = augroup("disable_colorcolumn"),
@@ -277,4 +286,3 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 --     pattern = "*",
 --     command = "set relativenumber",
 -- })
-

@@ -387,7 +387,8 @@ return
     { "<leader>su", function() Snacks.picker.undo() end, desc = "Undo History" },
     { "<leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
     -- LSP
-    { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
+    { "gd", function() require("plugins.local.symbols").goto_definition() end, desc = "Goto Definition" },
+    { "<F12>", function() require("plugins.local.symbols").goto_definition() end, desc = "Goto Definition" },
     { "grd", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
     { "grr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
     { "gri", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
@@ -400,9 +401,9 @@ return
     -- { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
     { "gai", function() Snacks.picker.lsp_incoming_calls() end, desc = "C[a]lls Incoming" },
     { "gao", function() Snacks.picker.lsp_outgoing_calls() end, desc = "C[a]lls Outgoing" },
-    { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
+    { "<leader>ss", function() require("plugins.local.symbols").pick() end, desc = "Symbols" },
     { "<C-S-o>", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
-    { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+    { "<leader>sS", function() require("plugins.local.symbols").pick_workspace() end, desc = "Workspace Symbols" },
     -- Other
     { "<leader>uz", function() Snacks.zen() end, desc = "Toggle Zen Mode" },
     { "<leader>uZ", function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
