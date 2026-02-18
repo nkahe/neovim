@@ -1,5 +1,11 @@
 
--- LSP magic happens here.
+-- LSP settings.
+
+-- Enable LSP server: add server name to opts.servers with config or just set true.
+-- Those servers are always installed, enabled and configured when opening file that
+-- supports them.
+--
+-- Add non-server LSP tools like linters: add name to ensure_installed.
 
 return {
   "neovim/nvim-lspconfig",
@@ -33,20 +39,29 @@ return {
     -- Autoformatting
     "stevearc/conform.nvim",
   },
-  -- Server specific settings.
+  -- LSP server settings. Just settings true installs and enables.
+  -- Configure but don't autoinstall: manual_install = true.
+  -- NOTE use LSP server name, not language name. Names can be searched with Mson.
   opts = {
     servers = {
       bashls = true,
       lua_ls = true,
+      pyright = true,
       ts_ls = true,
     }
   },
+
   config = function(_, opts)
 
     -- Don't use LSP if using Obsidian.nvim.
     -- if vim.g.obsidian then
     --   return
     -- end
+
+    -- Non-LSP tools which are always installed but nothing else done with them.
+    local ensure_installed = {
+      "stylua",
+    }
 
     -- capabilities = function()
     --   local MiniCompletion = require("mini.completion")
@@ -68,10 +83,6 @@ return {
     end, vim.tbl_keys(opts.servers))
 
     require("mason").setup()
-    local ensure_installed = {
-      "stylua",
-      "lua_ls",
-    }
 
     vim.list_extend(ensure_installed, servers_to_install)
     require("mason-tool-installer").setup { ensure_installed = ensure_installed }
@@ -119,7 +130,7 @@ return {
         -- map("n", "gr", vim.lsp.buf.references, { desc = "References", nowait = true })
         -- map("n", "gI", vim.lsp.buf.implementation, { desc = "Goto Implementation" })
         -- -- TODO: mappings from g?
-        map("n", "<F12>", vim.lsp.buf.definition, { desc = "Goto Definition" })
+        map("n", "<F12>", function() require("plugins.local.symbols").goto_definition() end, { desc = "Goto Definition" })
         map("n", "ct", vim.lsp.buf.type_definition, { desc = "Goto T[y]pe Definition" })
         -- map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
         -- map("n", "K", function() return vim.lsp.buf.hover() end, { desc = "Hover" })
