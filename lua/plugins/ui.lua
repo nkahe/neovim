@@ -131,15 +131,23 @@ return {
             { 'filename', color = { fg = off_white } },
           },
 
-          lualine_x = {
-            -- stylua: ignore
-            {  -- command: showcmd
-            function() return require("noice").api.status.command.get() end,
-              cond = function()
-                return package.loaded["noice"] and require("noice").api.status.command.has()
-              end,
-              color = function() return { fg = Snacks.util.color("Statement") } end,
-            },
+	          lualine_x = {
+	            -- stylua: ignore
+	            { -- normal-mode count prefix (e.g. 5 in 5dw)
+	              function() return tostring(vim.v.count) end,
+	              cond = function() return vim.v.count > 0 end,
+	              color = function() return { fg = Snacks.util.color("Statement") } end,
+	            },
+	            -- stylua: ignore
+	            {  -- command: showcmd
+	              function()
+	                return require("noice").api.status.command.get()
+	              end,
+	              cond = function()
+	                return package.loaded["noice"] and require("noice").api.status.command.has()
+	              end,
+	              color = function() return { fg = Snacks.util.color("Statement") } end,
+	            },
             -- stylua: ignore
             { -- mode: showmode (@recording messages)
             function() return require("noice").api.status.mode.get() end,
