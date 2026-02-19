@@ -83,6 +83,7 @@ return {
   },
 
   -- Pasted code automatically lands at the correct indentation level.
+  -- https://github.com/nemanjamalesija/smart-paste.nvim
   {
     'nemanjamalesija/smart-paste.nvim',
     event = 'VeryLazy',
