@@ -33,6 +33,16 @@ return {
     --   timeout = 10000
     -- },
     routes = {
+      -- Hide only pyright progress messages, keep other LSP progress visible.
+      -- Prints ok symbol + "pyright" for every keystroke.
+      {
+        filter = {
+          event = "lsp",
+          kind = "progress",
+          find = "pyright",
+        },
+        opts = { skip = true },
+      },
       -- hide "Search hit BOTTOM/TOP" warnings
       {
         filter = {
