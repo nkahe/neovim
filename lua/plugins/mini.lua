@@ -33,6 +33,8 @@ return {
       },
     })
 
+    -- require('mini.diff').setup({})
+
     -- Extra 'mini.nvim' functionality.
     require('mini.extra').setup()
 
