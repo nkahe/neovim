@@ -82,13 +82,6 @@ return {
     vscode = true  -- Enable in vscode
   },
 
-  -- Pasted code automatically lands at the correct indentation level.
-  -- https://github.com/nemanjamalesija/smart-paste.nvim
-  {
-    'nemanjamalesija/smart-paste.nvim',
-    event = 'VeryLazy',
-    config = true,
-  },
 
   -- provides modern markdown editing capabilities, implementing features found
   -- in popular editors.
