@@ -5,7 +5,7 @@ return {
     cli = {
       mux = {
         backend = "zellij",
-        enabled = false,
+        enabled = true,
       },
     },
   },
