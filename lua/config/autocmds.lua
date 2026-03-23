@@ -171,6 +171,25 @@ vim.api.nvim_create_autocmd({ "TermOpen", "WinEnter"  }, {
   end,
 })
 
+-- Source current file keymap for .lua and .vim files. Lua specific are
+-- keymaps are in after/ftplugin/.
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "lua", "vim" },
+  callback = function()
+    vim.keymap.set("n", "<Leader>fs", function()
+      local file = vim.fn.expand("%:p")
+
+      if vim.bo.filetype == "lua" then
+        vim.cmd("luafile " .. vim.fn.fnameescape(file))
+      else
+        vim.cmd("source " .. vim.fn.fnameescape(file))
+      end
+
+      vim.notify("Sourced current file", vim.log.levels.INFO)
+    end, { buffer = true, desc = "Source current file" })
+  end,
+})
+
 -- When exiting terminal shell, just close window and don't print
 -- [Process exited 130] and wait for a keypress.
 vim.api.nvim_create_autocmd("TermClose", {
