@@ -136,12 +136,12 @@ return {
       -- map("]d", function() move.goto_next("@conditional.outer") end, "Next conditional")
       -- map("[d", function() move.goto_previous("@conditional.outer") end, "Previous conditional")
 
-      local ts_repeat_move = require "nvim-treesitter-textobjects.repeatable_move"
+      -- local ts_repeat_move = require "nvim-treesitter-textobjects.repeatable_move"
 
       -- Repeat movement with ; and ,
       -- ensure ; goes forward and , goes backward regardless of the last direction
-      map(";", ts_repeat_move.repeat_last_move_next)
-      map(",", ts_repeat_move.repeat_last_move_previous)
+      -- map(";", ts_repeat_move.repeat_last_move_next)
+      -- map(",", ts_repeat_move.repeat_last_move_previous)
     end,
   },
 
