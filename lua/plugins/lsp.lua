@@ -46,7 +46,37 @@ return {
     servers = {
       bashls = true,
       lua_ls = true,
-      pyright = true,
+      -- Currently not in use.
+      -- basedpyright = {
+      --   settings = {
+      --     basedpyright = {
+      --       analysis = {
+      --         --  tells basedpyright to auto-detect the .venv in the project root,
+      --         --  so it will find uv-installed packages for type checking. 
+      --         autoSearchPaths = true,
+      --         useLibraryCodeForTypes = false,
+      --       },
+      --     },
+      --   },
+      -- },
+      pyright = {
+        settings = {
+          python = {
+            analysis = {
+              diagnosticSeverityOverrides = {
+                -- add common directories (like src, project root, etc.) to import resolution.
+                autoSearchPaths = true,
+                -- Only rely on stubs.
+                useLibraryCodeForTypes = false,
+                -- LibreOffice UNO modules (com.sun.star.*) are provided at runtime.
+                reportMissingImports = "none",
+                reportMissingModuleSource = "none",
+              },
+            },
+          },
+        },
+      },
+      ruff = true,
       ts_ls = true,
     }
   },
