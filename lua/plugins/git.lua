@@ -1,6 +1,13 @@
+-- All Git related plugins
 
 -- Git signs. Config from LazyVim.
 return {
+
+  {
+    "tpope/vim-fugitive",
+    cmd = { "Git", "G", "Gcommit", "Gpush", "Gpull", "Gdiffsplit" },
+  },
+
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
