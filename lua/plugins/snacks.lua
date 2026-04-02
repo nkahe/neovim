@@ -418,7 +418,7 @@ return
 
     -- Terminal
 
-    -- NOTE: Non-snacks terminal commands are in keymaps file.
+    -- NOTE: Non-snacks terminal commands are in shared-keymaps file.
     -- Added: Quake style dropdown menu.
     -- { "`", function()
     --   Snacks.terminal.toggle(nil, {
@@ -429,10 +429,10 @@ return
     -- end, desc = "Toggle floating terminal", mode = { "n", "t" } },
 
     { "`", function() Snacks.terminal.toggle(nil, { win = { position = "bottom" } }) end,
-       desc = "Toggle terminal", },
+       desc = "Toggle terminal", mode = { "n", "t" }, },
 
     -- These have cliches with Neovide.
-    -- { "<Leader>tt", function() Snacks.terminal.toggle() end, desc = "Toggle terminal" },
+    { "<Leader>tt", function() Snacks.terminal.toggle() end, desc = "Toggle terminal" },
     -- { "<Leader>ts", function() Snacks.terminal() end, desc = "Open in horizontal split"},
     { "<leader>tf", function() local shell = vim.o.shell require("snacks.terminal").open(shell, {}) end,
       desc = "Open in floating window" },
