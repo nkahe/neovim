@@ -86,11 +86,6 @@ return {
 
   config = function(_, opts)
 
-    -- Don't use LSP if using Obsidian.nvim.
-    -- if vim.g.obsidian then
-    --   return
-    -- end
-
     -- Non-LSP tools which are always installed but nothing else done with them.
     local ensure_installed = {
       "stylua",
@@ -171,7 +166,7 @@ return {
         map("i", "<c-k>", function() return vim.lsp.buf.signature_help() end, { desc = "Signature Help" })
         map({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
         map({ "n", "x" }, "<leader>cc", vim.lsp.codelens.run, { desc = "Run Codelens" })
-        map("n", "<leader>cC", vim.lsp.codelens.refresh, { desc = "Refresh & Display Codelens" })
+        map("n", "<leader>cC", function() vim.lsp.codelens.enable(true) end, { desc = "Refresh Codelens" })
         map("n", "<leader>cR", function() Snacks.rename.rename_file() end, { desc = "Rename File" })
         map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename" })
         -- map("n", "<leader>cA", LazyVim.lsp.action.source, { desc = "Source Action" })
