@@ -196,6 +196,14 @@ return {
           callback = function() return Snacks.words.is_enabled() end,
         })
 
+        -- Detach LSP from buffer
+        map("n", "<leader>cD", function()
+          for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+            vim.lsp.buf_detach_client(0, client.id)
+          end
+          vim.notify("LSP detached from current buffer", vim.log.levels.INFO)
+        end, { desc = "Detach LSP from buffer" })
+
         -- vim.keymap.set("n", "gd", builtin.lsp_definitions, { buffer = 0 })
         -- vim.keymap.set("n", "gr", builtin.lsp_references, { buffer = 0 })
         -- vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
