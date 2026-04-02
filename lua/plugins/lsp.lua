@@ -63,12 +63,15 @@ return {
         settings = {
           python = {
             analysis = {
+              -- diagnosticSeverityOverrides = {
+              diagnosticMode = "workspace",
+              -- add common directories (like src, project root, etc.) to import resolution.
+              autoSearchPaths = true,
+              -- Only rely on stubs.
+              useLibraryCodeForTypes = false,
+              extraPaths = { "./src" },
+              -- LibreOffice UNO modules (com.sun.star.*) are provided at runtime.
               diagnosticSeverityOverrides = {
-                -- add common directories (like src, project root, etc.) to import resolution.
-                autoSearchPaths = true,
-                -- Only rely on stubs.
-                useLibraryCodeForTypes = false,
-                -- LibreOffice UNO modules (com.sun.star.*) are provided at runtime.
                 reportMissingImports = "none",
                 reportMissingModuleSource = "none",
               },
