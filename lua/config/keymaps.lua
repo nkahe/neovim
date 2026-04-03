@@ -27,6 +27,11 @@ map("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete Buffe
 map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete Other Buffers" })
 map("n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
 
+
+-- if LSP is available use that else fallback to ctags.
+map("n", "gd", function() require("plugins.local.symbols").goto_definition() end, { desc = "Goto Definition" })
+map("n", "<F12>", function() require("plugins.local.symbols").goto_definition() end, { desc = "Goto Definition" })
+
 -- These are remapped for switching buffers,
 for _, mode in ipairs({ "n", "x", "o" }) do
   map(mode, "gH", "H", { desc = "Go to top of window" })
