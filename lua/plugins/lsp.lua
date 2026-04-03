@@ -152,17 +152,18 @@ return {
           vim.keymap.set(mode, lhs, rhs, opts)
         end
 
+        -- Many LSP mappings are in snacks.lua and 'gd' is in keymaps.lua since
+        -- it supports ctags too.
         map("n", "<leader>cl", function() Snacks.picker.lsp_config() end, { desc = "Lsp Info" })
-        -- Mapped with mini.basics.
-        -- map("n", "gd", vim.lsp.buf.definition, { desc = "Goto Definition" })
+        -- Mapped with mini.basics
         -- map("n", "gr", vim.lsp.buf.references, { desc = "References", nowait = true })
         -- map("n", "gI", vim.lsp.buf.implementation, { desc = "Goto Implementation" })
+        -- vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = 0 })
         -- -- TODO: mappings from g?
-        map("n", "<F12>", function() require("plugins.local.symbols").goto_definition() end, { desc = "Goto Definition" })
-        map("n", "ct", vim.lsp.buf.type_definition, { desc = "Goto T[y]pe Definition" })
         -- map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
         -- map("n", "K", function() return vim.lsp.buf.hover() end, { desc = "Hover" })
         -- map("n", "gK", function() return vim.lsp.buf.signature_help() end, { desc = "Signature Help" })
+        map("n", "ct", vim.lsp.buf.type_definition, { desc = "Goto T[y]pe Definition" })
         map("i", "<c-k>", function() return vim.lsp.buf.signature_help() end, { desc = "Signature Help" })
         map({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
         map({ "n", "x" }, "<leader>cc", vim.lsp.codelens.run, { desc = "Run Codelens" })
@@ -170,21 +171,13 @@ return {
         map("n", "<leader>cR", function() Snacks.rename.rename_file() end, { desc = "Rename File" })
         map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename" })
         -- map("n", "<leader>cA", LazyVim.lsp.action.source, { desc = "Source Action" })
-        map("n", "]]", function() Snacks.words.jump(vim.v.count1) end, {
-          desc = "Next Reference",
-          silent = true,
-          callback = function() return Snacks.words.is_enabled() end,
-        })
-        map("n", "[[", function() Snacks.words.jump(-vim.v.count1) end, {
-          desc = "Prev Reference",
-          silent = true,
-          callback = function() return Snacks.words.is_enabled() end,
-        })
+
         map("n", "<a-n>", function() Snacks.words.jump(vim.v.count1, true) end, {
           desc = "Next Reference",
           silent = true,
           callback = function() return Snacks.words.is_enabled() end,
         })
+
         map("n", "<a-p>", function() Snacks.words.jump(-vim.v.count1, true) end, {
           desc = "Prev Reference",
           silent = true,
@@ -199,18 +192,6 @@ return {
           vim.notify("LSP detached from current buffer", vim.log.levels.INFO)
         end, { desc = "Detach LSP from buffer" })
 
-        -- vim.keymap.set("n", "gd", builtin.lsp_definitions, { buffer = 0 })
-        -- vim.keymap.set("n", "gr", builtin.lsp_references, { buffer = 0 })
-        -- vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
-        -- vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = 0 })
-        -- vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
-        --
-        -- vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { buffer = 0 })
-        -- vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, { buffer = 0 })
-        -- vim.keymap.set("n", "<space>wd", builtin.lsp_document_symbols, { buffer = 0 })
-        -- vim.keymap.set("n", "<space>ww", function()
-        --   builtin.diagnostics { root_dir = true }
-        -- end, { buffer = 0 })
       end,
     })  -- vim.api.nvim_create_autocmd
 
