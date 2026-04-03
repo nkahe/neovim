@@ -136,7 +136,9 @@ vim.api.nvim_create_autocmd({ "BufEnter", "TermClose" }, {
 })
 
 -- Set title for terminals and start in insert mode.
-vim.api.nvim_create_autocmd({ "TermOpen", "WinEnter" }, {
+-- Adding "TermOpen" made exiting from Terminal mode in Sidekick to immediately
+-- go back to terminal mode.
+vim.api.nvim_create_autocmd({ "WinEnter" }, {
   group = augroup("set_terminal_settings"),
   pattern = "*",
   callback = function()
