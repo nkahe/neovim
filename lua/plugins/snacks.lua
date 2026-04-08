@@ -87,7 +87,8 @@ return
     -- Notification style such as wrap is defined in snacks.styles -module.
     notifier = {
       enabled = true,
-      style = "minimal",
+      -- Values: "compact", "minimal"
+      style = "compact",
         -- Timeout for notifications longer so can actually read them.
       timeout = 6000,
       margin = { top = 1, right = 1, bottom = 1 },

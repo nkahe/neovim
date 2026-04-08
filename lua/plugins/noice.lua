@@ -16,7 +16,7 @@ return {
       timeout = 10000,
     },
 
-    lsp ={
+    lsp = {
       signature = {
         enabled = true,
         auto_open = {
