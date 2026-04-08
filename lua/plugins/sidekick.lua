@@ -1,10 +1,22 @@
 return {
   "folke/sidekick.nvim",
   opts = {
-    -- add any options here
     cli = {
+      win = {
+        keys = {
+          -- Codex at probably other CLIs have Esc mapping for their own scrollback,
+          -- so better to not map Esc. Ctrl-Q works.
+          --
+          -- Use Esc to enter terminal-normal mode (opens Sidekick scrollback)
+          -- stopinsert = { "<Esc>", "stopinsert", mode = "t", desc = "enter normal mode" },
+
+          -- Don't hide the window on Ctrl-Q; it conflicts with stopinsert/scrollback
+          hide_ctrl_q = false,
+        },
+      },
       mux = {
-        backend = "zellij",
+        -- Scrollback didn't work with zellij.
+        backend = "tmux",
         enabled = true,
       },
     },
@@ -23,8 +35,9 @@ return {
     },
     {
       "<c-.>",
-      function() require("sidekick.cli").toggle() end,
-      desc = "Sidekick Toggle",
+      function() require("sidekick.cli").focus() end,
+      -- function() require("sidekick.cli").toggle() end,
+      desc = "Sidekick Focus",
       mode = { "n", "t", "i", "x" },
     },
     {
@@ -94,6 +107,7 @@ return {
       end,
       desc = "Toggle Copilot LSP",
     },
+
     -- Example of a keybinding to open Claude directly
     -- {
     --   "<leader>ac",
