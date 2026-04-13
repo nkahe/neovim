@@ -30,7 +30,7 @@ return {
     "BufNewFile " .. notes_dir .. "/*.md",
     "BufNewFile " .. localnotes_dir .. "/*.md",
   },
-  dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim"  },
+  dependencies = { "folke/snacks.nvim"  },
   keys = {
     { "<Leader>sO", "<cmd>Obsidian search<CR>",       desc = "Obsidian search" },
     { "<Leader>ob", "<cmd>Obsidian backlinks<CR>",    desc = "Search backlinks" },
