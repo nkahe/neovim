@@ -50,6 +50,32 @@ return {
     },
   },
 
+  -- https://github.com/MagicDuck/grug-far.nvim
+  {
+    "MagicDuck/grug-far.nvim",
+    opts = { headerMaxWidth = 80 },
+    cmd = { "GrugFar", "GrugFarWithin" },
+    keys = {
+      {
+        "<leader>sr",
+        function()
+          local grug = require("grug-far")
+          local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+          grug.open({
+            -- Don't add buffer list, delete buffer when window closed.
+            transient = true,
+            -- Prefill with filetype of current buffer.
+            prefills = {
+              filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+            },
+          })
+        end,
+        mode = { "n", "x" },
+        desc = "Search and Replace",
+      },
+    },
+  },
+
   -- LSP renaming with immediate visual feedback
   -- https://github.com/smjonas/inc-rename.nvim
   {
