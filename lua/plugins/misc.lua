@@ -263,13 +263,13 @@ return {
     },
     opts = {
       regexOptions = {
-        startWithFixedStringsOn = true,
+        startWithFixedStrings = true,
         startWithIgnoreCase = true,
       },
       keymaps = { -- normal mode (if not stated otherwise)
         abort = "q",
-        confirm = "<CR>",
-        insertModeConfirm = "<C-CR>",
+        confirmAndSubstituteInBuffer = "<CR>",
+        insertModeConfirmAndSubstituteInBuffer = "<C-CR>",
         prevSubstitutionInHistory = "<Up>",
         nextSubstitutionInHistory = "<Down>",
         toggleFixedStrings = "<M-r>", -- ripgrep's `--fixed-strings`
