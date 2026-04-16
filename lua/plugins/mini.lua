@@ -56,14 +56,17 @@ return {
     end
 
 
-   -- Extends the a & i text objects, this adds the ability to select
+    -- Extends the a & i text objects, this adds the ability to select
     -- arguments, function calls, text within quotes and brackets, and to
     -- repeat those selections to select an outer text object.
     -- This is based on LazyVim config.
     local ai = require('mini.ai')
     ai.setup({
-
       n_lines = 500,
+      mappings = {
+        around_next = "aN",
+        inside_next = "iN",
+      },
       custom_textobjects = {
         o = ai.gen_spec.treesitter({ -- code block
           a = { "@block.outer", "@conditional.outer", "@loop.outer" },
@@ -130,8 +133,9 @@ return {
       local mappings = {
         a = "around",
         i = "inside",
-        an = "around next",
-        in_ = "inside next",
+        -- Nvim 0.12 has these by default.
+        -- an = "around next",
+        -- in_ = "inside next",
         al = "around last",
         il = "inside last",
       }
