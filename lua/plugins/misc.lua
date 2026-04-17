@@ -305,10 +305,11 @@ return {
     ft = { "markdown", "txt" }
   },
 
-  -- Doesn't work like this.
+  -- Adds a diff option when Vim finds a swap file.
+  -- https://github.com/chrisbra/Recover.vim
   {
     "chrisbra/Recover.vim",
-   event = { "VeryLazy" },
+   -- Not made with Lua so this is needed.
    config = function()
     -- require('recover.vim').setup()
    end
