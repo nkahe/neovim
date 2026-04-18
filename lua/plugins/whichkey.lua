@@ -3,6 +3,7 @@ return {
   "folke/which-key.nvim",
   event = "VeryLazy",
   opts = function(_, opts)
+    opts.preset = "helix"
     opts.spec = vim.list_extend(opts.spec or {}, {
       {
         mode = { "n", "x" },
