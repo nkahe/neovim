@@ -185,6 +185,8 @@ return {
       },
     })
 
+    require('mini.align').setup()
+
     require('mini.misc').setup()
 
     vim.keymap.set(
