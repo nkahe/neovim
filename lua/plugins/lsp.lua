@@ -6,6 +6,8 @@
 -- supports them.
 --
 -- Add non-server LSP tools like linters: add name to ensure_installed.
+--
+-- Keymaps defined later on Snacks.
 
 return {
   "neovim/nvim-lspconfig",
@@ -39,9 +41,9 @@ return {
     -- Autoformatting
     "stevearc/conform.nvim",
   },
-  -- LSP server settings. Just settings true installs and enables.
+  -- LSP server settings. Just setting true installs and enables.
   -- Configure but don't autoinstall: manual_install = true.
-  -- NOTE use LSP server name, not language name. Names can be searched with Mson.
+  -- NOTE use LSP server name, not language name. Names can be searched with Mason.
   opts = {
     servers = {
       bashls = true,
@@ -91,6 +93,7 @@ return {
       "stylua",
     }
 
+    -- If using mini.completion instead of Blink.
     -- capabilities = function()
     --   local MiniCompletion = require("mini.completion")
     --   return MiniCompletion.get_lsp_capabilities()
@@ -124,9 +127,9 @@ return {
         config = {}
       end
 
-      -- Only call vim.lsp.config if there are server-specific settings
+      -- Only call vim.lsp.config if there are server-specific settings.
       if next(config) ~= nil then
-        -- Remove manual_install flag as it's not an LSP config field
+        -- Remove manual_install flag as it's not an LSP config field.
         local lsp_config = vim.tbl_deep_extend("force", {}, config)
         lsp_config.manual_install = nil
         vim.lsp.config(name, lsp_config)
@@ -139,7 +142,9 @@ return {
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
       callback = function(event)
-        local client = assert(vim.lsp.get_client_by_id(event.data.client_id), "must have valid client")
+        local client = assert(
+          vim.lsp.get_client_by_id(event.data.client_id), "must have valid client"
+        )
 
         local settings = opts.servers[client.name]
         if type(settings) ~= "table" then
@@ -152,7 +157,9 @@ return {
           vim.keymap.set(mode, lhs, rhs, opts)
         end
 
-        -- Many LSP mappings are in snacks.lua and 'gd' is in keymaps.lua since
+        -- Some LSP mappings.
+        -- 
+        -- Many  mappings are in snacks.lua and 'gd' is in keymaps.lua since
         -- it supports ctags too.
         map("n", "<leader>cl", function() Snacks.picker.lsp_config() end, { desc = "Lsp Info" })
         -- Mapped with mini.basics
