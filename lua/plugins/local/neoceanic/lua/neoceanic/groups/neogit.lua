@@ -1,6 +1,6 @@
 local M = {}
 
-function M.get(theme, colors, opts)
+function M.get(_, colors, _)
   local lighten_col = require("neoceanic.colors").change_hex_lightness
 
   return {
