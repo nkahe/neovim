@@ -8,9 +8,9 @@ local b_section_bg = colors.one_bg
 local c_section_bg = colors.darker_black
 
 hl.normal = {
-  a = { bg = colors.folder_bg, fg = true_black },
-  b = { bg = b_section_bg, fg = colors.blue },
-  c = { bg = c_section_bg, fg = off_white },
+  a = { bg = colors.nord_blue, fg = true_black  },
+  b = { bg = b_section_bg,     fg = colors.blue },
+  c = { bg = c_section_bg,     fg = off_white   },
 }
 
 hl.insert = {
@@ -24,8 +24,8 @@ hl.command = {
 }
 
 hl.visual = {
-  a = { bg = colors.dark_purple, fg = colors.black },
-  b = { bg = b_section_bg, fg = colors.purple },
+  a = { bg = colors.dark_purple, fg = colors.black  },
+  b = { bg = b_section_bg,       fg = colors.purple },
 }
 
 hl.replace = {

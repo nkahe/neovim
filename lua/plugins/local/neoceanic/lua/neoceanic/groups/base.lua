@@ -1,15 +1,17 @@
 local M = {}
 
-function M.get(theme, colors, opts)
+function M.get(theme, colors, _)
   -- stylua: ignore
+  local lighten = require('neoceanic.colors').change_hex_lightness
   return {
     Added             = { fg   = colors.green        },
+    DiffText          = { fg  = colors.green,        bg = colors.one_bg   },
     Removed           = { fg   = colors.red          },
     Changed           = { fg   = colors.yellow       },
     MatchWord         = { fg   = colors.white,       bg = colors.grey     },
     Pmenu             = { bg   = colors.one_bg       },
     PmenuSbar         = { bg   = colors.one_bg       },
-    PmenuSel          = { fg   = colors.black,       bg = colors.pmenu_bg },
+    PmenuSel          = { fg   = "#000000", bg = colors.blue },
     PmenuThumb        = { bg   = colors.grey         },
     MatchParen        = { link = "MatchWord"         },
     Comment           = { fg   = colors.light_grey   },
@@ -19,7 +21,7 @@ function M.get(theme, colors, opts)
     FloatTitle        = { fg   = colors.white,       bg = colors.grey     },
     NormalFloat       = { bg   = colors.darker_black },
     NvimInternalError = { fg   = colors.red          },
-    WinSeparator      = { fg   = colors.line         },
+    WinSeparator      = { fg   = colors.one_bg       },
     Normal            = { fg   = theme.base05,       bg = theme.base00    },
     DevIconDefault    = { fg   = colors.red          },
     Debug             = { fg   = theme.base08        },
