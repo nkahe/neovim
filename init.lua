@@ -8,7 +8,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
  -- base46 themes: put this in your main init.lua file ( before lazy setup )
-vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46_cache/"
+-- vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46_cache/"
 
 -- Define custom autocommand group and helper to create an autocommand.
 -- Autocommands are Neovim's way to define actions that are executed on events
@@ -41,9 +41,9 @@ if vim.g.vscode then
   require("config.vscode")
 else
   -- (method 2, for non lazyloaders) to load all highlights at once
-  for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
-    dofile(vim.g.base46_cache .. v)
-  end
+  -- for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
+  --   dofile(vim.g.base46_cache .. v)
+  -- end
 
   require("config.autocmds-lazyvim")
   require("config.autocmds")
