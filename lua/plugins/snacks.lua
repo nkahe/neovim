@@ -11,8 +11,7 @@ local function term_nav(dir)
   end
 end
 
-return
-  {
+return {
   "folke/snacks.nvim",
   enabled = true,
   priority = 1000,
@@ -76,9 +75,7 @@ return
     -- Defaults:
     -- <leader>e	Explorer Snacks (root dir)
     -- <leader>E	Explorer Snacks (cwd)
-    explorer = {
-      enabled = false,
-    },
+    explorer = { enabled = false },
 
     indent = { enabled = true },
 
@@ -109,12 +106,8 @@ return
         preview = false
       },
       sources = {
-        files = {
-          hidden = true
-        },
-        explorer = {
-          diagnostics = false
-        },
+        files = { hidden = true },
+        explorer = { diagnostics = false },
       },
       win = {
         input = {
@@ -262,9 +255,7 @@ return
 
     zen = {
       enabled = true,
-      toggles = {
-        dim = false,
-      }
+      toggles = { dim = false }
     },
 
     styles = {

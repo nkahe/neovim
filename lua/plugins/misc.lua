@@ -309,9 +309,9 @@ return {
   -- https://github.com/chrisbra/Recover.vim
   {
     "chrisbra/Recover.vim",
-   -- Not made with Lua so this is needed.
-   config = function()
-    -- require('recover.vim').setup()
-   end
-   }
+    -- Not made with Lua so this is needed.
+    config = function()
+      -- require('recover.vim').setup()
+    end
+  }
 }
