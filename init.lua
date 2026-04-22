@@ -47,7 +47,7 @@ else
 
   require("config.autocmds-lazyvim")
   require("config.autocmds")
-  require("config.user-commands")
+  require("config.commands")
 
   -- Start server so can open files in terminal with Neovim without having to open
   -- them in different process.
