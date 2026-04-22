@@ -1,5 +1,8 @@
 local M = {}
 
+-- Functions to Search symbols in file and workspace and goto definition using
+-- LSP if available but fallback to ctags if not. Depends on mini.misc.
+
 local function has_lsp_method(bufnr, method)
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
   for _, client in ipairs(clients) do
@@ -8,6 +11,30 @@ local function has_lsp_method(bufnr, method)
     end
   end
   return false
+end
+
+function M.pick()
+  if has_lsp_method(0, "textDocument/documentSymbol") then
+    Snacks.picker.lsp_symbols()
+    return
+  end
+  M.pick_ctags_buffer()
+end
+
+function M.pick_workspace()
+  if has_lsp_method(0, "workspace/symbol") then
+    Snacks.picker.lsp_workspace_symbols()
+    return
+  end
+  M.pick_ctags_project()
+end
+
+function M.goto_definition()
+  if has_lsp_method(0, "textDocument/definition") then
+    Snacks.picker.lsp_definitions()
+    return
+  end
+  M.jump_to_tag_under_cursor()
 end
 
 local function project_root(bufnr)
@@ -138,30 +165,6 @@ function M.pick_ctags_project()
       M.jump_to_tag_entry(choice)
     end
   end)
-end
-
-function M.pick()
-  if has_lsp_method(0, "textDocument/documentSymbol") then
-    Snacks.picker.lsp_symbols()
-    return
-  end
-  M.pick_ctags_buffer()
-end
-
-function M.pick_workspace()
-  if has_lsp_method(0, "workspace/symbol") then
-    Snacks.picker.lsp_workspace_symbols()
-    return
-  end
-  M.pick_ctags_project()
-end
-
-function M.goto_definition()
-  if has_lsp_method(0, "textDocument/definition") then
-    Snacks.picker.lsp_definitions()
-    return
-  end
-  M.jump_to_tag_under_cursor()
 end
 
 function M.refresh_tags_for_project(bufnr)
