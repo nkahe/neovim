@@ -101,10 +101,7 @@ return {
           hidden = { "preview", "input" },
         },
       },
-      layout = {
-        preset = "ivy",
-        preview = false
-      },
+      layout = { preset = "ivy", preview = false },
       sources = {
         files = { hidden = true },
         explorer = { diagnostics = false },
@@ -120,15 +117,15 @@ return {
               ["/"] = { "toggle_focus", desc = "Toggle focus" },
               ["<C-Down>"] = { "history_forward", mode = { "i", "n" }, desc = "History forward" },
               ["<C-Up>"] = { "history_back", mode = { "i", "n" }, desc = "History back" },
-              ["<C-c>"] = { "cancel", mode = "i", desc = "Cancel" },
-              ["<C-w>"] = { "<c-s-w>", mode = { "i" }, expr = true, desc = "Delete word" },
-              ["<CR>"] = { "confirm", mode = { "n", "i" }, desc = "Confirm" },
+              ["<C-c>" ] = { "cancel", mode = "i", desc = "Cancel" },
+              ["<C-w>" ] = { "<c-s-w>", mode = { "i" }, expr = true, desc = "Delete word" },
+              ["<CR>"  ] = { "confirm", mode = { "n", "i" }, desc = "Confirm" },
               ["<Down>"] = { "list_down", mode = { "i", "n" }, desc = "List down" },
-              ["<Esc>"] = { "cancel", desc = "Cancel" },
+              ["<Esc>" ] = { "cancel", desc = "Cancel" },
               ["<S-CR>"] = { { "pick_win", "jump" }, mode = { "n", "i" }, desc = "Pick win / jump" },
               ["<S-Tab>"] = { "select_and_prev", mode = { "i", "n" }, desc = "Select and prev" },
               ["<Tab>"] = { "select_and_next", mode = { "i", "n" }, desc = "Select and next" },
-              ["<Up>"] = { "list_up", mode = { "i", "n" }, desc = "List up" },
+              ["<Up>" ] = { "list_up", mode = { "i", "n" }, desc = "List up" },
               ["<a-d>"] = { "inspect", mode = { "n", "i" }, desc = "Inspect" },
               ["<a-f>"] = { "toggle_follow", mode = { "i", "n" }, desc = "Toggle follow" },
               ["<a-h>"] = { "toggle_hidden", mode = { "i", "n" }, desc = "Toggle hidden" },
@@ -162,12 +159,12 @@ return {
               ["<c-w>J"] = { "layout_bottom", desc = "Layout bottom" },
               ["<c-w>K"] = { "layout_top", desc = "Layout top" },
               ["<c-w>L"] = { "layout_right", desc = "Layout right" },
-              ["?"] = { "toggle_help_input", desc = "Toggle help input" },
-              ["G"] = { "list_bottom", desc = "List bottom" },
+              ["?" ] = { "toggle_help_input", desc = "Toggle help input" },
+              ["G" ] = { "list_bottom", desc = "List bottom" },
               ["gg"] = { "list_top", desc = "List top" },
-              ["j"] = { "list_down", desc = "List down" },
-              ["k"] = { "list_up", desc = "List up" },
-              ["q"] = { "cancel", desc = "Cancel" },
+              ["j" ] = { "list_down", desc = "List down" },
+              ["k" ] = { "list_up", desc = "List up" },
+              ["q" ] = { "cancel", desc = "Cancel" },
           },
         },
         list = {
@@ -207,13 +204,13 @@ return {
               ["<c-w>J"] = { "layout_bottom", desc = "Move layout bottom" },
               ["<c-w>K"] = { "layout_top", desc = "Move layout top" },
               ["<c-w>L"] = { "layout_right", desc = "Move layout right" },
-              ["?"] = { "toggle_help_list", desc = "Toggle help list" },
-              ["G"] = { "list_bottom", desc = "Go to bottom" },
+              ["?" ] = { "toggle_help_list", desc = "Toggle help list" },
+              ["G" ] = { "list_bottom", desc = "Go to bottom" },
               ["gg"] = { "list_top", desc = "Go to top" },
-              ["i"] = { "focus_input", desc = "Focus search input" },
-              ["j"] = { "list_down", desc = "Move down" },
-              ["k"] = { "list_up", desc = "Move up" },
-              ["q"] = { "cancel", desc = "Cancel / close" },
+              ["i" ] = { "focus_input", desc = "Focus search input" },
+              ["j" ] = { "list_down", desc = "Move down" },
+              ["k" ] = { "list_up", desc = "Move up" },
+              ["q" ] = { "cancel", desc = "Cancel / close" },
               ["zb"] = { "list_scroll_bottom", desc = "Scroll to bottom" },
               ["zt"] = { "list_scroll_top", desc = "Scroll to top" },
               ["zz"] = { "list_scroll_center", desc = "Scroll to center" },
@@ -253,10 +250,7 @@ return {
 
     words = { enabled = true },
 
-    zen = {
-      enabled = true,
-      toggles = { dim = false }
-    },
+    zen = { enabled = true, toggles = { dim = false } },
 
     styles = {
       notification = {

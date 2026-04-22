@@ -44,9 +44,7 @@
         desc = "Buffer Explorer",
       },
     },
-    deactivate = function()
-      vim.cmd([[Neotree close]])
-    end,
+    deactivate = function() vim.cmd([[Neotree close]]) end,
     -- init = function()
     -- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
     -- because `cwd` is not set up properly.
@@ -153,7 +151,6 @@
         { event = events.FILE_MOVED, handler = on_move },
         { event = events.FILE_RENAMED, handler = on_move },
       })
-
       require("neo-tree").setup(opts)
     end,
   }
