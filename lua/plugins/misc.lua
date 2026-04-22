@@ -22,15 +22,14 @@ return {
     name = "yakuake-titles",
     dir = vim.fn.stdpath("config") .. "/lua/plugins/local",
     event = "VeryLazy",
-    config = function()
-      require("plugins.local.yakuake-titles")
-    end,
+    config = function() require("plugins.local.yakuake-titles") end,
   },
 
   -- EinfachToll/DidYouMean: Vim plugin which asks for the right file to open
   -- https://github.com/EinfachToll/DidYouMean
   {
     "EinfachToll/DidYouMean",
+    -- Didn't work with snacks scratch buffer.
     enabled = false
   },
 
@@ -79,13 +78,11 @@ return {
   -- https://github.com/smjonas/inc-rename.nvim
   {
     "smjonas/inc-rename.nvim",
-    opts = {},
     keys = {
-      { "<F2>", function()
-          return ":IncRename " .. vim.fn.expand("<cword>")
-        end,
+      { "<F2>", function() return ":IncRename " .. vim.fn.expand("<cword>") end,
         mode = "n", expr = true, desc = "Rename symbol",
       },
+    opts = {},
     },
   },
 
@@ -101,7 +98,6 @@ return {
     },
     vscode = true  -- Enable in vscode
   },
-
 
   -- provides modern markdown editing capabilities, implementing features found
   -- in popular editors.
@@ -124,87 +120,10 @@ return {
     enabled = true,
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     build = "cd app && npm install",
-    init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
-    end,
+    init = function() vim.g.mkdp_filetypes = { "markdown" } end,
     ft = { "markdown" },
     keys = {
       { "<Leader>mP", "<cmd>MarkdownPreviewToggle<CR>", mode = "n", desc = "Toggle preview" }
-    }
-  },
-
-  {
-    "OXY2DEV/markview.nvim",
-    enabled = true,
-    startWithIgnoreCase = false,
-    -- Do not lazy load this plugin as it is already lazy-loaded.
-    lazy = false,
-    -- Ensure theme loads after this plugin.
-    -- dependencies = { "Mofiqul/vscode.nvim" },
-    -- Completion for `blink.cmp`
-    -- dependencies = { "saghen/blink.cmp" },
-    keys = {
-      { "<Leader>um", "<cmd>Markview Toggle<CR>", mode = "n", desc = "Toggle markdown rendering" }
-    },
-    init = function()
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "markdown",
-        callback = function(event)
-          -- NOTE: "toggle" with lowercase t.
-          vim.keymap.set("n", "\\m", ("<cmd>Markview toggle<CR>"), {
-            buffer = event.buf,
-            desc = "Toggle Markview for buffer"
-          })
-        end
-      })
-
-      local green, blue, cyan, purple = "#063524", "#203243", "#1b3231", "#342534"
-      vim.api.nvim_set_hl(0, "MarkviewCode", { bg = "#1f2e36" })
-      vim.api.nvim_set_hl(0, "MarkviewHeading1", { fg = "#C594C5", bg = purple })
-      vim.api.nvim_set_hl(0, "MarkviewHeading2", { fg = "#6699CC", bg = blue })
-      vim.api.nvim_set_hl(0, "MarkviewHeading3", { fg = "#62B3B2", bg = cyan })
-      -- vim.api.nvim_set_hl(0, "MarkviewHeading4", { fg = "#D8DEE9", bg = red })
-      -- vim.api.nvim_set_hl(0, "MarkviewHeading5", { bg = "#203038" })
-    end,
-    opts = {
-      markdown = {
-        code_blocks = {
-          sign = false,
-          style = "block"
-        },
-        headings = {
-          heading_1 = {
-            style = "label",
-            icon = "I ",
-            icon_hl = "white",
-            -- border = "=",
-            -- border_hl = "MarkviewHeading1",
-            padding_left = " ",
-            padding_right = "       ",
-            sign = ""
-          },
-          heading_2 = {
-            style = "label",
-            icon = "II ",
-            icon_hl = "white",
-            padding_left = " ",
-            padding_right = "      ",
-            sign = ""
-          },
-          heading_3 = {
-            style = "label",
-            icon = "III ",
-            icon_hl = "white",
-            padding_left = " ",
-            padding_right = "      ",
-            sign = ""
-          },
-          heading_4 = { style = "label", sign = "" },
-          heading_5 = { style = "label", sign = "" },
-          heading_6 = { style = "label", sign = "" },
-          shift_width = 0,
-        },
-      },
     }
   },
 
@@ -225,20 +144,18 @@ return {
         ["<C-h>"] = false,
         ["<C-l>"] = false,
         ["<M-r>"] = "actions.refresh",
-        ["-"] = { "actions.parent", mode = "n" },
+        [ "-"   ] = { "actions.parent", mode = "n" },
         ["<BS>" ] = { "actions.parent", mode = "n" },
-        ["_"] = { "actions.open_cwd", mode = "n" },
-        ["`"] = { "actions.cd", mode = "n" },
-        ["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
-        ["gs" ] = { "actions.change_sort", mode = "n" },
-        ["gx" ] = "actions.open_external",
-        ["g." ] = { "actions.toggle_hidden", mode = "n" },
-        ["g\\"] = { "actions.toggle_trash", mode = "n" },
+        [ "_"   ] = { "actions.open_cwd", mode = "n" },
+        [ "`"   ] = { "actions.cd", mode = "n" },
+        [ "~"   ] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
+        [ "gs"  ] = { "actions.change_sort", mode = "n" },
+        [ "gx"  ] = "actions.open_external",
+        [ "g."  ] = { "actions.toggle_hidden", mode = "n" },
+        [ "g\\" ] = { "actions.toggle_trash", mode = "n" },
       },
     },
-    keys = {
-      { "-", "<CMD>Oil<CR>", desc = "Open Oil" },
-    },
+    keys = {{ "-", "<CMD>Oil<CR>", desc = "Open Oil" }},
     -- Optional dependencies
     dependencies = { { "nvim-mini/mini.icons", opts = {} } },
     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
