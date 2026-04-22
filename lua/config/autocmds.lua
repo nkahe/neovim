@@ -280,7 +280,7 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
   group = augroup("open_quickfix_below"),
   -- Applies to Quickfix commands, not location list
-  pattern = "[^l]*", -- Words starting with 'lä.
+  pattern = "[^l]*", -- Words starting with 'l.
   callback = function()
     vim.cmd("botright copen")
   end,

@@ -508,8 +508,8 @@ return {
         Snacks.toggle.option("showtabline", { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" }):map("<leader>uA")
         Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
         Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-        Snacks.toggle.profiler():map("<leader>ðpp")
-        Snacks.toggle.profiler_highlights():map("<leader>ðph")
+        Snacks.toggle.profiler():map("<leader>Dpp")
+        Snacks.toggle.profiler_highlights():map("<leader>Dph")
         Snacks.toggle.scroll():map("<leader>uS")
         Snacks.toggle.treesitter():map("<leader>uT")
       end,

@@ -85,7 +85,6 @@ return {
         end, { desc = "Inspect Treesitter tree" })
       end
 
-      map_inspect('ði')
       map_inspect('uI')
 
     end
