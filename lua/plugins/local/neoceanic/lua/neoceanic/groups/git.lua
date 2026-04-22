@@ -14,12 +14,12 @@ function M.get(theme, colors, _)
     },
 
     DiffAdd = {
-      bg = mix(colors.green, colors.black, 90),
+      bg = mix(colors.green, colors.black, 80),
       fg = colors.green,
     },
 
     DiffAdded = {
-      bg = mix(colors.green, colors.black, 90),
+      bg = mix(colors.green, colors.black, 80),
       fg = colors.green,
     },
 
@@ -49,6 +49,9 @@ function M.get(theme, colors, _)
     },
 
     DiffText = {
+      -- bg = "#25373a" })
+      -- bg = mix(colors.green, colors.black, 90),
+      -- fg = colors.green,
       fg = colors.white,
       bg = colors.black2,
     },

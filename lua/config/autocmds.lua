@@ -88,7 +88,6 @@ if ok then
   })
 end
 
-
 -- Configs for diff-mode.
 vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*",
