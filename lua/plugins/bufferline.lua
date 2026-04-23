@@ -31,7 +31,7 @@ return {
           {
             filetype = "neo-tree",
             text = "Neo-tree",
-            highlight = "Directory",
+            highlight = "BufferLineDiagnostic",
             text_align = "left",
           },
           {
