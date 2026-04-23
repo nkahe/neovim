@@ -104,7 +104,10 @@ vim.o.cursorlineopt = 'screenline,number' -- Show cursor line per screen line
 -- Two latter are default in Neovim 0.12.
 vim.opt.diffopt:append("vertical", "indent-heuristic", "inline:char")  
 vim.o.foldmethod     = 'indent'   -- Fold based on indent level
-vim.o.foldnestmax    = 10         -- Limit number of fold levels
+-- Needed for sourcing the file to work.
+if vim.opt.foldnestmax:get() ~= 10 then
+  vim.opt.foldnestmax = 10        -- Limit number of fold levels
+end
 vim.o.foldtext       = 'NONE'     -- Show text under fold with its highlighting
 vim.o.foldlevel      = 99         -- Fold nothing by default; set to 0 or 1 to fold
 vim.o.foldlevelstart = 99         -- Make sure folds are open by default.
