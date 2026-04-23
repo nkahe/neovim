@@ -48,6 +48,7 @@ else
   require("config.autocmds-lazyvim")
   require("config.autocmds")
   require("config.commands")
+  require("plugins.local.breeze").setup()
 
   -- Start server so can open files in terminal with Neovim without having to open
   -- them in different process.

@@ -2,69 +2,80 @@
 
 ![Screenshot](images/screenshot.png)
 
-This is my Neovim configuration. It uses [Lazy.nvim](https://github.com/folke/lazy.nvim) as plugin manager. Part of the plugin
-configurations are from [LazyVim](https://www.lazyvim.org) since . I have mentioned this in comments. LazyVim isn't used as distribution. 
+This is my Neovim configuration. It uses [Lazy.nvim](https://github.com/folke/lazy.nvim) as plugin manager. Many of the plugins and part of the plugin
+configurations are from [LazyVim](https://www.lazyvim.org) which mentioned in comments. However, LazyVim isn't used as a distribution. 
 
 ## Features
-
-General
-- Compatible with VSCode when using VSCode Neovim -extension.
-- Plugins are lazy loaded if possible to keep startup speed fast.
 
 Configurations for
 - Key mappings
 - Neovim options
 
-Autocommands which are code executed at certain events:
-- Config hot reloading
+Autocommands (code executed at certain events):
+- Config files hot-reloading
 - Custom terminal background color.
 - Neovim CLI option to select session during startup.
 - Dynamic window titles based on used config or session.
-- Command mode aliases.
+- Auto-close exiting terminal shells.
+- Auto-open location list after search.
+- Command mode path aliases.
 - Change Obsidian.nvim vault automatically based on working directory.
 
 User commands
-- Change part of dynamic window title.
 - Clear oldfiles.
 - Copy file path to clipboard.
-- Open messages in new split.
-- Reload settings.
 - Trim trailing whitespace.
+- Setting window title prefix.
 
 Plugins:
-- Treesitter code parsing for better syntax highlighting, code folding and text objects.
-- Language Server Protocol for linting code completion using Blink autocompletion.
-- Snacks provide lot of quality of life improvements. Snacks.picker is used as picker.
-- Mini.nvim
-- UI: BufferLine, Lualine, Neotree, Trouble.
-- NvChad's Base46 oceanic-next theme.
-- Obsidian.nvim, Dial, Noice.
-- And many more.
+- Plugins are lazy loaded if possible to keep startup speed <50ms.
+Custom:
+- Colorscheme based on NvChad/base46's Oceanic Next.
+- Terminal colorsscheme using KDE Breeze theme colors.
+- Dynamic terminal title for Yakuake terminal.
+Other:
+- Lazy.nvim plugin manager.
+- [folke/snacks.nvim: 🍿 A collection of QoL plugins for Neovim](https://github.com/folke/snacks.nvim)
+- [nvim-mini/mini.nvim: Library of 40+ independent Lua modules improving Neovim experience with minimal effort](https://github.com/nvim-mini/mini.nvim)
+- UI: BufferLine, Lualine, Which-Key, Trouble, Noice, Nvim-web-devicons.
+- LSP and completion: Nvim-lspconfig, Lazydev, Mason, Conform, Blink.
+- Treesitter code parsing: nvim-treesitter, nvim-treesitter-textobjects, ts-comments.
+- Git: Neogit, GitSigns, DiffView, Vim-Fugitive.
+- File management: Oil, Neotree.
+- Markdown: Markview, Markdown-Plus, Markdown-preview, Wrapwidth.
+- [obsidian-nvim/obsidian.nvim: Obsidian 🤝 Neovim ](https://github.com/obsidian-nvim/obsidian.nvim)
+- AI: Sidekick
+- Various enhancements: Dial, Flash, Grug-FAR, inc-rename, Nvim-rip-substitute, Recover.vim, Vim-insert-append-single-character, Vim-Suda, ctrl-g.
+
+- Compatible with VSCode when using VSCode Neovim -extension.
 
 ## File Structure
 
     nvim/
-    ├── lua
-    │   ├── config
-    │   │   ├── util                  - Utility functions.
-    │   │   ├── autocmds.lua          - Custom autocommands.
-    │   │   ├── autocmds-lazyvim.lua  - LazyVim autocommands.
-    │   │   ├── keymaps.lua           - Key mappings for this config.
-    │   │   ├── shared-keymaps.lua    - Key mappings shared between different Neovim configs.
-    │   │   ├── lazy.lua              - Lazy.nvim plugin manager settings.
-    │   │   ├── options.lua           - Neovim options.
-    │   │   ├── user-commands.lua     - User commands used in command mode.
-    │   │   └── vscode.lua            - Settings used only when running embedded to VSCode.
-    │   ├── nvconfig.lua              - Config used for base46 theme plugin.
-    │   └── plugins                   - Lazy.nvim plugin specifications.
-    │       ├── local                 - Local custom plugins.
-    │       │   ├── spec1.lua
-    │       │   ├── **
-    │       │   ├── spec2.lua
-    │       ├── spec1.lua
-    │       ├── **
-    │       └── spec2.lua
-    └── init.lua                      - Bootstrapping configuration.
+    ├── init.lua                      - Bootstrapping configuration.
+    ├── after
+    │   └── ftplugin                  - Filetype configs.
+    │       ├── filetype1.lua
+    │       └── **
+    └── lua
+        ├── config
+        │   ├── util                  - Utility functions.
+        │   ├── autocmds.lua          - Custom autocommands.
+        │   ├── autocmds-lazyvim.lua  - LazyVim autocommands.
+        │   ├── keymaps.lua           - Key mappings for this config.
+        │   ├── shared-keymaps.lua    - Key mappings shared between different Neovim configs.
+        │   ├── lazy.lua              - Lazy.nvim plugin manager settings.
+        │   ├── options.lua           - Neovim options.
+        │   ├── commands.lua          - User commands used in command mode.
+        │   └── vscode.lua            - Settings used only when running embedded to VSCode.
+        └── plugins                   
+            ├── local                 - Local custom plugins.
+            │   ├── neoceanic/        - Custom colorscheme.
+            │   ├── **
+            │   ├── spec2.lua
+            ├── spec1.lua             - Lazy.nvim plugin specifications.
+            ├── **
+            └── spec2.lua
 
  ## Requirements
 

@@ -155,7 +155,8 @@ vim.api.nvim_create_autocmd({ "WinEnter" }, {
 -- in it's config.
 
 -- Fallback if colors aren't defined.
-vim.api.nvim_set_hl(0, "TermBgFallback", { bg = "#121212" })
+vim.api.nvim_set_hl(0, "TermBgFallback", { bg = "#101a1f" })
+-- vim.api.nvim_set_hl(0, "TermBgFallback", { bg = "#121212" })
 vim.api.nvim_set_hl(0, "NoBackground", { bg = "none" })
 
 vim.api.nvim_create_autocmd({ "TermOpen", "WinEnter"  }, {
