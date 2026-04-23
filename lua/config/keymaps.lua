@@ -49,12 +49,12 @@ local diagnostic_goto = function(next, severity)
   end
 end
 
-map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
+map("n", "]d", diagnostic_goto(true),  { desc = "Next Diagnostic" })
 map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
-map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
-map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
-map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
-map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+map("n", "]e", diagnostic_goto(true,  "ERROR"), { desc = "Next Error"   })
+map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error"   })
+map("n", "]w", diagnostic_goto(true,  "WARN"),  { desc = "Next Warning" })
+map("n", "[w", diagnostic_goto(false, "WARN"),  { desc = "Prev Warning" })
 
 -- new file
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
@@ -64,14 +64,14 @@ local toggle_prefix = [[\]]
 local map_toggle = function(lhs, rhs, desc)
   map('n', toggle_prefix .. lhs, rhs, { desc = desc })
 end
-map_toggle('c', '<Cmd>setlocal cursorline! cursorline?<CR>',          "Toggle 'cursorline'")
-map_toggle('C', '<Cmd>setlocal cursorcolumn! cursorcolumn?<CR>',      "Toggle 'cursorcolumn'")
-map_toggle('i', '<Cmd>setlocal ignorecase! ignorecase?<CR>',          "Toggle 'ignorecase'")
-map_toggle('l', '<Cmd>setlocal list! list?<CR>',                      "Toggle 'list'")
-map_toggle('n', '<Cmd>setlocal number! number?<CR>',                  "Toggle 'number'")
-map_toggle('r', '<Cmd>setlocal relativenumber! relativenumber?<CR>',  "Toggle 'relativenumber'")
-map_toggle('s', '<Cmd>setlocal spell! spell?<CR>',                    "Toggle 'spell'")
-map_toggle('w', '<Cmd>setlocal wrap! wrap?<CR>',                      "Toggle 'wrap'")
+map_toggle('c', '<Cmd>setlocal cursorline! cursorline?<CR>',         "Toggle 'cursorline'")
+map_toggle('C', '<Cmd>setlocal cursorcolumn! cursorcolumn?<CR>',     "Toggle 'cursorcolumn'")
+map_toggle('i', '<Cmd>setlocal ignorecase! ignorecase?<CR>',         "Toggle 'ignorecase'")
+map_toggle('l', '<Cmd>setlocal list! list?<CR>',                     "Toggle 'list'")
+map_toggle('n', '<Cmd>setlocal number! number?<CR>',                 "Toggle 'number'")
+map_toggle('r', '<Cmd>setlocal relativenumber! relativenumber?<CR>', "Toggle 'relativenumber'")
+map_toggle('s', '<Cmd>setlocal spell! spell?<CR>',                   "Toggle 'spell'")
+map_toggle('w', '<Cmd>setlocal wrap! wrap?<CR>',                     "Toggle 'wrap'")
 
 -- location list.
 map("n", "<leader>xl", function()
@@ -113,14 +113,18 @@ end
 -- highlights under cursor
 map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 
+-- windows
+map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
+map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
+
 -- tabs
-map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
-map("n", "<leader><tab>o", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
-map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
-map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
-map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
-map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
-map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+map("n", "<leader><tab>l",     "<cmd>tablast<cr>",     { desc = "Last Tab"  })
+map("n", "<leader><tab>o",     "<cmd>tabonly<cr>",     { desc = "Close Other Tabs" })
+map("n", "<leader><tab>f",     "<cmd>tabfirst<cr>",    { desc = "First Tab" })
+map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>",      { desc = "New Tab" })
+map("n", "<leader><tab>]",     "<cmd>tabnext<cr>",     { desc = "Next Tab" })
+map("n", "<leader><tab>d",     "<cmd>tabclose<cr>",    { desc = "Close Tab" })
+map("n", "<leader><tab>[",     "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 -- lua
 -- map({"n", "x"}, "<localleader>r", function() Snacks.debug.run() end, { desc = "Run Lua", ft = "lua" })
@@ -132,9 +136,9 @@ map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 if vim.g.vscode then return end
 
-vim.keymap.set("n", "<leader>z", function()
+vim.keymap.set("n", "<C-w>f", function()
   require("plugins.local.centerfloat").toggle()
-end)
+end, { desc = "Float Center" })
 
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 
@@ -143,5 +147,5 @@ map( "v", "<LocalLeader>W", ":!fmt -w 80<CR>",
 )
 
 -- quit
-map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
+map("n", "<leader>qq", "<cmd>qa<cr>",  { desc = "Quit All" })
 map("n", "<leader>qQ", "<cmd>qa!<cr>", { desc = "Quit All without saving" })
