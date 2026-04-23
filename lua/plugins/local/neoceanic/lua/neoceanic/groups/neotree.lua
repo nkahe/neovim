@@ -2,8 +2,8 @@ local M = {}
 
 function M.get(_, colors, _)
   return {
-    NeoTreeTabInactive          = { fg = colors.light_grey,    bg = colors.darker_black },
-    NeoTreeTabSeparatorInactive = { fg = colors.darker_black,  bg = colors.darker_black },
+    NeoTreeTabInactive          = { fg = colors.light_grey,   bg = colors.darker_black },
+    NeoTreeTabSeparatorInactive = { fg = colors.darker_black, bg = colors.darker_black },
     NeoTreeGitConflict          = { fg = colors.light_grey },
     NeoTreeGitModified          = { fg = colors.light_grey },
     NeoTreeGitUntracked         = { fg = colors.light_grey },

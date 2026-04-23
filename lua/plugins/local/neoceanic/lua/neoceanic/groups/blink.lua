@@ -2,12 +2,6 @@ local M = {}
 
 function M.get(base16, colors, _)
 
-  local mixcolors = require("neoceanic.colors").mix
-  local generate_color = require("neoceanic.colors").change_hex_lightness
-
-  local black2_l = generate_color(colors.black2, 6)
-  local black2_d = generate_color(colors.black2, -6)
-
   local highlights = {
     BlinkCmpMenu                = { bg   = colors.black      },
     BlinkCmpMenuBorder          = { fg   = colors.grey_fg    },
