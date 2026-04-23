@@ -52,7 +52,7 @@ return {
   {
     "MagicDuck/grug-far.nvim",
     opts = { headerMaxWidth = 80 },
-    cmd = { "GrugFar", "GrugFarWithin" },
+    cmd  = { "GrugFar", "GrugFarWithin" },
     keys = {
       {
         "<leader>sr",
@@ -74,15 +74,15 @@ return {
     },
   },
 
-  -- LSP renaming with immediate visual feedback
+  -- Renaming with immediate visual feedback (LSP)
   -- https://github.com/smjonas/inc-rename.nvim
   {
     "smjonas/inc-rename.nvim",
+    cmd  = { "IncRename" },
     keys = {
       { "<F2>", function() return ":IncRename " .. vim.fn.expand("<cword>") end,
         mode = "n", expr = true, desc = "Rename symbol",
       },
-    opts = {},
     },
   },
 
