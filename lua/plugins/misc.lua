@@ -79,6 +79,7 @@ return {
   {
     "smjonas/inc-rename.nvim",
     cmd  = { "IncRename" },
+    opts = {},
     keys = {
       { "<F2>", function() return ":IncRename " .. vim.fn.expand("<cword>") end,
         mode = "n", expr = true, desc = "Rename symbol",
