@@ -4,8 +4,8 @@ local hl = {}
 
 local off_white = colors.white
 local true_black = "#000000"
-local b_section_bg = colors.one_bg
-local c_section_bg = colors.darker_black
+local b_section_bg = colors.one_bg2
+local c_section_bg = colors.black2
 
 hl.normal = {
   a = { bg = colors.nord_blue, fg = true_black  },
