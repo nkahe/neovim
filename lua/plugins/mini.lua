@@ -33,6 +33,41 @@ return {
       },
     })
 
+    require('mini.cmndline').setup({
+      -- Autocompletion: show `:h 'wildmenu'` as you type
+      autocomplete = {
+        enable = false, -- Blink is used.
+      },
+
+      -- Autocorrection: adjust non-existing words (commands, options, etc.)
+      autocorrect = {
+        enable = true,
+
+        -- Custom autocorrection rule
+        func = nil,
+      },
+
+      -- Autopeek: show command's target range in a floating window
+      autopeek = {
+        enable = true,
+
+        -- Number of lines to show above and below range lines
+        n_context = 1,
+
+        -- Custom rule of when to show peek window
+        predicate = nil,
+
+        -- Window options
+        window = {
+          -- Floating window config
+          config = {},
+
+          -- Function to render statuscolumn
+          statuscolumn = nil,
+        },
+      },
+    })
+
     -- require('mini.diff').setup({})
 
     -- Extra 'mini.nvim' functionality.
