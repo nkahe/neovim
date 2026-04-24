@@ -10,9 +10,10 @@ return {
     enabled = true,
     priority = 1000,
     dir = vim.fn.stdpath("config") .. "/lua/plugins/local/neoceanic",
-    config = function()
-      vim.cmd.colorscheme("neoceanic")
-    end,
+    main = "neoceanic",
+    opts = {
+      terminal_colors = false,
+    },
   },
 
   {
