@@ -8,6 +8,9 @@ return {
   'nvim-mini/mini.nvim', version = false,
   event = 'VeryLazy',
   config = function()
+
+    require('mini.align').setup()
+
     -- Set some basic settings.
     require('mini.basics').setup({
       -- Manage options in 'plugin/10_options.lua'
@@ -33,7 +36,7 @@ return {
       },
     })
 
-    require('mini.cmndline').setup({
+    require('mini.cmdline').setup({
       -- Autocompletion: show `:h 'wildmenu'` as you type
       autocomplete = {
         enable = false, -- Blink is used.
@@ -219,8 +222,6 @@ return {
         hex_color = hipatterns.gen_highlighter.hex_color(),
       },
     })
-
-    require('mini.align').setup()
 
     require('mini.misc').setup()
 
