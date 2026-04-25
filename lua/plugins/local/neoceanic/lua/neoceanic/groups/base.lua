@@ -15,7 +15,7 @@ function M.get(theme, colors, _)
     PmenuThumb        = { bg   = colors.grey         },
     MatchParen        = { link = "MatchWord"         },
     Comment           = { fg   = colors.light_grey   },
-    CursorLineNr      = { fg   = colors.white        },
+    CursorLineNr      = { fg   = colors.light_grey   },
     LineNr            = { fg   = colors.grey         },
     FloatBorder       = { fg   = colors.blue         },
     FloatTitle        = { fg   = colors.white,       bg = colors.grey     },
