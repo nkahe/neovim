@@ -7,6 +7,11 @@ local true_black = "#000000"
 local b_section_bg = colors.one_bg2
 local c_section_bg = colors.black2
 
+-- Sections:
+
+-- | A | B | C              X | Y | Z |
+
+
 hl.normal = {
   a = { bg = colors.nord_blue, fg = true_black  },
   b = { bg = b_section_bg,     fg = colors.blue },
@@ -45,9 +50,11 @@ hl.inactive = {
 }
 
 -- if config.lualine_bold then
-  for _, mode in pairs(hl) do
-    mode.a.gui = "bold"
-  end
+for _, mode in pairs(hl) do
+  mode.a.gui = "bold"
+  mode.z = vim.deepcopy(mode.a)
+  mode.z.gui = nil
+end
 -- end
 
 return hl
