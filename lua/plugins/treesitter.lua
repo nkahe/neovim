@@ -11,7 +11,7 @@ return {
     -- NOTE: Treesitter doesn't officially support lazy loading.
     lazy = vim.fn.argc(-1) == 0,
     event = { "BufReadPost", "BufNewFile", "VeryLazy" },
-    branch = 'main',  -- Master branch is frozen but still default.
+    branch = 'main',
     build = ":TSUpdate",
     config = function()
       local parsers = {

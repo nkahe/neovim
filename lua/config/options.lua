@@ -5,10 +5,6 @@
 -- The next part (until `-- stylua: ignore end`) is aligned manually for easier
 -- reading.
 
--- Settings in this section are applied when running under VSCode.
-
-vim.cmd.colorscheme("neoceanic")
-
 -- Editing ====================================================================
 vim.o.autoindent    = true      -- Use auto indent
 vim.o.autowrite     = true      -- Enable auto write

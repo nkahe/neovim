@@ -248,6 +248,8 @@ return {
       },
     },
 
+    -- Highlights LSP reference words under cursor. Under keys there is keymaps
+    -- to move next/previous reference.
     words = { enabled = true },
 
     zen = { enabled = true, toggles = { dim = false } },
@@ -432,6 +434,7 @@ return {
     -- map({"n","t"}, "<c-/>",function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = "Terminal (Root Dir)" })
     -- map({"n","t"}, "<c-_>",function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = "which_key_ignore" })
 
+    -- snacks.words
     { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
     { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
     {
