@@ -1,10 +1,6 @@
-
--- if true then return {} end
-
--- Misc plugins
-
--- mini.nvim. https://nvim-mini.org/mini.nvim
+-- https://nvim-mini.org/mini.nvim
 return {
+  {
   'nvim-mini/mini.nvim', version = false,
   event = 'VeryLazy',
   config = function()
@@ -92,7 +88,6 @@ return {
       local to_col = math.max(vim.fn.getline(end_line):len(), 1)
       return { from = { line = start_line, col = 1 }, to = { line = end_line, col = to_col } }
     end
-
 
     -- Extends the a & i text objects, this adds the ability to select
     -- arguments, function calls, text within quotes and brackets, and to
@@ -325,9 +320,7 @@ return {
           -- end,
         },
         post = {
-          read = function()
-            close_empty_windows()
-          end,
+          read = function() close_empty_windows() end,
         },
       },
     })
@@ -354,6 +347,14 @@ return {
         update_n_lines = "gsn", -- Update `n_lines`
       },
     })
-  end,
 
+  end, -- config
+},
+
+-- whitespace in snacks.dashboard gets highlighted if not loaded with event.
+{
+  'echasnovski/mini.trailspace',
+  event = 'BufReadPost',
+  opts = {},
+}
 }
