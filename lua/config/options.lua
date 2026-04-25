@@ -7,6 +7,8 @@
 
 -- Settings in this section are applied when running under VSCode.
 
+vim.cmd.colorscheme("neoceanic")
+
 -- Editing ====================================================================
 vim.o.autoindent    = true      -- Use auto indent
 vim.o.autowrite     = true      -- Enable auto write
@@ -122,6 +124,15 @@ vim.o.title          = true       -- the title of the window will be set to the
                                   -- value of -- 'titlestring'
 vim.o.undofile       = true       -- Enable persistent undo
 vim.o.wrap           = false      -- Don't visually wrap lines
+
+-- Normal and relative line numbers.
+vim.o.statuscolumn =
+  '%s ' ..
+  '%#%{v:lnum == line(".") ? "CursorLineNr" : "LineNr"}#' ..
+  '%{&nu ? v:lnum : ""}' ..
+  '%=' ..
+  '%#%{v:lnum == line(".") ? "CursorLineNr" : "LineNr"}#' ..
+  '%{&rnu ? " " .. v:relnum : ""} '
 
 -- Special UI symbols. More is set via 'mini.basics' later.
 vim.opt.fillchars = {
