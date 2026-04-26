@@ -39,6 +39,8 @@ function M.get(theme, colors, _)
     Search            = { fg   = "#000000",          bg = theme.base0A    },
     Substitute        = { fg   = theme.base01,       bg = theme.base0A    },
     SpecialKey        = { fg   = theme.base03        },
+    StatusLine        = { bg   = colors.black2,      fg = colors.white    },
+    StatusLineNC      = { bg   = colors.black2,      fg = colors.light_grey },
     TooLong           = { fg   = theme.base08        },
     Visual            = { bg   = theme.base02        },
     VisualNOS         = { fg   = theme.base08        },
