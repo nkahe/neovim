@@ -33,6 +33,7 @@ Custom:
 - Colorscheme based on NvChad/base46's Oceanic Next.
 - Terminal colorsscheme using KDE Breeze theme colors.
 - Dynamic terminal title for Yakuake terminal.
+- Toggle window to center floating position.
 Other:
 - Lazy.nvim plugin manager.
 - [folke/snacks.nvim: 🍿 A collection of QoL plugins for Neovim](https://github.com/folke/snacks.nvim)
@@ -40,7 +41,7 @@ Other:
 - UI: BufferLine, Lualine, Which-Key, Trouble, Noice, Nvim-web-devicons.
 - LSP and completion: Nvim-lspconfig, Lazydev, Mason, Conform, Blink.
 - Treesitter code parsing: nvim-treesitter, nvim-treesitter-textobjects, ts-comments.
-- Git: Neogit, GitSigns, DiffView, Vim-Fugitive.
+- Git: Neogit, GitSigns, CodeDiff.
 - File management: Oil, Neotree.
 - Markdown: Markview, Markdown-Plus, Markdown-preview, Wrapwidth.
 - [obsidian-nvim/obsidian.nvim: Obsidian 🤝 Neovim ](https://github.com/obsidian-nvim/obsidian.nvim)

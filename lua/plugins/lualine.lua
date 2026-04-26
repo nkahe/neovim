@@ -29,9 +29,10 @@ return {
         -- theme = custom,
         theme = "neoceanic",
         globalstatus = vim.o.laststatus == 3,
-        disabled_filetypes = { statusline =
-          { "dashboard", "alpha", "ministarter", "neo-tree", "snacks_dashboard" }
-        },
+        disabled_filetypes = { statusline = {
+          "codediff-explorer", "dashboard", "alpha", "ministarter", "neo-tree",
+          "snacks_dashboard"
+        }},
         -- Get rid off '' and ''.
         component_separators = { left = '', right = ' '},
       },

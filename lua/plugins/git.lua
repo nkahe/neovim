@@ -10,6 +10,7 @@ return {
 
   {
       "dlyongemallo/diffview.nvim",
+      enabled = false,
       version = "*",
       -- optional: lazy-load on command
       cmd = {
@@ -100,7 +101,8 @@ return {
     "NeogitOrg/neogit",
     dependencies = {
       "nvim-lua/plenary.nvim",         -- required
-      "dlyongemallo/diffview.nvim",        -- optional - Diff integration
+      -- "dlyongemallo/diffview.nvim",        -- optional - Diff integration
+      "esmuellert/codediff.nvim",      -- optional
 
       -- Only one of these is needed.
       -- "nvim-telescope/telescope.nvim", -- optional
