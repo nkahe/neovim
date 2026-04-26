@@ -37,12 +37,13 @@ Custom:
 Other:
 - Lazy.nvim plugin manager.
 - [folke/snacks.nvim: 🍿 A collection of QoL plugins for Neovim](https://github.com/folke/snacks.nvim)
+- Picker: Snacks.picker
 - [nvim-mini/mini.nvim: Library of 40+ independent Lua modules improving Neovim experience with minimal effort](https://github.com/nvim-mini/mini.nvim)
 - UI: BufferLine, Lualine, Which-Key, Trouble, Noice, Nvim-web-devicons.
 - LSP and completion: Nvim-lspconfig, Lazydev, Mason, Conform, Blink.
 - Treesitter code parsing: nvim-treesitter, nvim-treesitter-textobjects, ts-comments.
-- Git: Neogit, GitSigns, CodeDiff.
-- File management: Oil, Neotree.
+- Git: Neogit, GitSigns, CodeDiff, Snacks.git
+- File management: Neotree, Oil.
 - Markdown: Markview, Markdown-Plus, Markdown-preview, Wrapwidth.
 - [obsidian-nvim/obsidian.nvim: Obsidian 🤝 Neovim ](https://github.com/obsidian-nvim/obsidian.nvim)
 - AI: Sidekick

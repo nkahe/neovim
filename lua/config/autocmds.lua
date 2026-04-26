@@ -73,21 +73,6 @@ if vim.fn.isdirectory(config_path) == 1 then
   })
 end
 
--- Compile and apply Base46 theme when changes are saved.
-
-local ok, base46 = pcall(require, "base46")
-if ok then
-  vim.api.nvim_create_autocmd("BufWritePost", {
-    pattern = "nvconfig.lua",
-    group = augroup('compile_base46_theme'),
-    callback = function()
-      base46.compile()
-      base46.load_all_highlights()
-      vim.notify("Theme compiled and loaded", vim.log.INFO)
-    end,
-  })
-end
-
 -- Configs for diff-mode.
 vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*",
