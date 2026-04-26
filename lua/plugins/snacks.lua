@@ -18,6 +18,7 @@ return {
   lazy = false,
   opts = {
     bigfile = { enabled = true },
+
     dashboard = {
       enabled = true,
       preset = {
@@ -96,10 +97,8 @@ return {
     picker = {
       enabled = true,
       explorer = {
-        layout = {
-          -- Doesn't work for input.
-          hidden = { "preview", "input" },
-        },
+        -- Doesn't work for input.
+        layout = { hidden = { "preview", "input" } },
       },
       layout = { preset = "ivy", preview = false },
       sources = {

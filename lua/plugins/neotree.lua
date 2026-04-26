@@ -35,7 +35,7 @@
         "<leader>ge", function()
           require("neo-tree.command").execute({ source = "git_status", toggle = true })
         end,
-        desc = "Git Explorer",
+        desc = "Git Explorer (NeoTree)",
       },
       {
         "<leader>be", function()

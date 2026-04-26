@@ -213,7 +213,6 @@ return {
         hack = hi_words({ 'HACK' }, 'MiniHipatternsHack'),
         todo = hi_words({ 'TODO' }, 'MiniHipatternsTodo'),
         note = hi_words({ 'NOTE', 'HUOM' }, 'MiniHipatternsNote'),
-        -- Highlight hex color string (#aabbcc) with that color as a background
         hex_color = hipatterns.gen_highlighter.hex_color(),
       },
     })
