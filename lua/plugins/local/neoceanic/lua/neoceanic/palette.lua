@@ -13,13 +13,13 @@ M.colors = {
   light_grey    = "#738490",
   white         = "#D8DEE9", -- Default fg color
 
-  red           = "#EC5F67",
+  red           = "#ec6770",
   baby_pink     = "#ff7d85",
   pink          = "#ffafb7",
   orange        = "#ed9b64",
   yellow        = "#FAC863",
   vibrant_green = "#b9e75b",
-  green         = "#99C794",
+  green         = "#96c790",
   cyan          = "#62B3B2",
   teal          = "#50a4a4",
   nord_blue     = "#598cbf",
@@ -40,11 +40,11 @@ M.theme = {
   base08 = "#6cbdbc",
   base09 = "#FAC863",
   base0A = "#ed9b64", -- Oceanic Next original: "#F99157"
-  base0B = "#99C794",
+  base0B = "#96c790", -- "#99C794",
   base0C = "#5fb3b3",
   base0D = "#6699CC",
   base0E = "#C594C5",
-  base0F = "#EC5F67",
+  base0F = "#ec6770", -- "#EC5F67",
 }
 
 return M

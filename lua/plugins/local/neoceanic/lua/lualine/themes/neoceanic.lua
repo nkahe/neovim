@@ -11,7 +11,6 @@ local c_section_bg = colors.black2
 
 -- | A | B | C              X | Y | Z |
 
-
 hl.normal = {
   a = { bg = colors.nord_blue, fg = true_black  },
   b = { bg = b_section_bg,     fg = colors.blue },
