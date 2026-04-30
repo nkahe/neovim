@@ -36,10 +36,12 @@ return {
         -- Get rid off '' and ''.
         component_separators = { left = '', right = ' '},
       },
+
+      -- Sections:   | A | B | C             X | Y | Z |
       sections = {
         lualine_a = { "mode" },
         lualine_b = { 'branch', 'diff' },
-        lualine_c = { "diagnostics", 'filename' },
+        lualine_c = { "diagnostics", { 'filename', path = 1 }}, -- 1: Relative path
 
         -- Right side -------
 
