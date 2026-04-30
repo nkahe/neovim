@@ -1,10 +1,7 @@
-
 -- Misc short plugin specs.
 
 -- if true then return {} end
-
 return {
-
   -- Forked from wsdjeg/ctrlg.nvim to better suit with narrower notifications.
   -- https://github.com/wsdjeg/ctrlg.nvim
   -- Paths need to be in this format.
@@ -27,11 +24,8 @@ return {
 
   -- EinfachToll/DidYouMean: Vim plugin which asks for the right file to open
   -- https://github.com/EinfachToll/DidYouMean
-  {
-    "EinfachToll/DidYouMean",
-    -- Didn't work with snacks scratch buffer.
-    enabled = false
-  },
+  -- Didn't work with snacks scratch buffer.
+  { "EinfachToll/DidYouMean", enabled = false },
 
   -- https://github.com/folke/flash.nvim
   {
@@ -129,9 +123,17 @@ return {
   },
 
   {
-    'stevearc/oil.nvim',
-    ---@module 'oil'
-    ---@type oil.SetupOpts
+    -- 'stevearc/oil.nvim',
+    'barrettruth/canola.nvim',
+    -- branch = "canola",
+    -- before = function()
+    --   vim.g.canola = {
+    --     keymaps = {
+    --       [ "<BS>" ] = { callback = "actions.parent", mode = "n" },
+    --     }
+    --   }
+    -- end,
+    main = "oil",
     opts = {
       keymaps = {
         [ "g?"  ] = { "actions.show_help", mode = "n" },
@@ -199,10 +201,7 @@ return {
 
   -- An alternative sudo.vim for Vim and Neovim,
   -- limited support sudo in Windows - https://github.com/lambdalisue/vim-suda
-  {
-    'lambdalisue/vim-suda',
-    cmd = { 'SudaRead', 'SudaWrite' }
-  },
+  { 'lambdalisue/vim-suda', cmd = { 'SudaRead', 'SudaWrite' } },
 
   -- Wraps long lines virtually at a specific column.
   -- https://github.com/rickhowe/wrapwidth
@@ -216,11 +215,6 @@ return {
 
   -- Adds a diff option when Vim finds a swap file.
   -- https://github.com/chrisbra/Recover.vim
-  {
-    "chrisbra/Recover.vim",
-    -- Not made with Lua so this is needed.
-    config = function()
-      -- require('recover.vim').setup()
-    end
-  }
+  -- Not made with Lua so config func is needed.
+  { "chrisbra/Recover.vim", config = function() end }
 }
