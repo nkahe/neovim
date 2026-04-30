@@ -12,7 +12,7 @@ function M.get(_, c, _)
       SnacksPickerCursorline     = { bg = c.one_bg },
       SnacksPickerDir            = { fg = c.nord_blue },
 
-      SnacksIndent               = { fg = c.one_bg2 },
+      SnacksIndent               = { fg = c.one_bg3 },
     }
   end
 
