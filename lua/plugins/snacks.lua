@@ -1,6 +1,3 @@
-
--- if true then return {} end
-
 -- Terminal Mappings
 local function term_nav(dir)
   ---@param self snacks.terminal
@@ -100,7 +97,7 @@ return {
         -- Doesn't work for input.
         layout = { hidden = { "preview", "input" } },
       },
-      layout = { preset = "ivy", preview = false },
+      layout = { preset = "ivy", preview = true },
       sources = {
         files = { hidden = true },
         explorer = { diagnostics = false },
@@ -171,9 +168,9 @@ return {
               -- Change nicer descriptions.
               ["/"] = { "toggle_focus", desc = "Toggle focus between list and input" },
               ["<2-LeftMouse>"] = { "confirm", desc = "Open or confirm selection" },
-              ["<CR>"] = { "confirm", desc = "Open or confirm selection" },
+              ["<CR>"  ] = { "confirm", desc = "Open or confirm selection" },
               ["<Down>"] = { "list_down", desc = "Move down" },
-              ["<Esc>"] = { "cancel", desc = "Close / cancel" },
+              ["<Esc>" ] = { "cancel", desc = "Close / cancel" },
               ["<S-CR>"] = { { "pick_win", "jump" }, desc = "Pick window / jump" },
               ["<S-Tab>"] = { "select_and_prev", mode = { "n", "x" }, desc = "Select & move up" },
               ["<Tab>"] = { "select_and_next", mode = { "n", "x" }, desc = "Select & move down" },
@@ -324,8 +321,8 @@ return {
     { "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "Git Log File" },
     -- Grep
     { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
-    { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
     { "<leader>sg", function() Snacks.picker.grep() end, desc = "Grep" },
+    { "<leader>sB", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
     { "<leader>sw", function() Snacks.picker.grep_word() end, desc = "Visual selection or word", mode = { "n", "x" } },
     -- search
     { '<leader>s"', function() Snacks.picker.registers() end, desc = "Registers" },
@@ -362,12 +359,12 @@ return {
           end,
         })
       end, desc = "Highlights" },
-    { "<leader>si", function() Snacks.picker.icons() end, desc = "Icons" },
-    { "<leader>sj", function() Snacks.picker.jumps() end, desc = "Jumps" },
+    { "<leader>si", function() Snacks.picker.icons() end,  desc = "Icons" },
+    { "<leader>sj", function() Snacks.picker.jumps() end,  desc = "Jumps" },
     { "<leader>sk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
     { "<leader>sl", function() Snacks.picker.loclist() end, desc = "Location List" },
     { "<leader>sm", function() Snacks.picker.marks() end, desc = "Marks" },
-    { "<leader>sM", function() Snacks.picker.man() end, desc = "Man Pages" },
+    { "<leader>sM", function() Snacks.picker.man() end,  desc = "Man Pages" },
     { "<leader>sp", function() Snacks.picker.lazy() end, desc = "Search for Plugin Spec" },
     { "<leader>sq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
     { "<leader>sR", function() Snacks.picker.resume() end, desc = "Resume" },
@@ -388,21 +385,21 @@ return {
 
     { "gai", function() Snacks.picker.lsp_incoming_calls() end, desc = "C[a]lls Incoming" },
     { "gao", function() Snacks.picker.lsp_outgoing_calls() end, desc = "C[a]lls Outgoing" },
-    { "<leader>ss", function() require("plugins.local.symbols").pick() end, desc = "Symbols" },
     { "<C-S-o>", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
+    { "<leader>ss", function() require("plugins.local.symbols").pick() end, desc = "Symbols" },
     { "<leader>sS", function() require("plugins.local.symbols").pick_workspace() end, desc = "Workspace Symbols" },
 
     -- Other
-    { "<leader>uz", function() Snacks.zen() end, desc = "Toggle Zen Mode" },
-    { "<leader>uZ", function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
+    -- { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
     { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
     { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
-    { "<leader>n",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
     { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
     { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
     { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
-    -- { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
+    { "<leader>n",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
+    { "<leader>uZ", function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
     { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
+    { "<leader>uz", function() Snacks.zen() end, desc = "Toggle Zen Mode" },
 
     -- Terminal
 
@@ -427,14 +424,13 @@ return {
 
     -- { "<Leader>tv", function() Snacks.terminal.open(vim.o.shell, { win = { position = "right" } }) end,
     --   desc = "Open terminal (vertical)", },
-
     -- map("n", "<leader>fT", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
     -- map("n", "<leader>ft", function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = "Terminal (Root Dir)" })
     -- map({"n","t"}, "<c-/>",function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = "Terminal (Root Dir)" })
     -- map({"n","t"}, "<c-_>",function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = "which_key_ignore" })
 
     -- snacks.words
-    { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
+    { "]]", function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference", mode = { "n", "t" } },
     { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
     {
       "<leader>N",
@@ -457,7 +453,6 @@ return {
   }, -- keys
 
   init = function()
-
     -- From LazyVim but make toggle terminal use custom terminal colors.
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
@@ -479,9 +474,9 @@ return {
           vim.print = _G.dd
         end
 
-          vim.api.nvim_set_hl(0, "TermBackgroundFallback", { bg = "#121212" })
-          vim.api.nvim_set_hl(0, "NoBackground", { bg = "none" })
-        -- Make toggle terminal use custom terminal color. For termnals started
+        vim.api.nvim_set_hl(0, "TermBackgroundFallback", { bg = "#121212" })
+        vim.api.nvim_set_hl(0, "NoBackground", { bg = "none" })
+        -- Make toggle terminal use custom terminal color. For terminals started
         -- without Snacks similar setting is in autocmds.lua.
         if Snacks and Snacks.terminal then
           local toggle_original = Snacks.terminal.toggle
@@ -498,22 +493,6 @@ return {
           end
         end
 
-        -- Create some toggle mappings. 
-        Snacks.toggle.diagnostics():map("<leader>ud")
-        Snacks.toggle.dim():map("<leader>uD")
-        Snacks.toggle.indent():map("<leader>ug")
-        Snacks.toggle.inlay_hints():map("<leader>uh")
-        Snacks.toggle.line_number():map("<leader>ul")
-        Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
-        Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>uc")
-        Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
-        Snacks.toggle.option("showtabline", { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" }):map("<leader>uA")
-        Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
-        Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-        Snacks.toggle.profiler():map("<leader>Dpp")
-        Snacks.toggle.profiler_highlights():map("<leader>Dph")
-        Snacks.toggle.scroll():map("<leader>uS")
-        Snacks.toggle.treesitter():map("<leader>uT")
       end,
     })
   end,
