@@ -40,7 +40,7 @@ return {
 
       -- Autocorrection: adjust non-existing words (commands, options, etc.)
       autocorrect = {
-        enable = true,
+        enable = false,
 
         -- Custom autocorrection rule
         func = nil,
