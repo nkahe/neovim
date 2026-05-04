@@ -56,6 +56,7 @@ return function(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
   map(term_buf, 'n', 'q', '<Cmd>qa!<CR>', {})
   map(term_buf, 'n', 'i', '<Cmd>qa!<CR>', {})
   map(term_buf, 'n', '<C-c>', '<Cmd>qa!<CR>', {})
+  vim.keymap.set({ 'n', 'x', 'o' }, 'ö', require('plugins/local/jump').start, {})
   local group = vim.api.nvim_create_augroup('kitty-scrollback', { clear = true })
 
   local setCursor = function()
