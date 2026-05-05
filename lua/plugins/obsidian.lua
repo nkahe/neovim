@@ -44,13 +44,9 @@ return {
     { "<Leader>oq", "<cmd>Obsidian quick_switch<CR>", desc = "Quick switch to note" },
     "BufReadPre " .. localnotes_dir .. "/*.md",
     { "<Leader>ow", "<cmd>Obsidian workspace<CR>",    desc = "Change workspace" },
-
-   { "<Leader>oe", "<cmd>Obsidian extract_note<CR>", mode = "x",
-      desc = "Extract note" },
-   { "<Leader>ol", "<cmd>Obsidian link<CR>", mode = "x",
-      desc = "Link selection to note" },
-   { "<Leader>on", "<cmd>Obsidian link_new<CR>", mode = "x",
-      desc = "Link new note to selection" },
+   { "<Leader>oe", "<cmd>Obsidian extract_note<CR>" , mode = "x", desc = "Extract note" },
+   { "<Leader>ol", "<cmd>Obsidian link<CR>",     mode = "x", desc = "Link selection to note" },
+   { "<Leader>on", "<cmd>Obsidian link_new<CR>", mode = "x", desc = "Link new note to selection" },
   },
   init = function()
     -- Used in autocmd.
@@ -86,15 +82,10 @@ return {
         end
       end,
     })
-
   end,
-  ---@module 'obsidian'
-  ---@type obsidian.config
+
   opts = {
     legacy_commands = false,
-    ---@class obsidian.config.PickerOpts
-    ---
-    ---@field name obsidian.config.Picker|?
     picker = { name = 'snacks.pick' },
     workspaces = {
       {
@@ -106,6 +97,10 @@ return {
         path = localnotes_dir,
       },
     },
+    -- Use readable UTF-8 slug IDs instead of random zettel IDs.
+    note_id_func = function(...)
+      return require("obsidian.builtin").title_id(...)
+    end,
     "use_alias_only",
     checkbox = {
       order = { " ", "x"}
