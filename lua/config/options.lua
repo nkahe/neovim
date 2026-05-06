@@ -154,6 +154,7 @@ if vim.g.neovide then
   -- Make Neovide animations a lot faster and less distracting.
   vim.g.neovide_cursor_animation_length = 0.03
   vim.g.neovide_cursor_trail_size = 0.08
+  vim.g.neovide_cursor_smooth_blink = true
 end
 
 -- Autocommands ===============================================================
