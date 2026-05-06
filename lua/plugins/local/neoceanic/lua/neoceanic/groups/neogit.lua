@@ -1,7 +1,7 @@
 local M = {}
 
 function M.get(_, colors, _)
-  local lighten_col = require("neoceanic.colors").change_hex_lightness
+  local lighten = require("neoceanic.colors").change_hex_lightness
 
   return {
     NeogitGraphAuthor     = { fg = colors.orange  },
@@ -37,12 +37,12 @@ function M.get(_, colors, _)
     NeogitDiffAdditions        = { fg = colors.green   },
     NeogitDiffAddCursor        = { bg = colors.one_bg, fg = colors.green },
     NeogitDiffDeletions        = { fg = colors.red     },
-    NeogitDiffAdd              = { fg = colors.green,                 bg = lighten_col(colors.green, -50 )},
-    NeogitDiffAddInline        = { fg = lighten_col(colors.green, 5), bg = lighten_col(colors.green, -40 )},
-    NeogitDiffAddHighlight     = { fg = colors.green,                 bg = lighten_col(colors.green, -47 )},
-    NeogitDiffDelete           = { bg = lighten_col(colors.red, -50), fg = colors.red },
-    NeogitDiffDeleteHighlight  = { bg = lighten_col(colors.red, -47), fg = colors.red },
-    NeogitDiffDeleteInline     = { bg = lighten_col(colors.red, -40), fg = lighten_col(colors.red, 5) },
+    NeogitDiffAdd              = { fg = colors.green,                 bg = lighten(colors.green, -50 )},
+    NeogitDiffAddInline        = { fg = lighten(colors.green, 5), bg = lighten(colors.green, -40 )},
+    NeogitDiffAddHighlight     = { fg = colors.green,                 bg = lighten(colors.green, -47 )},
+    NeogitDiffDelete           = { bg = lighten(colors.red, -50), fg = colors.red },
+    NeogitDiffDeleteHighlight  = { bg = lighten(colors.red, -47), fg = colors.red },
+    NeogitDiffDeleteInline     = { bg = lighten(colors.red, -40), fg = lighten(colors.red, 5) },
     NeogitDiffDeleteCursor     = { bg = colors.one_bg,                fg = colors.red },
 
     NeogitPopupSwitchKey      = { fg = colors.purple },
@@ -62,7 +62,7 @@ function M.get(_, colors, _)
     NeogitUnpulledFrom        = { fg = colors.purple,  bold   = true },
 
     NeogitChangeModified = { fg = colors.blue, bold = true, italic = true },
-    NeogitChangeAdded    = { fg = colors.green, bg = lighten_col(colors.green, -30), bold = true, italic = true },
+    NeogitChangeAdded    = { fg = colors.green, bg = lighten(colors.green, -30), bold = true, italic = true },
 
     NeogitChangeDeleted  = { fg = colors.red,    bold = true, italic = true },
     NeogitChangeRenamed  = { fg = colors.purple, bold = true, italic = true },

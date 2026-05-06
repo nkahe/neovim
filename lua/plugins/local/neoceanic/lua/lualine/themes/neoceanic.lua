@@ -23,8 +23,8 @@ hl.insert = {
 }
 
 hl.command = {
-  a = { bg = colors.orange, fg = colors.black },
-  b = { bg = b_section_bg,  fg = colors.orange },
+  a = { bg = colors.teal, fg = colors.black },
+  b = { bg = b_section_bg,  fg = colors.teal },
 }
 
 hl.visual = {

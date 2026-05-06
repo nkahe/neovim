@@ -2,21 +2,22 @@ local M = {}
 
 function M.get(theme, colors, _)
   -- stylua: ignore
-  local lighten = require('neoceanic.colors').change_hex_lightness
+  local lighten = require("neoceanic.colors").change_hex_lightness
+
   return {
     Added             = { fg   = colors.green        },
-    DiffText          = { fg  = colors.green,        bg = colors.one_bg   },
+    DiffText          = { fg   = colors.green,        bg = colors.one_bg  },
     Removed           = { fg   = colors.red          },
     Changed           = { fg   = colors.yellow       },
     MatchWord         = { fg   = colors.white,       bg = colors.grey     },
     Pmenu             = { bg   = colors.one_bg       },
     PmenuSbar         = { bg   = colors.one_bg       },
-    PmenuSel          = { fg   = "#000000", bg = colors.blue },
+    PmenuSel          = { fg   = "#000000", bg = lighten(colors.cyan, -10)},
     PmenuThumb        = { bg   = colors.grey         },
     MatchParen        = { link = "MatchWord"         },
     Comment           = { fg   = colors.light_grey   },
-    CursorLineNr      = { fg   = colors.light_grey   },
-    LineNr            = { fg   = colors.grey         },
+    CursorLineNr      = { fg   = theme.base04,       bg = colors.darker_black },
+    LineNr            = { fg   = colors.grey_fg2,    bg = colors.darker_black },
     FloatBorder       = { fg   = colors.blue         },
     FloatTitle        = { fg   = colors.white,       bg = colors.grey     },
     NormalFloat       = { bg   = colors.darker_black },
@@ -50,14 +51,14 @@ function M.get(theme, colors, _)
     Conceal           = { bg   = "NONE"              },
     Cursor            = { fg   = theme.base00,       bg = theme.base05    },
     NonText           = { fg   = theme.base03        },
-    SignColumn        = { fg   = theme.base03        },
+    SignColumn        = { fg   = theme.base02,       bg = colors.darker_black },
     ColorColumn       = { bg   = colors.black2       },
     CursorColumn      = { bg   = theme.base01        },
     CursorLine        = { bg   = colors.black2       },
     QuickFixLine      = { bg   = theme.base01        },
     healthSuccess     = { fg   = colors.black,       bg = colors.green    },
-    WinBar   = { bg = "NONE" },
-    WinBarNC = { bg = "NONE" },
+    WinBar            = { bg   = "NONE"              },
+    WinBarNC          = { bg   = "NONE"              },
   }
 end
 
