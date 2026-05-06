@@ -134,6 +134,7 @@ map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Position" })
 -- windows
 map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
 map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
+map("n", "<C-c>",     "<C-W>c", { desc = "Close window",       remap = true })
 
 -- tabs
 map("n", "<leader><tab>l",     "<cmd>tablast<cr>",     { desc = "Last Tab"  })
