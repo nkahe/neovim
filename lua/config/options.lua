@@ -18,7 +18,7 @@ vim.o.smartindent   = true      -- Make indenting smart
 vim.o.spelloptions  = 'camel'   -- Treat camelCase word parts as separate words
 vim.o.tabstop       = 2         -- Show tab as this number of spaces
 vim.o.tags          = './.ctags.d/tags;,./tags;,tags'
-vim.opt.timeoutlen = vim.g.vscode and 1000 or 300 -- Lower than default (1000) to quickly trigger which-key
+vim.opt.timeoutlen = vim.g.vscode and 1000 or 400 -- Lower than default (1000) to quickly trigger which-key
 -- vim.o.virtualedit   = 'block' -- Allow going past end of line in blockwise mode
 
 vim.o.iskeyword = '@,48-57,_,192-255,-' -- Treat dash as `word` textobject part
@@ -92,7 +92,7 @@ vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit ShaDa file (for startup)
 vim.cmd('filetype plugin indent on')
 if vim.fn.exists('syntax_on') ~= 1 then vim.cmd('syntax enable') end
 
--- Set to true if you have a Nerd Font installed and selected in the terminal
+-- If you have a Nerd Font installed and selected.
 vim.g.have_nerd_font = true
 
 vim.o.colorcolumn    = '80,+1'    -- Draw column on the right of maximum width
