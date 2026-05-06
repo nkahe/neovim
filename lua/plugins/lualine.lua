@@ -79,7 +79,13 @@ return {
             color = function() return { fg = Snacks.util.color("Special") } end,
           },
 
-          { "encoding" }, { "fileformat" }, { "filetype" },
+          -- { "encoding" },
+          { "fileformat",
+            color = function() return { fg = Snacks.util.color("Identifier") } end,
+          },
+          { "filetype",
+            color = function() return { fg = Snacks.util.color("Identifier") } end,
+          },
         },
 
         lualine_y = {
