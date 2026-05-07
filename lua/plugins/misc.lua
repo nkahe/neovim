@@ -142,8 +142,8 @@ return {
         ["<C-s>"] = { "actions.select", opts = { horizontal = true } },
         ["<C-t>"] = { "actions.select", opts = { tab = true } },
         ["<M-p>"] = "actions.preview",
-        ["<C-c>"] = { "actions.close", mode = "n" },
-        [ "q"   ] = { "actions.close", mode = "n" },
+        ["<C-c>"] = { "actions.close",  mode = "n" },
+        [ "q"   ] = { "actions.close",  mode = "n" },
         ["<C-h>"] = false,
         ["<C-l>"] = false,
         ["<M-r>"] = "actions.refresh",
@@ -155,7 +155,7 @@ return {
         [ "gs"  ] = { "actions.change_sort", mode = "n" },
         [ "gx"  ] = "actions.open_external",
         [ "g."  ] = { "actions.toggle_hidden", mode = "n" },
-        [ "g\\" ] = { "actions.toggle_trash", mode = "n" },
+        [ "g\\" ] = { "actions.toggle_trash",  mode = "n" },
       },
     },
     keys = {{ "-", "<CMD>Oil<CR>", desc = "Open Oil" }},
@@ -192,11 +192,21 @@ return {
         prevSubstitutionInHistory = "<Up>",
         nextSubstitutionInHistory = "<Down>",
         toggleFixedStrings = "<M-r>", -- ripgrep's `--fixed-strings`
-        toggleIgnoreCase = "<M-c>", -- ripgrep's `--ignore-case`
+        toggleIgnoreCase   = "<M-c>", -- ripgrep's `--ignore-case`
         openAtRegex101 = "R",
         showHelp = "?",
       },
     },
+  },
+
+  {
+    "MunsMan/kitty-navigator.nvim",
+    cond = function() return vim.env.KITTY_PID end,
+    build = {
+      "cp navigate_kitty.py ~/.config/kitty",
+      "cp pass_keys.py ~/.config/kitty",
+    },
+    opts = { keybindings = {} },
   },
 
   -- An alternative sudo.vim for Vim and Neovim,

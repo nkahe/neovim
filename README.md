@@ -48,6 +48,7 @@ Other:
 - [obsidian-nvim/obsidian.nvim: Obsidian 🤝 Neovim ](https://github.com/obsidian-nvim/obsidian.nvim)
 - AI: Sidekick
 - Various enhancements: Dial, Flash, Grug-FAR, inc-rename, Nvim-rip-substitute, Recover.vim, Vim-insert-append-single-character, Vim-Suda, ctrl-g.
+- Terminal integration: kitty-navigator.nvim
 
 - Compatible with VSCode when using VSCode Neovim -extension.
 

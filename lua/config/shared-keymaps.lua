@@ -62,6 +62,8 @@ vim.keymap.set("x", "/", function()
   vim.api.nvim_feedkeys("/" .. escaped, "n", false)
 end, { noremap = true, desc = "Search selected text"  })
 
+-- Substitute without having to escape characters other than dividing char
+-- ("/" used by default).
 vim.keymap.set("n", "<leader>fv", function()
   vim.api.nvim_feedkeys(
     vim.api.nvim_replace_termcodes(":%s/\\V", true, false, true),
@@ -74,10 +76,10 @@ end, { desc = "Very nomagic substitute" })
 -- map("", "gl", '$', { desc = "To the end of the line" })
 
 -- Focus previous / next buffer
-map({"n", "i"}, "<M-Right>", "<cmd>bnext<CR>", { silent = true })
-map({"n", "i"}, "<M-Left>", "<cmd>bprevious<CR>", { silent = true })
+map({ "n", "i" }, "<M-Right>", "<cmd>bnext<CR>", { silent = true })
+map({ "n", "i" }, "<M-Left>", "<cmd>bprevious<CR>", { silent = true })
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
-map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
+map("n", "<S-l>", "<cmd>bnext<cr>",     { desc = "Next Buffer" })
 
 -- Search word under cursor and change it. n to go next and . to repeat.
 vim.keymap.set("n", "c*", "g*Ncgn", { noremap = true })
@@ -87,6 +89,24 @@ map({ "x", "n" }, "<S-Down>",  "j")
 map({ "x", "n" }, "<S-Up>",    "k")
 map({ "x", "n" }, "<S-Right>", "l")
 map({ "x", "n" }, "<S-Left>", "h")
+
+-- Windows
+map("n", "<C-c>",   "<C-W>c", { desc = "Close window", remap = true })
+
+-- Window navigation
+-- With Kitty terminal, kitty-navigator plugin makes equivalent mappings.
+if not vim.env.KITTY_PID then
+  map('n', '<C-H>', '<C-w>h', { desc = 'Focus on left window'  })
+  map('n', '<C-J>', '<C-w>j', { desc = 'Focus on below window' })
+  map('n', '<C-K>', '<C-w>k', { desc = 'Focus on above window' })
+  map('n', '<C-L>', '<C-w>l', { desc = 'Focus on right window' })
+end
+
+-- Window resize
+map('n', '<C-Left>',  '"<Cmd>vertical resize -" . v:count1 . "<CR>"', { expr = true, replace_keycodes = false, desc = 'Decrease window width' })
+map('n', '<C-Down>',  '"<Cmd>resize -"          . v:count1 . "<CR>"', { expr = true, replace_keycodes = false, desc = 'Decrease window height' })
+map('n', '<C-Up>',    '"<Cmd>resize +"          . v:count1 . "<CR>"', { expr = true, replace_keycodes = false, desc = 'Increase window height' })
+map('n', '<C-Right>', '"<Cmd>vertical resize +" . v:count1 . "<CR>"', { expr = true, replace_keycodes = false, desc = 'Increase window width' })
 
 --------------------------------------------------------------------------------
 -- No VSCode compatible mappings after this
@@ -115,7 +135,7 @@ map("i", "<A-Up>",   "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 map("v", "<A-Down>", "<cmd>m '>+1<cr>gv=gv", { silent = true, desc = "Move down" })
 map("v", "<A-Up>",   "<cmd>m '<-2<cr>gv=gv", { silent = true, desc = "Move up" })
 
-map("n", "<M-l>", "<cmd>bnext<CR>", { silent = true })
+map("n", "<M-l>", "<cmd>bnext<CR>",     { silent = true })
 map("n", "<M-h>", "<cmd>bprevious<CR>", { silent = true })
 
 -- Expand to parent / child. Same shortcut as in Kakoune and Helix.
@@ -123,7 +143,7 @@ map({ 'x', 'o' }, '<M-o>', 'an', { remap = true })
 map({ 'x', 'o' }, '<M-i>', 'in', { remap = true })
 
 -- Add common shortcuts from GUI apps.
-map("i", '<C-BS>', '<C-w>', { silent = true })
+map("i", '<C-BS>',  '<C-w>',   { silent = true })
 map("i", '<C-Del>', '<C-o>dw', { silent = true })
 
 -- Terminal ------------------------------------------------

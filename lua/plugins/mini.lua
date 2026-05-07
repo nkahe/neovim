@@ -26,7 +26,7 @@ return {
         -- Defined in keymaps file.
         option_toggle_prefix = '',
         -- Create `<C-hjkl>` mappings for window navigation
-        windows = true,
+        windows = false,
         -- Create `<M-hjkl>` mappings for navigation in Insert and Command modes
         move_with_alt = true,
       },
