@@ -1,11 +1,12 @@
 return {
   "esmuellert/codediff.nvim",
+  enabled = true,
   cmd = "CodeDiff",
   keys = {
     { "<Leader>gD", "<cmd>CodeDiff<CR>",  desc = "Diff view" },
-    { "<Leader>gF", "<cmd>CodeDiff history %<CR>",  desc = "File history", mode = "n" },
-    { "<Leader>gF", "<cmd>'<,'>CodeDiff history %<CR>",  desc = "File history of selection", mode = "x" },
-    { "<Leader>gH", "<cmd>CodeDiff history<CR>",  desc = "Commit history"},
+    { "<Leader>gF", ":CodeDiff file ",  desc = "File diff"},
+    { "<Leader>gH", "<cmd>'<,'>CodeDiff history ",  desc = "History of selection", mode = "x" },
+    { "<Leader>gH", ":CodeDiff history ",  desc = "History", mode = "n"},
   },
   opts = {
     -- Highlight configuration
@@ -88,9 +89,9 @@ return {
     keymaps = {
       view = {
     --     quit = "q",                    -- Close diff tab
-        toggle_explorer = "<leader>e",  -- Toggle explorer visibility (explorer mode only)
+      toggle_explorer = "<leader>e",  -- Toggle explorer visibility (explorer mode only)
     --     toggle_explorer = "<leader>b",  -- Toggle explorer visibility (explorer mode only)
-        focus_explorer = "<C-0>",   -- Focus explorer panel (explorer mode only)
+      focus_explorer = "<C-0>",   -- Focus explorer panel (explorer mode only)
     --     focus_explorer = "<leader>e",   -- Focus explorer panel (explorer mode only)
     --     next_hunk = "]c",   -- Jump to next change
     --     prev_hunk = "[c",   -- Jump to previous change
