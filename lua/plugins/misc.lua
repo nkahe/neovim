@@ -30,7 +30,6 @@ return {
   -- https://github.com/folke/flash.nvim
   {
     "folke/flash.nvim",
-    event = "VeryLazy",
     opts = {},
     keys = {
       { "ö", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
@@ -134,6 +133,7 @@ return {
     --   }
     -- end,
     main = "oil",
+    cmd = "Oil",
     opts = {
       keymaps = {
         [ "g?"  ] = { "actions.show_help", mode = "n" },
@@ -201,6 +201,7 @@ return {
 
   {
     "MunsMan/kitty-navigator.nvim",
+    event = "VeryLazy",
     cond = function() return vim.env.KITTY_PID end,
     build = {
       "cp navigate_kitty.py ~/.config/kitty",
