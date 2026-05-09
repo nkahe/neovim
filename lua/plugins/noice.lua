@@ -92,7 +92,7 @@ return {
 
     presets = {
       -- true makes grep open message split without nice colors.
-      long_message_to_split = false, -- long messages will be sent to a split
+      long_message_to_split = true, -- long messages will be sent to a split
       lsp_doc_border = false, -- add a border to hover docs and signature help
     },
 
