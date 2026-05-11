@@ -214,6 +214,15 @@ return {
   -- limited support sudo in Windows - https://github.com/lambdalisue/vim-suda
   { 'lambdalisue/vim-suda', cmd = { 'SudaRead', 'SudaWrite' } },
 
+  -- View your Neovim configuration insights, history, and heatmaps.
+  -- https://github.com/aikhe/wrapped.nvim
+  {
+    "aikhe/wrapped.nvim",
+    dependencies = { "nvzone/volt" },
+    cmd = { "WrappedNvim" },
+    opts = {},
+  },
+
   -- Wraps long lines virtually at a specific column.
   -- https://github.com/rickhowe/wrapwidth
   {
