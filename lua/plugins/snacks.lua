@@ -397,9 +397,7 @@ return {
     { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
     { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
     { "<leader>n",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
-    { "<leader>uZ", function() Snacks.zen.zoom() end, desc = "Toggle Zoom" },
     { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
-    { "<leader>uz", function() Snacks.zen() end, desc = "Toggle Zen Mode" },
 
     -- Terminal
 

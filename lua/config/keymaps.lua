@@ -75,6 +75,8 @@ if has_snacks then
   Snacks.toggle.scroll():map("<leader>uS")
   Snacks.toggle.treesitter():map("<leader>uT")
   Snacks.toggle.words():map("<leader>uW")
+  Snacks.toggle.zen():map("<leader>uz")
+  Snacks.toggle.zoom():map("<leader>uZ")
 end
 
 -- new file
