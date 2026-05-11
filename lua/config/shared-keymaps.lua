@@ -76,7 +76,7 @@ end, { desc = "Very nomagic substitute" })
 -- map("", "gl", '$', { desc = "To the end of the line" })
 
 -- Focus previous / next buffer
-map({ "n", "i" }, "<M-Right>", "<cmd>bnext<CR>", { silent = true })
+map({ "n", "i" }, "<M-Right>", "<cmd>bnext<CR>",    { silent = true })
 map({ "n", "i" }, "<M-Left>", "<cmd>bprevious<CR>", { silent = true })
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "<S-l>", "<cmd>bnext<cr>",     { desc = "Next Buffer" })
@@ -88,18 +88,19 @@ vim.keymap.set("n", "c*", "g*Ncgn", { noremap = true })
 map({ "x", "n" }, "<S-Down>",  "j")
 map({ "x", "n" }, "<S-Up>",    "k")
 map({ "x", "n" }, "<S-Right>", "l")
-map({ "x", "n" }, "<S-Left>", "h")
+map({ "x", "n" }, "<S-Left>",  "h")
 
 -- Windows
 map("n", "<C-c>",   "<C-W>c", { desc = "Close window", remap = true })
 
 -- Window navigation
--- With Kitty terminal, kitty-navigator plugin makes equivalent mappings.
+
+-- With Kitty terminal, kitty-navigator plugin is used at it creates equivalent mappings.
 if not vim.env.KITTY_PID then
-  map('n', '<C-H>', '<C-w>h', { desc = 'Focus on left window'  })
-  map('n', '<C-J>', '<C-w>j', { desc = 'Focus on below window' })
-  map('n', '<C-K>', '<C-w>k', { desc = 'Focus on above window' })
-  map('n', '<C-L>', '<C-w>l', { desc = 'Focus on right window' })
+  map({'n', 't'}, '<C-H>', '<C-w>h', { desc = 'Focus on left window'  })
+  map({'n', 't'}, '<C-J>', '<C-w>j', { desc = 'Focus on below window' })
+  map({'n', 't'}, '<C-K>', '<C-w>k', { desc = 'Focus on above window' })
+  map({'n', 't'}, '<C-L>', '<C-w>l', { desc = 'Focus on right window' })
 end
 
 -- Window resize
