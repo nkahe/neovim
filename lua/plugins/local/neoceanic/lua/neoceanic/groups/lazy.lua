@@ -6,7 +6,7 @@ local lighten = require("neoceanic.colors").change_hex_lightness
   return {
     LazyButton = { bg = colors.one_bg, fg = lighten(colors.light_grey, vim.o.bg == "dark" and 10 or -20) },
     LazyH1            = { bg = colors.green,    fg = colors.black },
-    LazyH2            = { fg = colors.red,      bold = true, underline = true },
+    LazyH2            = { fg = colors.heading,  bold = true, underline = true },
     LazyReasonPlugin  = { fg = colors.red       },
     LazyValue         = { fg = colors.teal      },
     LazyDir           = { fg = theme.base05     },

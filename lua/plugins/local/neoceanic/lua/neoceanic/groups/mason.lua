@@ -3,7 +3,8 @@ local M = {}
 function M.get(_, colors, _)
   -- stylua: ignore
   return {
-    MasonHeader             = { bg   = colors.red,           fg = colors.black  },
+    MasonHeader             = { bg   = colors.orange,        fg = colors.black  },
+    MasonHeading            = { fg   = colors.heading        },
     MasonHighlight          = { fg   = colors.blue           },
     MasonHighlightBlock     = { fg   = colors.black,         bg = colors.green  },
     MasonHighlightBlockBold = { link = "MasonHighlightBlock" },

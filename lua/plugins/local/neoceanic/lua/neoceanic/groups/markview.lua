@@ -5,12 +5,24 @@ function M.get(_, c, _)
   -- stylua: ignore
 
   local mix = require("neoceanic.colors").mix
-  local black = "#000000"
-  local percent = 65
+  local black = c.black
+  local percent = 90
+  -- local percent = 65
   local color_icon = c.white
   local heading_colors = {
-    c.purple, c.blue, c.cyan, c.green, c.pink, c.orange,
+    c.heading, c.blue, c.cyan, c.green, c.pink, c.orange,
   }
+
+  -- local heading_colors = {
+  --   c.red, c.orange, c.yellow, c.green, c.blue, c.purple
+  -- }
+
+  -- ["@markup.heading.1.markdown"] = { fg = colors.red },
+  -- ["@markup.heading.2.markdown"] = { fg = colors.orange },
+  -- ["@markup.heading.3.markdown"] = { fg = colors.yellow },
+  -- ["@markup.heading.4.markdown"] = { fg = colors.green },
+  -- ["@markup.heading.5.markdown"] = { fg = colors.blue },
+  -- ["@markup.heading.6.markdown"] = { fg = colors.purple },
 
   local groups = {}
 
