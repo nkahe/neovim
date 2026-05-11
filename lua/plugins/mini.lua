@@ -335,6 +335,14 @@ return {
     nmap_leader('qw', '<Cmd>lua MiniSessions.write()<CR>',          'Write current')
 
 
+    require('mini.splitjoin').setup({
+      mappings = {
+        toggle = 'zS',
+        split = '',
+        join = '',
+      }
+    })
+
     require('mini.surround').setup({
       mappings = {
         add = "gsa",         -- Add surrounding in Normal and Visual modes
