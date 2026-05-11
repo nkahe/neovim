@@ -74,6 +74,7 @@ if has_snacks then
   Snacks.toggle.profiler_highlights():map("<leader>Dph")
   Snacks.toggle.scroll():map("<leader>uS")
   Snacks.toggle.treesitter():map("<leader>uT")
+  Snacks.toggle.words():map("<leader>uW")
 end
 
 -- new file
