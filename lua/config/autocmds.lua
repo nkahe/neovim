@@ -45,11 +45,9 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
   pattern = ":",
   callback = function()
     local cmd = vim.fn.getcmdline()
-
     for alias, target in pairs(aliases) do
       cmd = cmd:gsub(alias, target)
     end
-
     vim.fn.setcmdline(cmd)
   end,
 })
@@ -83,9 +81,23 @@ vim.api.nvim_create_autocmd("BufEnter", {
       -- These keys are mapped in Treesitter config. Restore default for diff buffers.
       map("n", "[c", "[c", { buffer = true, remap = true, desc = "Previous change"})
       map("n", "]c", "]c", { buffer = true, remap = true, desc = "Next change"})
-      map("n", "\\o", "<Cmd>diffoff!<CR>", { buffer = true, desc = "Diff off! (tab)"})
+      map("n", "\\o", "<Cmd>diffoff!<CR>",   { buffer = true, desc = "Diff off! (tab)"})
       map("n", "\\u", "<Cmd>diffupdate<CR>", { buffer = true, desc = "Diff update"})
-      map("n", "\\O", "<Cmd>diffoff<CR>", { buffer = true, desc = "Diff off (window)"})
+      map("n", "\\O", "<Cmd>diffoff<CR>",    { buffer = true, desc = "Diff off (window)"})
+    end
+  end,
+})
+
+
+-- When exiting terminal shell, just delete buffer and don't print
+-- [Process exited 130] and wait for a keypress.
+vim.api.nvim_create_autocmd("TermClose", {
+  group = augroup("close_terminal_buffer"),
+  callback = function(args)
+    if vim.api.nvim_buf_is_valid(args.buf) then
+      vim.schedule(function()
+        pcall(vim.api.nvim_buf_delete, args.buf, { force = true })
+      end)
     end
   end,
 })
