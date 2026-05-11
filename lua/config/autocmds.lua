@@ -176,21 +176,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- When exiting terminal shell, just close window and don't print
--- [Process exited 130] and wait for a keypress.
-vim.api.nvim_create_autocmd("TermClose", {
-  group = augroup("close_terminal_window"),
-  callback = function(args)
-    local win = vim.fn.bufwinid(args.buf)
-    if win ~= -1 then
-      local ok, _ = pcall(vim.api.nvim_win_close, win, true)
-      if not ok then
-        -- fallback: maybe it was already gone
-      end
-    end
-  end,
-})
-
 -- Recognize some file types based on file name.
 vim.filetype.add({
   group = augroup("set_filetype"),
