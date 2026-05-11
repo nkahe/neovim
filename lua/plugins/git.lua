@@ -1,27 +1,6 @@
--- All Git related plugins
 
 -- Git signs. Config from LazyVim.
 return {
-
-  {
-    "tpope/vim-fugitive",
-    cmd = { "Git", "G", "Gcommit", "Gpush", "Gpull", "Gdiffsplit" },
-  },
-
-  {
-      "dlyongemallo/diffview.nvim",
-      enabled = false,
-      version = "*",
-      -- optional: lazy-load on command
-      cmd = {
-          "DiffviewOpen",
-          "DiffviewToggle",
-          "DiffviewFileHistory",
-          "DiffviewDiffFiles",
-          "DiffviewLog",
-      },
-  },
-
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
@@ -56,7 +35,6 @@ return {
             gs.nav_hunk("next")
           end
         end, "Next Hunk")
-
         map("n", "[h", function()
           if vim.wo.diff then
             vim.cmd.normal({ "[c", bang = true })
@@ -64,7 +42,6 @@ return {
             gs.nav_hunk("prev")
           end
         end, "Prev Hunk")
-
         map("n", "]H", function() gs.nav_hunk("last") end, "Last Hunk")
         map("n", "[H", function() gs.nav_hunk("first") end, "First Hunk")
         map({ "n", "x" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")

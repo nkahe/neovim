@@ -60,10 +60,9 @@ vim.o.splitkeep      = 'screen'   -- Reduce scroll during window split
 vim.o.splitright     = true       -- Vertical splits will be to the right
 vim.o.winborder      = 'single'   -- Use border in floating windows
 
-local user = os.getenv("USER") or ""
-
 -- Sync with system clipboard if we don't happen to run as root (doesn't work in 
 -- Wpayland) or connected with SSH.
+local user = os.getenv("USER") or ""
 if user ~= "root" and not vim.env.SSH_TTY then
   --  Schedule the setting after `UiEnter` because it can increase startup-time.
   vim.schedule(function()

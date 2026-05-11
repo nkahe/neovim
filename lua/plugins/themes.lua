@@ -4,7 +4,6 @@ if vim.g.vscode then
 end
 
 return {
-
   {
     name = "Neoceanic",
     enabled = true,
