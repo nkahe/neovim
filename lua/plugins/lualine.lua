@@ -1,4 +1,4 @@
--- From Lazyvim with some small tweaks such as some changed colors,
+-- Based on Lazyvim config with changed theme, colors, file naming, and
 -- some components placed slightly differenly.
 
 return {
@@ -26,7 +26,6 @@ return {
     local opts = {
       options = {
         -- Can be set to auto or nil.
-        -- theme = custom,
         theme = "neoceanic",
         globalstatus = vim.o.laststatus == 3,
         disabled_filetypes = { statusline = {
@@ -37,11 +36,26 @@ return {
         component_separators = { left = '', right = ' '},
       },
 
-      -- Sections:   | A | B | C             X | Y | Z |
+      -- Sections:   | A | B | C         X | Y | Z |
       sections = {
         lualine_a = { "mode" },
+
         lualine_b = { 'branch', 'diff' },
-        lualine_c = { "diagnostics", { 'filename', path = 1 }}, -- 1: Relative path
+
+        lualine_c = { "diagnostics", {
+            -- For terminal show only buffer name and also relative path for other
+            -- buffers
+            function()
+              local buftype = vim.bo.buftype
+
+              if buftype == 'terminal' then
+                return vim.fn.expand('%:t')
+              end
+
+              return vim.fn.expand('%:.')
+            end
+          }
+        },
 
         -- Right side -------
 
