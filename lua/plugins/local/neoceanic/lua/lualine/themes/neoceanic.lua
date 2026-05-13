@@ -5,7 +5,7 @@ local hl = {}
 local off_white = colors.white
 local true_black = "#000000"
 local b_section_bg = colors.one_bg2
-local c_section_bg = colors.black2
+local c_section_bg = colors.statusline_bg
 
 -- Sections:
 
