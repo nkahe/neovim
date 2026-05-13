@@ -1,17 +1,4 @@
 
--- When exiting terminal shell, just delete buffer and don't print
--- [Process exited 130] and wait for a keypress.
-vim.api.nvim_create_autocmd("TermClose", {
-  group = augroup("close_terminal_buffer"),
-  callback = function(args)
-    if vim.api.nvim_buf_is_valid(args.buf) then
-      vim.schedule(function()
-        pcall(vim.api.nvim_buf_delete, args.buf, { force = true })
-      end)
-    end
-  end,
-})
-
 -- When exiting terminal shell, just close window and don't print
 -- [Process exited 130] and wait for a keypress.
 vim.api.nvim_create_autocmd("TermClose", {
