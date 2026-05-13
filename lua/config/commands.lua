@@ -1,15 +1,30 @@
-
 -- User commands for command mode
 
-local LazyConfig = require("lazy.core.config")
-local LazyLoader = require("lazy.core.loader")
 local create_cmd = vim.api.nvim_create_user_command
+
+-- Expand alias when command line starts with that.
+local function cabbrev(alias, expansion)
+  vim.cmd(string.format(
+    [[cnoreabbrev <expr> %s ((getcmdtype() == ':' && getcmdline() ==# '%s') ? '%s' : '%s')]],
+    alias, alias, expansion, alias
+  ))
+end
+
+cabbrev("reload", "Lazy reload")
+cabbrev("check",  "Lazy check")
+cabbrev("install", "Lazy install")
+cabbrev("W", "w")
+cabbrev("X", "x")
+cabbrev("Wq", "wq")
+cabbrev("WQ", "wq")
+cabbrev("Qa", "qa")
+cabbrev("QA", "qa")
 
 -- Set prefix used in autocmd with sets window titles.
 create_cmd( 'Title', function(opts)
     _G.Config = _G.Config or {}
     _G.Config.windowtitle = opts.args
-  vim.cmd("doautocmd BufEnter") -- Trigger autocmd that sets title.
+    vim.cmd("doautocmd BufEnter") -- Trigger autocmd that sets title.
   end,
   { nargs = 1 } -- Requires exactly one argument
 )
@@ -47,7 +62,6 @@ end, {})
 -- Copy path of gives file/dir to clipboard.
 create_cmd('Cppath', function(opts)
   local target = opts.args
-
   if target == '' then  -- If no argument given, use current working directory
     target = vim.loop.cwd()
   else
@@ -96,7 +110,6 @@ vim.api.nvim_create_user_command('RecoverDiff', function()
   print('Comparing recovered buffer ↔ original file')
 end, {})
 
-
 local function smart_vdiff(file)
   for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
     if vim.wo[win].diff then
@@ -124,69 +137,38 @@ create_cmd('Trim', function()
   vim.fn.winrestview(save_view)
 end, { desc = "Trim trailing whitespace from the buffer" })
 
-local function source_config_files()
-  local basepath = vim.fn.stdpath("config") .. "/lua/config"
-  local files = vim.fn.globpath(basepath, "**/*.lua", false, true)
-  table.sort(files)
 
-  local sourced = {}
-  for _, file in ipairs(files) do
-    local name = vim.fn.fnamemodify(file, ":t")
-    if name ~= "commands.lua" and name ~= "lazy.lua" then
-      local ok, err = pcall(dofile, file)
-      if not ok then
-        return false, file, err
-      end
-      sourced[#sourced + 1] = name
-    end
-  end
+-- local function source_config_files()
+--   local basepath = vim.fn.stdpath("config") .. "/lua/config"
+--   local files = vim.fn.globpath(basepath, "**/*.lua", false, true)
+--   table.sort(files)
+--
+--   local sourced = {}
+--   for _, file in ipairs(files) do
+--     local name = vim.fn.fnamemodify(file, ":t")
+--     if name ~= "commands.lua" and name ~= "lazy.lua" then
+--       local ok, err = pcall(dofile, file)
+--       if not ok then
+--         return false, file, err
+--       end
+--       sourced[#sourced + 1] = name
+--     end
+--   end
+--
+--   return true, sourced
+-- end
+--
+-- -- Reload config files.
+-- create_cmd("Reload", function(opts)
+--     local ok, result, err = source_config_files()
+--     if not ok then
+--       vim.notify(("Failed to source %s"):format(vim.fn.fnamemodify(result, ":t")), vim.log.levels.ERROR)
+--       if err then
+--         vim.notify(err, vim.log.levels.ERROR)
+--       end
+--       return
+--     end
+--     vim.notify("Sourced lua/config/*.lua", vim.log.levels.INFO)
+--
+-- end, {})
 
-  return true, sourced
-end
-
-local function reload_plugin(name)
-  local plugin = LazyConfig.plugins[name]
-  if not plugin then
-    return false
-  end
-  LazyLoader.reload(plugin)
-  return true
-end
-
--- Reload <plugin> reloads a plugin. Without arguments reloads config files.
-create_cmd("Reload", function(opts)
-  if opts.args ~= "" then
-    if reload_plugin(opts.args) then
-      vim.notify(("Reloaded plugin: %s"):format(opts.args), vim.log.levels.INFO)
-    else
-      vim.notify(("No plugin matched: %s"):format(opts.args), vim.log.levels.WARN)
-    end
-  else
-    local ok, result, err = source_config_files()
-    if not ok then
-      vim.notify(("Failed to source %s"):format(vim.fn.fnamemodify(result, ":t")), vim.log.levels.ERROR)
-      if err then
-        vim.notify(err, vim.log.levels.ERROR)
-      end
-      return
-    end
-    vim.notify("Sourced lua/config/*.lua", vim.log.levels.INFO)
-  end
-end, {
-  nargs = "?",
-  complete = function(arglead)
-    local prefix = arglead or ""
-    return vim.tbl_filter(function(name)
-      return name:find(prefix, 1, true) == 1
-    end, vim.tbl_keys(LazyConfig.plugins))
-  end,
-  desc = "Reload settings",
-})
-
--- Accept some typos.
-vim.keymap.set("ca", "W", "w")
-vim.keymap.set("ca", "Wq", "wq")
-vim.keymap.set("ca", "WQ", "wq")
-vim.keymap.set("ca", "Qa", "qa")
-vim.keymap.set("ca", "QA", "qa")
-vim.keymap.set("ca", "X", "x")
