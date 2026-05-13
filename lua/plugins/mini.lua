@@ -34,35 +34,22 @@ return {
 
     require('mini.cmdline').setup({
       -- Autocompletion: show `:h 'wildmenu'` as you type
-      autocomplete = {
-        enable = false, -- Blink is used.
-      },
+      autocomplete = { enable = false },  -- Blink is used instead.
 
       -- Autocorrection: adjust non-existing words (commands, options, etc.)
       autocorrect = {
         enable = false,
-
-        -- Custom autocorrection rule
-        func = nil,
+        func = nil,  -- Custom autocorrection rule
       },
 
       -- Autopeek: show command's target range in a floating window
       autopeek = {
         enable = true,
-
-        -- Number of lines to show above and below range lines
-        n_context = 1,
-
-        -- Custom rule of when to show peek window
-        predicate = nil,
-
-        -- Window options
-        window = {
-          -- Floating window config
-          config = {},
-
-          -- Function to render statuscolumn
-          statuscolumn = nil,
+        n_context = 1,    -- Number of lines to show above and below range lines
+        predicate = nil,  -- Custom rule of when to show peek window
+        window = {        -- Window options
+          config = {},    -- Floating window config
+          statuscolumn = nil, -- Function to render statuscolumn
         },
       },
     })
@@ -96,10 +83,7 @@ return {
     local ai = require('mini.ai')
     ai.setup({
       n_lines = 500,
-      mappings = {
-        around_next = "aN",
-        inside_next = "iN",
-      },
+      mappings = { around_next = "aN", inside_next = "iN" },
       custom_textobjects = {
         o = ai.gen_spec.treesitter({ -- code block
           a = { "@block.outer", "@conditional.outer", "@loop.outer" },
@@ -207,22 +191,19 @@ return {
     local hi_words = MiniExtra.gen_highlighter.words
     hipatterns.setup({
       highlighters = {
-        -- Highlight a fixed set of common words. Will be highlighted in any place,
-        -- not like "only in comments".
+        -- Highlight a fixed set of common words. Will be highlighted in any place.
         fixme = hi_words({ 'FIXME' }, 'MiniHipatternsFixme'),
-        hack = hi_words({ 'HACK' }, 'MiniHipatternsHack'),
-        todo = hi_words({ 'TODO' }, 'MiniHipatternsTodo'),
-        note = hi_words({ 'NOTE', 'HUOM' }, 'MiniHipatternsNote'),
+        hack  = hi_words({ 'HACK' }, 'MiniHipatternsHack'),
+        todo  = hi_words({ 'TODO' }, 'MiniHipatternsTodo'),
+        note  = hi_words({ 'NOTE', 'HUOM' }, 'MiniHipatternsNote'),
         hex_color = hipatterns.gen_highlighter.hex_color(),
       },
     })
 
     require('mini.misc').setup()
 
-    vim.keymap.set(
-      "n",
-      "<Leader>fR",
-      function()
+    -- Find project root and lcd
+    vim.keymap.set("n", "<Leader>fR", function()
         local buf = vim.api.nvim_get_current_buf()
         local root = require("mini.misc").find_root(buf)
         if root then
@@ -239,7 +220,7 @@ return {
     -- Move text blocks easily.
     require('mini.move').setup()
 
-    -- Close all windows showing Snacks picker list
+    -- Close all windows showing Snacks picker list. Not used atm.
     local function close_snacks_picker()
       for _, win in ipairs(vim.api.nvim_list_wins()) do
         local buf = vim.api.nvim_win_get_buf(win)
@@ -277,22 +258,11 @@ return {
         -- `prefix` defines keys mapped during `setup()`: in Normal mode
         -- to operate on textobject and line, in Visual - on selection.
 
-        -- Evaluate text and replace with output
-        evaluate = { prefix = 'g=' },
-
-        -- Exchange text regions
-        -- NOTE: Default `gx` is remapped to `gX`
-        exchange = { prefix = 'gx' },
-
-        -- Multiply (duplicate) text
-        multiply = { prefix = 'gm' },
-
-        -- Replace text with register
-        -- NOTE: Default `gr*` LSP mappings are removed
-        replace = { prefix = 'cr' },
-
-        -- Sort text
-        sort = { prefix = 'gS' }
+        evaluate = { prefix = 'ö=' }, -- Evaluate text and replace with output
+        exchange = { prefix = 'öx' }, -- Exchange text regions
+        multiply = { prefix = 'öm' }, -- Multiply (duplicate) text
+        replace  = { prefix = 'ör' }, -- Replace text with register
+        sort     = { prefix = 'ös' }  -- Sort text
     })
 
     require('mini.sessions').setup({
@@ -318,9 +288,7 @@ return {
           --   close_snacks_picker()
           -- end,
         },
-        post = {
-          read = function() close_empty_windows() end,
-        },
+        post = { read = function() close_empty_windows() end },
       },
     })
 
@@ -332,26 +300,22 @@ return {
     nmap_leader('qd', '<Cmd>lua MiniSessions.select("delete")<CR>', 'Delete')
     nmap_leader('qn', '<Cmd>lua ' .. session_new .. '<CR>',         'New')
     nmap_leader('qr', '<Cmd>lua MiniSessions.select("read")<CR>',   'Read')
-    nmap_leader('qw', '<Cmd>lua MiniSessions.write()<CR>',          'Write current')
+    nmap_leader('qw', '<Cmd>lua MiniSessions.write()<CR>', 'Write current')
 
-
+    -- Split / join argumnets.
     require('mini.splitjoin').setup({
-      mappings = {
-        toggle = 'zS',
-        split = '',
-        join = '',
-      }
+      mappings = { toggle = 'öa', split = '', join = '' }
     })
 
     require('mini.surround').setup({
       mappings = {
-        add = "gsa",         -- Add surrounding in Normal and Visual modes
-        delete = "gsd",      -- Delete surrounding
-        find = "gsf",        -- Find surrounding (to the right)
-        find_left = "gsF",   -- Find surrounding (to the left)
-        highlight = "gsh",   -- Highlight surrounding
-        replace = "gsr",     -- Replace surrounding
-        update_n_lines = "gsn", -- Update `n_lines`
+        add            = "ys", -- Add surrounding in  Normal and Visual modes
+        delete         = "ds", -- Delete surrounding.
+        find           = "gs", -- Find surrounding (to the right)
+        find_left      = "gS", -- Find surrounding (to the left)
+        highlight      = "gsh",-- Highlight surrounding
+        replace        = "cs", -- Replace   surrounding
+        update_n_lines = "",   -- Update `n_lines`
       },
     })
 
@@ -360,8 +324,6 @@ return {
 
 -- whitespace in snacks.dashboard gets highlighted if not loaded with event.
 {
-  'echasnovski/mini.trailspace',
-  event = 'BufReadPost',
-  opts = {},
+  'echasnovski/mini.trailspace', event = 'BufReadPost', opts = {}
 }
 }
