@@ -32,12 +32,12 @@ return {
     "folke/flash.nvim",
     opts = {},
     keys = {
-      { "ö", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "Ö", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "gj", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Jump" },
+      { "gJ", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Jump Treesitter" },
       -- r is for replace with register.
       -- { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
       -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-ö>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+      -- { "<c-ö>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     },
   },
 

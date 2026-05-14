@@ -29,7 +29,7 @@ if has_snacks then
 end
 
 -- if LSP is available use that else fallback to ctags.
-map("n", "gd",    function() require("plugins.local.symbols").goto_definition() end, { desc = "Goto Definition" })
+map("n", "gd", function() örequire("plugins.local.symbols").goto_definition() end, { desc = "Goto Definition" })
 map("n", "<F12>", "gd", { desc = "Goto Definition", remap = true })
 -- map("n", "<F12>", function() require("plugins.local.symbols").goto_definition() end, { desc = "Goto Definition" })
 
@@ -69,7 +69,7 @@ if has_snacks then
   Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
   Snacks.toggle.option("showtabline", { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" }):map("<leader>uA")
   Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
-  Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+  Snacks.toggle.option("wrap",  { name = "Wrap" }):map("<leader>uw")
   Snacks.toggle.profiler():map("<leader>Dpp")
   Snacks.toggle.profiler_highlights():map("<leader>Dph")
   Snacks.toggle.scroll():map("<leader>uS")
