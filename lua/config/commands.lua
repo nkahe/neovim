@@ -20,6 +20,7 @@ cabbrev("WQ", "wq")
 cabbrev("Qa", "qa")
 cabbrev("QA", "qa")
 
+
 -- Set prefix used in autocmd with sets window titles.
 create_cmd( 'Title', function(opts)
     _G.Config = _G.Config or {}
@@ -28,6 +29,7 @@ create_cmd( 'Title', function(opts)
   end,
   { nargs = 1 } -- Requires exactly one argument
 )
+
 
 -- Clear oldfiles eg. recent files.
 vim.api.nvim_create_user_command("ClearRecent", function()
@@ -38,6 +40,7 @@ vim.api.nvim_create_user_command("ClearRecent", function()
   ]])
   print("Cleared all recent files.")
 end, {})
+
 
 -- Trim oldfiles eg. entries with are not under cwd.
 vim.api.nvim_create_user_command("TrimRecent", function()
@@ -59,6 +62,7 @@ vim.api.nvim_create_user_command("TrimRecent", function()
   print("Trimmed recent files to those under: " .. cwd)
 end, {})
 
+
 -- Copy path of gives file/dir to clipboard.
 create_cmd('Cppath', function(opts)
   local target = opts.args
@@ -73,7 +77,7 @@ create_cmd('Cppath', function(opts)
   -- Check if it exists
   if vim.fn.filereadable(target) == 1 or vim.fn.isdirectory(target) == 1 then
     vim.fn.setreg('+', target)  -- copy to system clipboard
-    print('Copied to clipboard: ' .. target)
+    print('Yanked: ' .. target)
   else
     vim.notify('Path does not exist: ' .. target, vim.log.levels.ERROR )
   end
@@ -82,13 +86,15 @@ end, {
   complete = 'file', -- tab-completion for files
 })
 
-vim.keymap.set("n", "<leader>fP", ":Cppath %<CR>", { desc = "Copy file's path" })
+vim.keymap.set("n", "yp", ":Cppath %<CR>", { desc = "File's path" })
+
 
 -- Change cwd to match current buffer's directory
 create_cmd('Cdb', function()
   vim.cmd('cd ' .. vim.fn.expand('%:p:h'))
   vim.cmd('pwd')
 end, { desc = "Change cwd to match current buffer's directory" })
+
 
 -- Create a command :RecoverDiff to compare recovered buffer vs original file
 vim.api.nvim_create_user_command('RecoverDiff', function()
@@ -110,6 +116,7 @@ vim.api.nvim_create_user_command('RecoverDiff', function()
   print('Comparing recovered buffer ↔ original file')
 end, {})
 
+
 local function smart_vdiff(file)
   for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
     if vim.wo[win].diff then
@@ -125,6 +132,7 @@ vim.api.nvim_create_user_command("Diff", function(opts)
   smart_vdiff(opts.args)
 end, { nargs = 1, complete = "file" })
 
+
 -- Trim trailing whitespace from the buffer
 create_cmd('Trim', function()
   local save_cursor = vim.fn.getpos(".")
@@ -136,39 +144,4 @@ create_cmd('Trim', function()
   vim.fn.setpos(".", save_cursor)
   vim.fn.winrestview(save_view)
 end, { desc = "Trim trailing whitespace from the buffer" })
-
-
--- local function source_config_files()
---   local basepath = vim.fn.stdpath("config") .. "/lua/config"
---   local files = vim.fn.globpath(basepath, "**/*.lua", false, true)
---   table.sort(files)
---
---   local sourced = {}
---   for _, file in ipairs(files) do
---     local name = vim.fn.fnamemodify(file, ":t")
---     if name ~= "commands.lua" and name ~= "lazy.lua" then
---       local ok, err = pcall(dofile, file)
---       if not ok then
---         return false, file, err
---       end
---       sourced[#sourced + 1] = name
---     end
---   end
---
---   return true, sourced
--- end
---
--- -- Reload config files.
--- create_cmd("Reload", function(opts)
---     local ok, result, err = source_config_files()
---     if not ok then
---       vim.notify(("Failed to source %s"):format(vim.fn.fnamemodify(result, ":t")), vim.log.levels.ERROR)
---       if err then
---         vim.notify(err, vim.log.levels.ERROR)
---       end
---       return
---     end
---     vim.notify("Sourced lua/config/*.lua", vim.log.levels.INFO)
---
--- end, {})
 
