@@ -4,31 +4,49 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("Custom_" .. name, { clear = true })
 end
 
--- Make --NVIM_SESSION=<session_name> Neovim command line parameter to set
--- read session at start.
+-- Set variable for window title prefix to session name if session if set wither
+-- by --NVIM_SESSION env variable or -S <session> command line parameter. Env
+-- variable can be used to no full path to session file is needed.
 vim.api.nvim_create_autocmd("VimEnter", {
   group = augroup('start_with_session'),
   callback = function()
     local session = vim.env.NVIM_SESSION
-    if not session or session == "" then
-      return
+
+    if session ~= nill then
+      vim.schedule(function()
+        -- pcall(function() require("mini.sessions").read(session) end)
+      end)
+    else
+      session = vim.v.this_session
+      if session or session == "" then
+        return
+      end
     end
 
     -- don't override when files were passed
-    if vim.fn.argc() > 0 then
-      return
-    end
+    -- if vim.fn.argc() > 0 then
+    --   return
+    -- end
 
     _G.Config.windowtitle = session
-
-    vim.schedule(function()
-      pcall(function()
-        require("mini.sessions").read(session)
-      end)
-    end)
-
   end,
 })
+
+-- Set title for terminals and start in insert mode.
+-- Adding "TermOpen" made exiting from Terminal mode in Sidekick to immediately
+-- go back to terminal mode.
+vim.api.nvim_create_autocmd({ "WinEnter" }, {
+  group = augroup("set_terminal_settings"),
+  pattern = "*",
+  callback = function()
+     if vim.bo.buftype == "terminal" then
+      vim.cmd("startinsert")
+      local prefix = (_G.Config and _G.Config.windowtitle) or "Neovim"
+      vim.o.titlestring = prefix .. " - terminal"
+    end
+  end,
+})
+
 
 -- Command mode aliases.
 local aliases = {
@@ -38,6 +56,7 @@ local aliases = {
   ["~notes" ] = vim.fn.expand("~/Nextcloud/notes"),
   [ "~nvim" ] = vim.fn.expand("~/.config/nvim"),
   ["~share" ] = vim.fn.expand("~/.local/share"),
+  [ "~zsh"  ] = vim.fn.expand("~/.config"),
 }
 
 vim.api.nvim_create_autocmd("CmdlineLeave", {
@@ -102,21 +121,17 @@ vim.api.nvim_create_autocmd("TermClose", {
   end,
 })
 
--- Make use of custom prefixes on window title which are set based on Neovim
--- config, session or manually set (user-command).
+-- Set window title. Set title prefix which is based on Neovim config, session
+-- or manually set (user-command).
 vim.api.nvim_create_autocmd({ "BufEnter", "TermClose" }, {
   group = augroup("set_window_title"),
   callback = function()
-    -- This is set in TermOpen. 
-    if vim.bo.buftype == "terminal" then
+    if vim.bo.buftype == "terminal" then   -- Set in TermOpen.
       return
     end
-
-    local filename
     local prefix = (_G.Config and _G.Config.windowtitle) or "Neovim"
 
-    -- Normal buffer
-    filename = vim.fn.expand("%:t")
+    local filename = vim.fn.expand("%:t")  -- Normal buffer
     if filename == "" then
       filename = "[No Name]"
     end
@@ -127,21 +142,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "TermClose" }, {
       vim.o.titlestring = string.format("%s - %s", prefix, filename)
     else
       vim.o.titlestring = string.format("%s - %s (%s)", prefix, filename, dirpath)
-    end
-  end,
-})
-
--- Set title for terminals and start in insert mode.
--- Adding "TermOpen" made exiting from Terminal mode in Sidekick to immediately
--- go back to terminal mode.
-vim.api.nvim_create_autocmd({ "WinEnter" }, {
-  group = augroup("set_terminal_settings"),
-  pattern = "*",
-  callback = function()
-     if vim.bo.buftype == "terminal" then
-      vim.cmd("startinsert")
-      local prefix = (_G.Config and _G.Config.windowtitle) or "Neovim"
-      vim.o.titlestring = prefix .. " - terminal"
     end
   end,
 })
@@ -169,7 +169,17 @@ vim.api.nvim_create_autocmd({ "TermOpen", "WinEnter"  }, {
   end,
 })
 
--- Source current file keymap for .lua and .vim files. Lua specific are
+--
+-- vim.api.nvim_create_autocmd({ "TermOpen", "WinEnter"  }, {
+--   group = augroup("set_terminal_title"),
+--   pattern = "*",
+--   callback = function()
+--       vim.api.nvim_buf_set_name(0, "terminal")
+--   end,
+-- })
+--
+
+-- For .lua and .vim files: ~ource current file . Lua specific are
 -- keymaps are in after/ftplugin/.
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "lua", "vim" },
