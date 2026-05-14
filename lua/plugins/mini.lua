@@ -30,7 +30,12 @@ return {
         -- Create `<M-hjkl>` mappings for navigation in Insert and Command modes
         move_with_alt = true,
       },
+
     })
+    vim.keymap.del({ 'n', 'x' }, "gp")
+    -- vim.keymap.del("n", "gP")
+    vim.keymap.del({ 'n', 'x' }, "gy")
+
 
     require('mini.cmdline').setup({
       -- Autocompletion: show `:h 'wildmenu'` as you type
@@ -218,7 +223,7 @@ return {
     )
 
     -- Move text blocks easily.
-    require('mini.move').setup()
+   require('mini.move').setup()
 
     -- Close all windows showing Snacks picker list. Not used atm.
     local function close_snacks_picker()
@@ -230,9 +235,8 @@ return {
       end
     end
 
-    -- If plugins like filetrees are open when session is saved, they
-    -- left empty residue window + buffer. This closes window and deletes
-    -- the buffer.
+    -- If plugins like filetrees are open when session is saved, they left empty
+    -- residue window + buffer. This closes window and deletes the buffer.
     -- For neotree buf and ft is empty and name_
     -- "neo-tree filesystem [id]
     local function close_empty_windows()
@@ -257,7 +261,6 @@ return {
         -- Wach entry configures one operator.
         -- `prefix` defines keys mapped during `setup()`: in Normal mode
         -- to operate on textobject and line, in Visual - on selection.
-
         evaluate = { prefix = 'ö=' }, -- Evaluate text and replace with output
         exchange = { prefix = 'öx' }, -- Exchange text regions
         multiply = { prefix = 'öm' }, -- Multiply (duplicate) text
@@ -299,8 +302,10 @@ return {
     local session_new = 'MiniSessions.write(vim.fn.input("Session name: "))'
     nmap_leader('qd', '<Cmd>lua MiniSessions.select("delete")<CR>', 'Delete')
     nmap_leader('qn', '<Cmd>lua ' .. session_new .. '<CR>',         'New')
-    nmap_leader('qr', '<Cmd>lua MiniSessions.select("read")<CR>',   'Read')
+    nmap_leader('qs', '<Cmd>lua MiniSessions.select("read")<CR>',   'Select')
     nmap_leader('qw', '<Cmd>lua MiniSessions.write()<CR>', 'Write current')
+    nmap_leader('qr', '<Cmd>lua MiniSessions.restart()<CR>', 'Restart')
+    nmap_leader('qg', '<Cmd>lua MiniSessions.get_latest()<CR>', 'Get name of latest')
 
     -- Split / join argumnets.
     require('mini.splitjoin').setup({
