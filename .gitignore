@@ -5,7 +5,9 @@ debug
 .repro
 foo.*
 *.log
-data
+dat
+.codex
+.nvimlog
 
 # In case of Vim-plug
 plugged
