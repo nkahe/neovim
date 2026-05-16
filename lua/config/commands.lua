@@ -86,7 +86,35 @@ end, {
   complete = 'file', -- tab-completion for files
 })
 
-vim.keymap.set("n", "yp", ":Cppath %<CR>", { desc = "File's path" })
+vim.keymap.set("n", "yp", "<CMD>Cppath %<CR>", { desc = "Yank file path" })
+vim.keymap.set("n", "<leader>fy", "<CMD>Cppath %<CR>", { desc = "Yank file path" })
+
+-- Yank current file path relative to project root.
+create_cmd("YankProjectPath", function()
+  local buf = vim.api.nvim_get_current_buf()
+  local file = vim.api.nvim_buf_get_name(buf)
+  if file == "" then
+    vim.notify("No file associated with current buffer", vim.log.levels.WARN)
+    return
+  end
+
+  local ok_misc, misc = pcall(require, "mini.misc")
+  local root = ok_misc and misc and misc.find_root and misc.find_root(buf) or nil
+  root = root or vim.loop.cwd()
+
+  local abs_file = vim.fn.fnamemodify(file, ":p")
+  local abs_root = vim.fn.fnamemodify(root, ":p")
+  local rel = vim.fn.fnamemodify(abs_file, ":.")
+
+  if vim.startswith(abs_file, abs_root) then
+    rel = abs_file:sub(#abs_root + 1):gsub("^/", "")
+  end
+
+  vim.fn.setreg("+", rel)
+  print("Yanked: " .. rel)
+end, { desc = "Yank current file path relative to project root" })
+
+vim.keymap.set("n", "<leader>fY", "<CMD>YankProjectPath<CR>", { desc = "Yank file path from root" })
 
 
 -- Change cwd to match current buffer's directory
@@ -144,4 +172,3 @@ create_cmd('Trim', function()
   vim.fn.setpos(".", save_cursor)
   vim.fn.winrestview(save_view)
 end, { desc = "Trim trailing whitespace from the buffer" })
-

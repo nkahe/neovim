@@ -47,7 +47,7 @@ vim.keymap.set("n", "<leader>fN", function()
   end
   vim.fn.setreg("+", filename)
   vim.notify("Copied filename: " .. filename)
-end, { desc = "Copy file name" })
+end, { desc = "Yank file name" })
 
 -- For GUI only is in section at end part of file.
 
