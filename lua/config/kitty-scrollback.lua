@@ -1,7 +1,6 @@
 
--- Used for scrollback buffer in Kitty terminal.
---
--- in kitty.conf needs:
+-- Used for opening scrollback buffer in Kitty terminal with Neovim.
+-- Then only this file is used. In kitty.conf needs:
 -- scrollback_pager nvim -u NONE -R -M -c 'lua require("config/kitty-scrollback")(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)'
 
 -- Alternative to plugin.
@@ -56,7 +55,7 @@ return function(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
   map(term_buf, 'n', 'q', '<Cmd>qa!<CR>', {})
   map(term_buf, 'n', 'i', '<Cmd>qa!<CR>', {})
   map(term_buf, 'n', '<C-c>', '<Cmd>qa!<CR>', {})
-  vim.keymap.set({ 'n', 'x', 'o' }, 'ö', require('plugins/local/jump').start, {})
+  vim.keymap.set({ 'n', 'x', 'o' }, 'gj', require('plugins/local/jump').start, {})
   local group = vim.api.nvim_create_augroup('kitty-scrollback', { clear = true })
 
   local setCursor = function()

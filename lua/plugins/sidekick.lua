@@ -15,8 +15,7 @@ return {
         },
       },
       mux = {
-        -- Scrollback didn't work with zellij.
-        backend = "tmux",
+        backend = "tmux",   -- Scrollback didn't work with zellij.
         enabled = true,
       },
     },

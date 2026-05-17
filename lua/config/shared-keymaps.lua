@@ -9,7 +9,6 @@ local map = vim.keymap.set
 -- Registers ----------------------------------------------
 
 -- Deleting without yanking
-
 map({'n', 'v'}, "<leader>d", '"_d', { desc = "Delete without yanking"})
 -- map("x", "<Leader>p", '"_dP', { desc = "Paste" }
 -- AltGr + d in nordic layout
@@ -25,14 +24,17 @@ map({'n', 'v'}, "X", '"_X', { desc = "Delete characters before cursor" })
 map({'n', 'v'}, "s", '"_s', { desc = "Substitute characters" })
 map({'n', 'v'}, "S", '"_S', { desc = "Substitute characters before cursor" })
 
--- GUI style copy/paste.
 map('i', '<C-v>', '<C-o>"+P')
 map('x', '<C-c>', '"+y')
--- Paste from primary (select) clipboard.
+
+-- From primary (select) clipboard.
 map({'n', 'v'}, '<S-Insert>', '"*P', { desc = "Paste selection" })
 map('t', '<S-Insert>', '<C-\\><C-n>"*Pi')
 map('i', '<S-Insert>', '<C-o>"*P')
 map('c', '<S-Insert>', '<C-R>*')
+
+map('n', 'gp', '"0p', { desc = "Paste latest yank" })
+map('n', 'gP', '"0P', { desc = "Paste latest yank" })
 
 -- Paste linewise before/after current line
 map('n', '[p', '<Cmd>exe "put! " . v:register<CR>', { desc = 'Paste Above' })
@@ -52,6 +54,9 @@ end, { desc = "Yank file name" })
 -- For GUI only is in section at end part of file.
 
 -- Misc ---------------------------------------------------
+
+-- In Insert mode Tab is used for completion.
+map("n", "<Tab>", "za", { desc = "Toggle fold" })
 
 -- If making search while text is selected, insert selected text to search
 -- while doing escaping if needed.
