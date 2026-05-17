@@ -10,7 +10,11 @@ function M.get(_, c, _)
   -- local percent = 65
   local color_icon = c.white
   local heading_colors = {
-    c.heading, c.blue, c.cyan, c.green, c.pink, c.orange,
+    c.heading, c.green, c.cyan, c.red,  c.yellow, c.orange,
+  }
+
+  local heading_colors = {
+    c.heading, c.purple, c.green, c.cyan, c.blue, c.pink,
   }
 
   -- local heading_colors = {

@@ -28,7 +28,7 @@ M.colors = {
   purple        = "#C594C5",
   dark_purple   = "#ac7bac",
 
-  heading       = "#ac7bac",
+  heading       = "#ed9b64",
   statusline_bg = "#203038",
 }
 
