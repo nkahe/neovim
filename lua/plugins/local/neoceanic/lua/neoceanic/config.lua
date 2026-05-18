@@ -1,7 +1,10 @@
 local M = {}
 
 M.defaults = {
-  terminal_colors = true -- Set colors for Neovim terminal.
+  terminal_colors = true, -- Set colors for Neovim terminal.
+  styles = {
+    keywords = { italic = true }
+  }
 }
 
 M.options = nil

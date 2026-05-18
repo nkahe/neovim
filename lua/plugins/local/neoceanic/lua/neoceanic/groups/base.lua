@@ -6,7 +6,7 @@ function M.get(theme, colors, _)
 
   return {
     Added             = { fg   = colors.green        },
-    DiffText          = { fg   = colors.green,        bg = colors.one_bg  },
+    DiffText          = { fg   = colors.green,       bg = colors.one_bg  },
     Removed           = { fg   = colors.red          },
     Changed           = { fg   = colors.yellow       },
     MatchWord         = { fg   = colors.white,       bg = colors.grey     },

@@ -1,6 +1,6 @@
 local M = {}
 
-function M.get(theme, _, _)
+function M.get(theme, _, opts)
   return {
     Boolean      = { fg = theme.base09  },
     Character    = { fg = theme.base08  },
@@ -13,7 +13,7 @@ function M.get(theme, _, _)
     Function     = { fg = theme.base0D  },
     Identifier   = { fg = theme.base08, sp = "none"       },
     Include      = { fg = theme.base0D  },
-    Keyword      = { fg = theme.base0E  },
+    Keyword      = { fg = theme.base0E, style = opts.styles.keywords},
     Label        = { fg = theme.base0A  },
     Number       = { fg = theme.base09  },
     Operator     = { fg = theme.base05, sp = "none"       },

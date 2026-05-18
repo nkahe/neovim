@@ -31,7 +31,7 @@ function M.get(theme, colors, opts)
     ["@error"]               = { fg = theme.base08 },
 
     ["@keyword.exception"]           = { fg   = theme.base08 },
-    ["@keyword"]                     = { fg   = theme.base0E },
+    ["@keyword"]                     = { fg   = theme.base0E, style = opts.styles.keywords },
     ["@keyword.function"]            = { fg   = theme.base0E },
     ["@keyword.return"]              = { fg   = theme.base0E },
     ["@keyword.operator"]            = { fg   = theme.base0C },

@@ -10,6 +10,7 @@ function M.load(opts)
   local groups = {}
   local groups_dir = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":h") .. "/groups"
 
+  -- Read groups from files in groups/
   for _, file in ipairs(vim.fn.readdir(groups_dir, [[v:val =~ '\.lua$']])) do
     local module = require("neoceanic.groups." .. file:gsub("%.lua$", ""))
     groups = vim.tbl_extend("force", groups, module.get(theme, colors, opts))
@@ -22,7 +23,12 @@ function M.load(opts)
   vim.o.termguicolors = true
   vim.g.colors_name = "neoceanic"
 
+  -- Apply highlights.
   for group, hl in pairs(groups) do
+    if hl.style then
+      hl = vim.tbl_extend("force", vim.deepcopy(hl), hl.style)
+      hl.style = nil
+    end
     vim.api.nvim_set_hl(0, group, hl)
   end
 
