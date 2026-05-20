@@ -17,6 +17,12 @@ function M.get(_, c, _)
 
     MiniIndentscopeSymbol = { fg = c.grey_fg2 },
 
+
+    MiniMapNormal = { fg = c.light_grey },
+    MiniMapSymbolCount = { fg = c.blue },
+    MiniMapSymbolLine = { fg = c.light_grey },
+    MiniMapSymbolView = { fg = c.grey_fg },
+
     MiniStatuslineModeNormal  = { bg = c.nord_blue,   fg = true_black  },
     MiniStatuslineModeVisual  = { bg = c.dark_purple, fg = c.black  },
     MiniStatuslineModeInsert  = { bg = c.green,  fg = c.black },

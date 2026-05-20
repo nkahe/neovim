@@ -205,10 +205,40 @@ return {
       },
     })
 
+    local map = require('mini.map')
+    map.setup({
+      -- Use Braille dots to encode text
+      symbols = { encode = map.gen_encode_symbols.dot('4x2') },
+      -- Show built-in search matches, 'mini.diff' hunks, and diagnostic entries
+      integrations = {
+        map.gen_integration.builtin_search(),
+        map.gen_integration.diff(),
+        map.gen_integration.diagnostic(),
+      },
+    })
+
+    -- Map built-in navigation characters to force map refresh
+    for _, key in ipairs({ 'n', 'N', '*', '#' }) do
+      local rhs = key
+        -- Also open enough folds when jumping to the next match
+        .. 'zv'
+        .. '<Cmd>lua MiniMap.refresh({}, { lines = false, scrollbar = false })<CR>'
+      vim.keymap.set('n', key, rhs)
+    end
+
+    local set = vim.keymap.set
+    set('n', '<Leader>Mc', MiniMap.close, { desc = "Close" })
+    set('n', '<Leader>Mf', MiniMap.toggle_focus, { desc = "Toggle focus" })
+    set('n', '<Leader>Mo', MiniMap.open,  { desc = "Open" })
+    set('n', '<Leader>Mr', MiniMap.refresh, { desc = "Refresh" })
+    set('n', '<Leader>Ms', MiniMap.toggle_side, { desc = "Toggle side" })
+    set('n', '<Leader>Mt', MiniMap.toggle, { desc = "Toggle" })
+    set('n', '<Leader>uM', MiniMap.toggle, { desc = "Toggle minimap" })
+
     require('mini.misc').setup()
 
     -- Find project root and lcd
-    vim.keymap.set("n", "<Leader>fR", function()
+    set("n", "<Leader>fR", function()
         local buf = vim.api.nvim_get_current_buf()
         local root = require("mini.misc").find_root(buf)
         if root then
