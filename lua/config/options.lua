@@ -79,7 +79,7 @@ if vim.g.vscode then return {} end
 -- Mouse
 vim.o.mouse = 'a'                  -- Enable mouse
 vim.o.mousemoveevent = true        -- Enables mouse hover functionality.
-vim.o.mousescroll = 'ver:5,hor:5' -- Customize mouse scroll
+vim.o.mousescroll = 'ver:5,hor:5'  -- Customize mouse scroll
 
 -- Disable "How-to disable mouse" from mouse context menu.
 vim.cmd('silent! aunmenu PopUp.How-to\\ disable\\ mouse')
@@ -145,7 +145,8 @@ vim.o.listchars = 'extends:…,nbsp:␣,precedes:…,tab:» '
 vim.o.complete    = '.,w,b,kspell'                  -- Use less sources
 vim.o.completeopt = 'menuone,noselect,fuzzy,nosort' -- Use custom behavior
 
-vim.o.guifont = "FiraCode Nerd Font Mono:h12"
+vim.o.guifont = "JetBrains Mono:h12"
+-- vim.o.guifont = "FiraCode Nerd Font Mono:h12"
 
 -- Neovide GUI settings.
 -- https://neovide.dev/index.html
