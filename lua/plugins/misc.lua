@@ -96,6 +96,7 @@ return {
   -- provides modern markdown editing capabilities, implementing features found
   -- in popular editors.
   -- https://github.com/yousefhadder/markdown-plus.nvim?tab=readme-ov-file
+  -- Use with '\' + 
   {
     "yousefhadder/markdown-plus.nvim",
     enabled = true,
