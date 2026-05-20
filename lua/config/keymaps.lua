@@ -29,7 +29,7 @@ if has_snacks then
 end
 
 -- if LSP is available use that else fallback to ctags.
-map("n", "gd", function() örequire("plugins.local.symbols").goto_definition() end, { desc = "Goto Definition" })
+map("n", "gd", function() require("plugins.local.symbols").goto_definition() end, { desc = "Goto Definition" })
 map("n", "<F12>", "gd", { desc = "Goto Definition", remap = true })
 -- map("n", "<F12>", function() require("plugins.local.symbols").goto_definition() end, { desc = "Goto Definition" })
 
