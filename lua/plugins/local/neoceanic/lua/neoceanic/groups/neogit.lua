@@ -70,7 +70,7 @@ function M.get(_, colors, _)
     NeogitChangeCopied   = { fg = colors.cyan,    bold = true, italic = true },
     NeogitChangeUnmerged = { fg = colors.yellow,  bold = true, italic = true },
     NeogitChangeNewFile  = { fg = colors.green,   bold = true, italic = true },
-    NeogitSectionHeader  = { fg = colors.heading, bold = true  },
+    NeogitSectionHeader  = { fg = colors.orange,  bold = true  },
 
     NeogitTagName     = { fg = colors.yellow },
     NeogitTagDistance = { fg = colors.cyan   },
