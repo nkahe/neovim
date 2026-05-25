@@ -3,6 +3,10 @@
 local map = vim.keymap.set
 local has_snacks, Snacks = pcall(require, "snacks")
 
+map("n", "<leader>e", function()
+  require("fyler").toggle({ kind = "split_left_most" })
+end, { silent = true })
+
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
 map( "n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
@@ -28,16 +32,15 @@ if has_snacks then
   map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete Other Buffers" })
 end
 
--- if LSP is available use that else fallback to ctags.
-map("n", "gd", function() require("plugins.local.symbols").goto_definition() end, { desc = "Goto Definition" })
-map("n", "<F12>", "gd", { desc = "Goto Definition", remap = true })
--- map("n", "<F12>", function() require("plugins.local.symbols").goto_definition() end, { desc = "Goto Definition" })
-
 -- These are remapped for switching buffers,
 for _, mode in ipairs({ "n", "x", "o" }) do
   map(mode, "gH", "H", { desc = "Go to top of window" })
   map(mode, "gL", "L", { desc = "Go to bottom of window" })
 end
+
+-- if LSP is available use that else fallback to ctags.
+map("n", "gd", function() require("plugins.local.symbols").goto_definition() end, { desc = "Goto Definition" })
+map("n", "<F12>", "gd", { desc = "Goto Definition", remap = true })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
