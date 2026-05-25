@@ -88,7 +88,12 @@ return {
     local ai = require('mini.ai')
     ai.setup({
       n_lines = 500,
-      mappings = { around_next = "aN", inside_next = "iN" },
+      mappings = {
+        around_next = "aN",
+        inside_next = "iN",
+        around_last = "",
+        inside_last = "",
+      },
       custom_textobjects = {
         o = ai.gen_spec.treesitter({ -- code block
           a = { "@block.outer", "@conditional.outer", "@loop.outer" },
@@ -158,8 +163,8 @@ return {
         -- Nvim 0.12 has these by default.
         -- an = "around next",
         -- in_ = "inside next",
-        al = "around last",
-        il = "inside last",
+        -- al = "around last",
+        -- il = "inside last",
       }
 
       local specs = { mode = { "o", "x" } }
