@@ -21,6 +21,12 @@ return  {
     })
   end,
   opts = {
+    preview = {
+      modes = { "n", "i", "c" },       -- where preview is active
+      hybrid_modes = { "n", "i" },     -- where cursor-area is unrendered
+      linewise_hybrid_mode = true,
+      edit_range = { 0, 0 },           -- only current line
+    },
     markdown = {
       code_blocks = { sign = false, style = "block" },
       headings = {
