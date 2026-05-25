@@ -2,6 +2,7 @@
   -- From LazyVim with some commented changes.
   return {
     "nvim-neo-tree/neo-tree.nvim",
+    enabled = false,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
@@ -9,7 +10,6 @@
     },
     lazy = false,   -- neo-tree will lazily load itself
     cmd = "Neotree",
-    enabled = true,
     keys = {
       {
         "<leader>e", function()

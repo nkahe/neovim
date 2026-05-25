@@ -29,7 +29,13 @@ return {
         theme = "neoceanic",
         globalstatus = vim.o.laststatus == 3,
         disabled_filetypes = { statusline = {
-          "codediff-explorer", "dashboard", "alpha", "ministarter", "neo-tree",
+          "alpha",
+          "codediff-explorer",
+          "dashboard",
+          "fyler",
+          "ministarter",
+          "neo-tree",
+          "nvim-tree",
           "snacks_dashboard"
         }},
         -- Get rid off '' and ''.

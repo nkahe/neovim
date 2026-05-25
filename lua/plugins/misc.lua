@@ -41,6 +41,23 @@ return {
     },
   },
 
+  {
+    "A7Lavinraj/fyler.nvim",
+    dependencies = { "nvim-mini/mini.icons" },
+    branch = "stable",  -- Use stable branch for production
+    lazy = false, -- Necessary for `default_explorer` to work properly
+    opts = {
+      views = {
+        finder = {
+          win = {
+            kinds = { split_left_most = { width = "40" } },
+            win_opts = { cursorline = true },
+          },
+        },
+      },
+    }
+  },
+
   -- https://github.com/MagicDuck/grug-far.nvim
   {
     "MagicDuck/grug-far.nvim",
