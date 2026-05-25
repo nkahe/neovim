@@ -8,7 +8,6 @@ return {
       {
         mode = { "n", "x" },
         { "<F1>", "<cmd>WhichKey<cr>", desc = "WhichKey (global)" },
-        { "gs", group = "Surround" },
         { "<leader><tab>", group = "Tabs" },
         { "<leader>a",  group = "AI" },
         { "<leader>c",  group = "Code" },
@@ -27,10 +26,11 @@ return {
         { "<leader>q",  group = "Quit" },
         { "<leader>u",  group = "UI" },
         { "<leader>x",  group = "Diagnostics/Quickfix" },
-        { " ", group = "Leaderkey" },
-        { "[", group = "Previous" },
-        { "]", group = "Next" },
-        { "z", group = "Fold" },
+        { "gs", group = "Surround" },
+        { " ",  group = "Leaderkey" },
+        { "[",  group = "Previous" },
+        { "]",  group = "Next" },
+        { "z",  group = "Fold" },
         { "\\", group = "Local commands" },
         {
           "<leader>b",
@@ -47,6 +47,8 @@ return {
         -- better descriptions. gx is mapped to mini.operators exchange.
         { "gra", desc = "Code action" },
         { "grn", desc = "Rename" },
+        { "grx", desc = "Run Codelens"  },
+        { "gx",  desc = "Open file/URI" },  -- Shorter desc
         { "g,",  desc = "Go to newer position in change list" },
         { "g;",  desc = "Go to older position in change list" },
         -- Hide non-interesting keys.
