@@ -1,8 +1,6 @@
-
 if not vim.g.vscode then
   return {}
 end
-
 
 -- NOTE: Alt -keybindings  are interpreted by VSCode and defined in it's
 -- config User/keybindings.json.
@@ -48,33 +46,34 @@ vim.keymap.set('n', "<leader>fv", function()
   end)
 -- })
 
--- Keymaps
+-- Keymaps --------------------------------------------------------------------
 
 -- vim.keymap.set({ 'n', 'x' }, '<Space>', function()
 --     vim.fn.VSCodeNotify('whichkey.show')
 --   end, { silent = true, desc = "Show WhichKey" })
 
--- vim.keymap.set('n', '<leader><leader>', function()
---     vim.fn.VSCodeNotify('workbench.action.quickOpen')
---   end, { desc = 'QuickOpen' })
+vim.keymap.set('n', '<Leader><Space>', function()
+  vim.fn.VSCodeNotify('workbench.action.showCommands')
+end, { silent = true, desc = "Command palette" })
 
-vim.keymap.set({ "n", "x" }, "j", function()
-  return vim.v.count == 0 and "gj" or "j"
-end, { expr = true, remap = true })
--- NOTE: this kind of mapping doesn't work:
--- vim.keymap.set({ 'n', 'x' }, 'j', 'gj', { noremap = true })
+vim.keymap.set('n', '<Leader>ff', function()
+  vim.fn.VSCodeNotify('workbench.action.quickOpen')
+end, { silent = true, desc = "Search file" })
 
-vim.keymap.set({ "n", "x" }, "k", function()
-  return vim.v.count == 0 and "gk" or "k"
-end, { expr = true, remap = true })
-
-vim.keymap.set("n", "<leader><space>", "<cmd>Find<cr>")
-vim.keymap.set("n", "<leader>,", "<cmd>Find<cr>")
+vim.keymap.set("n", "<leader>,", "<leader>ff",
+  { desc = "Search file", remap = true })
 
   -- Map <Leader>F to search for text in files (like Ctrl+Shift+F)
-  vim.keymap.set("n", "<leader>/", function()
+  vim.keymap.set("n", "<leader>fg", function()
     vim.fn.VSCodeCall("workbench.action.findInFiles")
   end, { desc = "Search Text in Files" })
+
+  vim.keymap.set("n", "<leader>/", "<leader>fg",
+  { desc = "Search Text in Files", remap = true })
+
+  vim.keymap.set({ 'n', 'x' }, '<Leader>fr', function()
+    vim.fn.VSCodeNotify('workbench.action.openRecent')
+  end, { silent = true, desc = "Recent files" })
 
   vim.keymap.set("n", "<leader>bd", function()
     vim.fn.VSCodeCall("workbench.action.closeActiveEditor")
@@ -84,11 +83,7 @@ vim.keymap.set("n", "<leader>,", "<cmd>Find<cr>")
     vim.fn.VSCodeNotify('workbench.action.toggleSidebarVisibility')
   end, { silent = true, desc = "Toggle Sidebar Visibility" })
 
-  vim.keymap.set({ 'n', 'x' }, '<Space>fr', function()
-    vim.fn.VSCodeNotify('workbench.action.openRecent')
-  end, { silent = true, desc = "Recent files" })
-
-  vim.keymap.set({ 'n', 'x' }, '<Space>fn', function()
+  vim.keymap.set({ 'n', 'x' }, '<Leader>fn', function()
     vim.fn.VSCodeNotify('welcome.showNewFileEntries')
   end, { silent = true, desc = "New file" })
 
@@ -166,6 +161,8 @@ return {
   --     statuscolumn = { enabled = false },
   --   },
   -- }
+  
+  -- Use subset of mini plugins.
   {
     "nvim-mini/mini.nvim",
     version = false,
@@ -177,6 +174,9 @@ return {
       require("mini.operators").setup()
       -- require("mini.move").setup()
       -- require("mini.pairs").setup()
+      require('mini.splitjoin').setup({
+        mappings = { toggle = 'öa', split = '', join = '' }
+      })
       require("mini.surround").setup()
     end,
   },
