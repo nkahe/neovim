@@ -47,7 +47,16 @@ return {
   opts = {
     servers = {
       bashls = true,
-      lua_ls = true,
+      lua_ls = {
+        settings = {
+          Lua = {
+            -- Make LSP to know about global vim variable.
+            diagnostics = {
+              globals = { "vim" },
+            },
+          },
+        },
+      },
       -- Currently not in use.
       -- basedpyright = {
       --   settings = {
