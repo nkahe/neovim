@@ -12,7 +12,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     local session = vim.env.NVIM_SESSION
 
-    if session ~= nill then
+    if session ~= nil then
       vim.schedule(function()
         -- pcall(function() require("mini.sessions").read(session) end)
       end)
