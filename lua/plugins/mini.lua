@@ -5,6 +5,8 @@ return {
   event = 'VeryLazy',
   config = function()
 
+    local set = vim.keymap.set
+
     require('mini.align').setup()
 
     -- Set some basic settings.
@@ -36,33 +38,7 @@ return {
     -- vim.keymap.del("n", "gP")
     vim.keymap.del({ 'n', 'x' }, "gy")
 
-
-    require('mini.cmdline').setup({
-      -- Autocompletion: show `:h 'wildmenu'` as you type
-      autocomplete = { enable = false },  -- Blink is used instead.
-
-      -- Autocorrection: adjust non-existing words (commands, options, etc.)
-      autocorrect = {
-        enable = false,
-        func = nil,  -- Custom autocorrection rule
-      },
-
-      -- Autopeek: show command's target range in a floating window
-      autopeek = {
-        enable = true,
-        n_context = 1,    -- Number of lines to show above and below range lines
-        predicate = nil,  -- Custom rule of when to show peek window
-        window = {        -- Window options
-          config = {},    -- Floating window config
-          statuscolumn = nil, -- Function to render statuscolumn
-        },
-      },
-    })
-
-    -- require('mini.diff').setup({})
-
-    -- Extra 'mini.nvim' functionality.
-    require('mini.extra').setup()
+    -- Mini.ai ----------------------------------------------------------------
 
     -- Entire buffer object.
     local function buffer(ai_type)
@@ -196,7 +172,87 @@ return {
       })
     end
 
-    -- Highlight some patterns.
+    require('mini.misc').setup()
+
+    -- Move text blocks easily.
+   require('mini.move').setup()
+
+    -- Close all windows showing Snacks picker list. Not used atm.
+    local function close_snacks_picker()
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if vim.bo[buf].filetype == "snacks_picker_list" then
+          pcall(vim.api.nvim_win_close, win, true)
+        end
+      end
+    end
+
+    require('mini.operators').setup({
+        -- Wach entry configures one operator.
+        -- `prefix` defines keys mapped during `setup()`: in Normal mode
+        -- to operate on textobject and line, in Visual - on selection.
+        evaluate = { prefix = 'ö=' }, -- Evaluate text and replace with output
+        exchange = { prefix = 'öx' }, -- Exchange text regions
+        multiply = { prefix = 'öm' }, -- Multiply (duplicate) text
+        replace  = { prefix = 'ör' }, -- Replace text with register
+        sort     = { prefix = 'ös' }  -- Sort text
+    })
+
+    -- Split / join argumnets.
+    require('mini.splitjoin').setup({
+      mappings = { toggle = 'öa', split = '', join = '' }
+    })
+
+    require('mini.surround').setup({
+      mappings = {
+        add            = "ys", -- Add surrounding in  Normal and Visual modes
+        delete         = "ds", -- Delete surrounding.
+        find           = "gs", -- Find surrounding (to the right)
+        find_left      = "gS", -- Find surrounding (to the left)
+        highlight      = "gsh",-- Highlight surrounding
+        replace        = "cs", -- Replace   surrounding
+        update_n_lines = "",   -- Update `n_lines`
+      },
+    })
+
+    if vim.g.vscode then
+      return
+    end
+
+    -- Non VS Code compatible plugins ------------
+
+      -- Mini.cmdline ---------------------------------------------------------
+
+      require('mini.cmdline').setup({
+      -- Autocompletion: show `:h 'wildmenu'` as you type
+      autocomplete = { enable = false },  -- Blink is used instead.
+
+      -- Autocorrection: adjust non-existing words (commands, options, etc.)
+      autocorrect = {
+        enable = false,
+        func = nil,  -- Custom autocorrection rule
+      },
+
+      -- Autopeek: show command's target range in a floating window
+      autopeek = {
+        enable = true,
+        n_context = 1,    -- Number of lines to show above and below range lines
+        predicate = nil,  -- Custom rule of when to show peek window
+        window = {        -- Window options
+          config = {},    -- Floating window config
+          statuscolumn = nil, -- Function to render statuscolumn
+        },
+      },
+    })
+
+    -- require('mini.diff').setup({})
+
+    -- Extra 'mini.nvim' functionality.
+    require('mini.extra').setup()
+
+    -- Mini.hipatterns --------------------------------------------------------
+
+     -- Highlight some patterns.
     local hipatterns = require('mini.hipatterns')
     local hi_words = MiniExtra.gen_highlighter.words
     hipatterns.setup({
@@ -209,6 +265,8 @@ return {
         hex_color = hipatterns.gen_highlighter.hex_color(),
       },
     })
+
+    -- Mini.map ---------------------------------------------------------------
 
     local map = require('mini.map')
     map.setup({
@@ -231,7 +289,6 @@ return {
       vim.keymap.set('n', key, rhs)
     end
 
-    local set = vim.keymap.set
     set('n', '<Leader>Mc', MiniMap.close, { desc = "Close" })
     set('n', '<Leader>Mf', MiniMap.toggle_focus, { desc = "Toggle focus" })
     set('n', '<Leader>Mo', MiniMap.open,  { desc = "Open" })
@@ -240,7 +297,7 @@ return {
     set('n', '<Leader>Mt', MiniMap.toggle, { desc = "Toggle" })
     set('n', '<Leader>uM', MiniMap.toggle, { desc = "Toggle minimap" })
 
-    require('mini.misc').setup()
+    -- Keymap using mini.misc -------------------------------------------------
 
     -- Find project root and lcd
     set("n", "<Leader>fR", function()
@@ -257,18 +314,7 @@ return {
       { desc = "Find root and lcd" }
     )
 
-    -- Move text blocks easily.
-   require('mini.move').setup()
-
-    -- Close all windows showing Snacks picker list. Not used atm.
-    local function close_snacks_picker()
-      for _, win in ipairs(vim.api.nvim_list_wins()) do
-        local buf = vim.api.nvim_win_get_buf(win)
-        if vim.bo[buf].filetype == "snacks_picker_list" then
-          pcall(vim.api.nvim_win_close, win, true)
-        end
-      end
-    end
+    -- Mini.sessions ----------------------------------------------------------
 
     -- If plugins like filetrees are open when session is saved, they left empty
     -- residue window + buffer. This closes window and deletes the buffer.
@@ -291,17 +337,6 @@ return {
       end
 
     end
-
-    require('mini.operators').setup({
-        -- Wach entry configures one operator.
-        -- `prefix` defines keys mapped during `setup()`: in Normal mode
-        -- to operate on textobject and line, in Visual - on selection.
-        evaluate = { prefix = 'ö=' }, -- Evaluate text and replace with output
-        exchange = { prefix = 'öx' }, -- Exchange text regions
-        multiply = { prefix = 'öm' }, -- Multiply (duplicate) text
-        replace  = { prefix = 'ör' }, -- Replace text with register
-        sort     = { prefix = 'ös' }  -- Sort text
-    })
 
     require('mini.sessions').setup({
       -- Whether to write currently read session before leaving it
@@ -342,22 +377,6 @@ return {
     nmap_leader('qr', '<Cmd>lua MiniSessions.restart()<CR>', 'Restart')
     nmap_leader('qg', '<Cmd>lua MiniSessions.get_latest()<CR>', 'Get name of latest')
 
-    -- Split / join argumnets.
-    require('mini.splitjoin').setup({
-      mappings = { toggle = 'öa', split = '', join = '' }
-    })
-
-    require('mini.surround').setup({
-      mappings = {
-        add            = "ys", -- Add surrounding in  Normal and Visual modes
-        delete         = "ds", -- Delete surrounding.
-        find           = "gs", -- Find surrounding (to the right)
-        find_left      = "gS", -- Find surrounding (to the left)
-        highlight      = "gsh",-- Highlight surrounding
-        replace        = "cs", -- Replace   surrounding
-        update_n_lines = "",   -- Update `n_lines`
-      },
-    })
 
   end, -- config
 },

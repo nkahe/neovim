@@ -138,8 +138,7 @@ vim.keymap.set("n", "<leader>,", "<leader>ff",
     vim.fn.VSCodeCall("workbench.action.nextEditor")
   end, { desc = "Next Tab" })
 
--- Add other plugins with VSCode-specific configs. Enabled plugins are
--- defined in lazy.lua.
+-- Plugins with VSCode-specific configs. Enabled plugins are defined in lazy.lua.
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -161,23 +160,6 @@ return {
   --     statuscolumn = { enabled = false },
   --   },
   -- }
-  
+
   -- Use subset of mini plugins.
-  {
-    "nvim-mini/mini.nvim",
-    version = false,
-    config = function()
-      require("mini.ai").setup()
-      require("mini.basics").setup()
-      require("mini.comment").setup()
-      -- NOTE: Alt+hjl is interpreted by VSCode.
-      require("mini.operators").setup()
-      -- require("mini.move").setup()
-      -- require("mini.pairs").setup()
-      require('mini.splitjoin').setup({
-        mappings = { toggle = 'öa', split = '', join = '' }
-      })
-      require("mini.surround").setup()
-    end,
-  },
 }
