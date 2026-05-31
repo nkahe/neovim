@@ -1,3 +1,5 @@
+
+-- Your Neovim AI sidekick. https://github.com/folke/sidekick.nvim
 return {
   "folke/sidekick.nvim",
   opts = {
@@ -9,6 +11,12 @@ return {
           --
           -- Use Esc to enter terminal-normal mode (opens Sidekick scrollback)
           -- stopinsert = { "<Esc>", "stopinsert", mode = "t", desc = "enter normal mode" },
+
+          -- Change modifier key from default Ctrl to Alt so they don't interfere
+          -- with agent or Neovim keymaps.
+          buffers  = { "<M-b>", "buffers"   , mode = "nt", desc = "open buffer picker" },
+          files    = { "<M-f>", "files"     , mode = "nt", desc = "open file picker" },
+          prompt   = { "<M-p>", "prompt"    , mode = "t" , desc = "Insert prompt or context" },
 
           -- Don't hide the window on Ctrl-Q; it conflicts with stopinsert/scrollback
           hide_ctrl_q = false,
