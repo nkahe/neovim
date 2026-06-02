@@ -8,6 +8,7 @@ function M.get(_, colors, _)
     NeoTreeGitModified          = { fg = colors.light_grey },
     NeoTreeGitUntracked         = { fg = colors.light_grey },
     NeoTreeGitUnstaged          = { fg = colors.light_grey },
+    NeoTreeIndentMarker         = { fg = colors.grey       },
     NeoTreeMessage              = { fg = colors.light_grey },
     NeoTreeNormal               = { bg = colors.darker_black },
     NeoTreeNormalNC             = { bg = colors.darker_black },
