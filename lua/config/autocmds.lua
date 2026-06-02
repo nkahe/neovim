@@ -47,7 +47,6 @@ vim.api.nvim_create_autocmd({ "WinEnter" }, {
   end,
 })
 
-
 -- Command mode aliases.
 local aliases = {
   ["~config"] = vim.fn.expand("~/.config"),
@@ -71,6 +70,62 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
   end,
 })
 
+local function clear_cmdarea()
+  vim.defer_fn(function()
+    pcall(vim.api.nvim_echo, {}, false, {})
+  end, 800)
+end
+
+local timer = vim.uv.new_timer()
+local save_notification = false
+
+-- Autosave normal buffers.
+vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
+  group = augroup("autosave"),
+
+  callback = function(args)
+    local buf = args.buf
+
+    -- skip invalid/special and unnamed buffers
+    if vim.bo[buf].buftype ~= "" or vim.api.nvim_buf_get_name(buf) == "" then
+      return
+    end
+
+    -- not modified
+    if not vim.bo[buf].modified then
+      return
+    end
+
+    -- not writable
+    if not vim.bo[buf].modifiable or vim.bo[buf].readonly then
+      return
+    end
+
+    if not timer then
+      return
+    end
+
+    timer:stop()
+
+    timer:start(3000, 0, vim.schedule_wrap(function()
+      -- write silently without changing current buffer
+      local ok = pcall(vim.api.nvim_buf_call, buf, function()
+        vim.cmd("silent! write")
+      end)
+
+      if ok and save_notification then
+        local time = os.date("%H:%M")
+
+        vim.api.nvim_echo({
+          { "󰄳 ", "LazyProgressDone" },
+          { "Autosaved at " .. time, "Comment" },
+        }, false, {})
+
+        clear_cmdarea()
+      end
+    end))
+
+  end})
 
 -- Hot reloading configs. Watches for saves specifically in the `lua/config/keymaps.lua`
 -- and `lua/config/options.lua`.
