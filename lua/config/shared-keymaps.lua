@@ -40,7 +40,7 @@ map('n', 'gP', '"0P', { desc = "Paste latest yank" })
 map('n', '[p', '<Cmd>exe "put! " . v:register<CR>', { desc = 'Paste Above' })
 map('n', ']p', '<Cmd>exe "put "  . v:register<CR>', { desc = 'Paste Below' })
 
--- Copy file name to clipboard
+-- Yank file name to clipboard
 vim.keymap.set("n", "<leader>fN", function()
   local filename = vim.fn.expand("%:t")
   if filename == "" then
@@ -48,7 +48,7 @@ vim.keymap.set("n", "<leader>fN", function()
     return
   end
   vim.fn.setreg("+", filename)
-  vim.notify("Copied filename: " .. filename)
+  vim.notify("Yanked filename: " .. filename)
 end, { desc = "Yank file name" })
 
 -- For GUI only is in section at end part of file.
@@ -88,6 +88,9 @@ map("n", "<S-l>", "<cmd>bnext<cr>",     { desc = "Next Buffer" })
 
 -- Search word under cursor and change it. n to go next and . to repeat.
 vim.keymap.set("n", "c*", "g*Ncgn", { noremap = true })
+
+map({ "x", "n" }, "gh", "0", { desc = "To first char",  remap = true })
+map({ "x", "n" }, "gl", "$", { desc = "To end of line", remap = true })
 
 -- Avoid accidentally pressing these.
 map({ "x", "n" }, "<S-Down>",  "j")
