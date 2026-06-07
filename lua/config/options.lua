@@ -11,7 +11,7 @@ vim.o.autowrite     = true      -- Enable auto write
 vim.o.expandtab     = true      -- Convert tabs to spaces
 vim.o.formatoptions = 'rqnl1j'  -- Improve comment editing
 vim.o.ignorecase    = true      -- Ignore case during search
-vim.o.infercase     = true      -- Infer case in built-in completion 
+vim.o.infercase     = true      -- Infer case in built-in completion
 vim.o.shiftwidth    = 2         -- Use this number of spaces for indentation
 vim.o.smartcase     = true      -- Respect case if search pattern has upper case
 vim.o.smartindent   = true      -- Make indenting smart
@@ -34,6 +34,7 @@ vim.o.gdefault      = true      -- Use global /g flag for :s by default.
 vim.o.grepformat    = "%f:%l:%c:%m"
 vim.o.grepprg       = "rg --vimgrep"
 vim.o.inccommand    = "split"
+vim.opt.laststatus  = 3         -- Avante recommends.
 vim.o.relativenumber = true     -- Use relative line numbers.
 vim.o.report        = 50        -- Report only operations of atleast this many lines.
 vim.o.scrolloff     = 8         -- Minimum number of screen lines to keep above and below the cursor.
@@ -60,8 +61,8 @@ vim.o.splitkeep      = 'screen'   -- Reduce scroll during window split
 vim.o.splitright     = true       -- Vertical splits will be to the right
 vim.o.winborder      = 'single'   -- Use border in floating windows
 
--- Sync with system clipboard if we don't happen to run as root (doesn't work in 
--- Wpayland) or connected with SSH.
+-- Sync with system clipboard unless run as root (doesn't work in
+-- Wayland) or connected with SSH. For use terminal client for copying.
 local user = os.getenv("USER") or ""
 if user ~= "root" and not vim.env.SSH_TTY then
   --  Schedule the setting after `UiEnter` because it can increase startup-time.
@@ -99,7 +100,7 @@ vim.o.cursorlineopt = 'screenline,number' -- Show cursor line per screen line
 -- Folding. In Treesitter settings expr fold method is set if language supports
 -- Treesitter.
 -- Two latter are default in Neovim 0.12.
-vim.opt.diffopt:append("vertical", "indent-heuristic", "inline:char")  
+vim.opt.diffopt:append("vertical", "indent-heuristic", "inline:char")
 vim.o.foldmethod     = 'indent'   -- Fold based on indent level
 -- Needed for sourcing the file to work.
 if vim.opt.foldnestmax:get() ~= 10 then

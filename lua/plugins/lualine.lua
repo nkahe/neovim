@@ -34,14 +34,12 @@ return {
           "dashboard",
           "fyler",
           "ministarter",
-          "neo-tree",
-          "nvim-tree",
           "snacks_dashboard"
         }},
         -- Get rid off '' and ''.
         component_separators = { left = '', right = ' '},
       },
-
+      extensions = { "avante", "lazy", "neo-tree", "oil", "quickfix", "trouble" },
       -- Sections:   | A | B | C         X | Y | Z |
       sections = {
         lualine_a = { "mode" },
@@ -115,7 +113,6 @@ return {
 
         lualine_z = { function() return " " .. os.date("%R") end },
       },
-      extensions = { "lazy" },
     }
     return opts
   end,

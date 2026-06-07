@@ -5,23 +5,25 @@ return  {
   lazy = false,  -- Do not lazy load this plugin as it is already lazy-loaded.
   -- Completion for `blink.cmp`
   -- dependencies = { "saghen/blink.cmp" },
-  keys = {
-    { "<Leader>um", "<cmd>Markview Toggle<CR>", mode = "n", desc = "Toggle markdown rendering" }
-  },
   init = function()
     vim.api.nvim_create_autocmd("FileType", {
-      pattern = "markdown",
+      pattern = { "markdown","norg", "rmd", "org", "vimwiki", "Avante" },
       callback = function(event)
         -- NOTE: "toggle" with lowercase t.
         vim.keymap.set("n", "\\m", ("<cmd>Markview toggle<CR>"), {
           buffer = event.buf,
           desc = "Toggle Markview for buffer"
         })
+        vim.keymap.set("n", { "<Leader>um" }, "<cmd>Markview Toggle<CR>",
+          { desc = "Toggle markdown rendering" })
       end
     })
   end,
   opts = {
+    -- Add Avante.
     preview = {
+      filetypes = { "markdown", "norg", "rmd", "org", "vimwiki", "Avante" },
+      ignorebuftypes = {},
       modes = { "n", "i", "c" },       -- where preview is active
       hybrid_modes = { "n", "i" },     -- where cursor-area is unrendered
       linewise_hybrid_mode = true,
