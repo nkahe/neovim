@@ -10,7 +10,8 @@ end
 --   return vim.api.nvim_create_augroup("Custom_" .. name, { clear = true })
 -- end
 
--- Neovim Ui Modifier plugin. Change theme colors based on Neovim mode.
+-- For Neovim Ui Modifier - VS Code plugin. That is needed to be installed.
+-- Change VS Code theme colors based on Neovim mode.
 function SetCursorLineNrColorInsert(mode)
   if mode == "i" then
     vim.fn.VSCodeNotify("nvim-theme.insert")  -- Insert mode: blue
@@ -32,12 +33,7 @@ vim.cmd([[
   augroup END
 ]])
 
--- Compile and apply Base46 theme when changes are saved.
--- vim.api.nvim_create_autocmd("BufWritePost", {
---   pattern = "vscode.lua",
---   group = augroup('source_vscode_settings'),
-  -- callback = function()
-
+-- Source 
 vim.keymap.set('n', "<leader>fv", function()
     local config_dir = vim.fn.stdpath("config")
     print("Neovim config directory: " .. config_dir)
