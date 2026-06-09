@@ -175,7 +175,22 @@ return {
     require('mini.misc').setup()
 
     -- Move text blocks easily.
-   require('mini.move').setup()
+      require('mini.move').setup({
+        -- Module mappings. Use `''` (empty string) to disable one.
+        mappings = {
+          -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
+          left = '<S-Left>',
+          right = '<S-Right>',
+          down = '<M-j>',
+          up = '<M-k>',
+
+          -- Move current line in Normal mode
+          line_left = '<S-Left>',
+          line_right = '<S-Right>',
+          line_down = '<M-j>',
+          line_up = '<M-k>',
+        },
+      })
 
     -- Close all windows showing Snacks picker list. Not used atm.
     local function close_snacks_picker()
@@ -205,7 +220,7 @@ return {
 
     require('mini.surround').setup({
       mappings = {
-        add            = "ys", -- Add surrounding in  Normal and Visual modes
+        add            = "ys", -- Add surrounding in Normal and Visual modes
         delete         = "ds", -- Delete surrounding.
         find           = "gs", -- Find surrounding (to the right)
         find_left      = "gS", -- Find surrounding (to the left)
