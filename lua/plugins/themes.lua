@@ -3,10 +3,14 @@ if vim.g.vscode then
   return {}
 end
 
--- vim.o.background = "light"
-
 if os.getenv("COLOR_SCHEME") == "light" then
   return {
+
+   {
+      'AbdelrahmanDwedar/awesome-nvim-colorschemes',
+      enabled = true
+   },
+
     "EdenEast/nightfox.nvim",
     enabled = true,
     lazy = false,
@@ -34,7 +38,7 @@ return {
     },
     config = function(_, opts)
       require("neoceanic").setup(opts)
-      vim.cmd.colorscheme("neoceanic")
+      -- vim.cmd.colorscheme("neoceanic")
     end,
   },
 
@@ -56,5 +60,4 @@ return {
       require("base46").load_all_highlights()
     end,
   },
-
 }
