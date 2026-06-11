@@ -3,6 +3,26 @@ if vim.g.vscode then
   return {}
 end
 
+-- vim.o.background = "light"
+
+if os.getenv("COLOR_SCHEME") == "light" then
+  return {
+    "EdenEast/nightfox.nvim",
+    enabled = true,
+    lazy = false,
+    priority = 1000,
+    config = function()
+      local groups = {
+        dayfox = {
+          CursorLine = { bg = "#f5f1ed" }
+        }
+      }
+      require("nightfox").setup({ groups = groups })
+      vim.cmd("colorscheme dayfox")
+    end,
+  }
+end
+
 return {
   {
     name = "Neoceanic",
@@ -15,6 +35,15 @@ return {
     config = function(_, opts)
       require("neoceanic").setup(opts)
       vim.cmd.colorscheme("neoceanic")
+    end,
+  },
+
+  {
+    'roflolilolmao/oceanic-next.nvim',
+    enabled = false,
+    priority = 1000,
+    config = function()
+      vim.cmd('colorscheme OceanicNext')
     end,
   },
 
