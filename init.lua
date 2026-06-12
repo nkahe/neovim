@@ -15,9 +15,8 @@ _G.Config.new_autocmd = function(event, pattern, callback, desc)
 end
 
 -- Source config files.
-
-require("config.lazy")
 require("config.options")
+require("config.lazy")
 require("config.keymaps")
 require("config.shared-keymaps")
 
@@ -35,6 +34,4 @@ else
   if not vim.v.servername or vim.v.servername == '' then
     vim.fn.serverstart(string.format("/tmp/nvim.%d", vim.fn.getpid()))
   end
-
 end
-
