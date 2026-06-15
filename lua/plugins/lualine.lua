@@ -22,11 +22,12 @@ return {
     lualine_require.require = require
 
     vim.o.laststatus = vim.g.lualine_laststatus
+    local lualine_theme = vim.g.colors_name == "dayfox" and "dayfox" or "neoceanic"
 
     local opts = {
       options = {
         -- Can be set to auto or nil.
-        theme = "neoceanic",
+        theme = lualine_theme,
         globalstatus = vim.o.laststatus == 3,
         disabled_filetypes = { statusline = {
           "alpha",
@@ -117,4 +118,3 @@ return {
     return opts
   end,
 }
-
