@@ -76,10 +76,6 @@ vim.keymap.set("n", "<leader>fv", function()
   )
 end, { desc = "Very nomagic substitute" })
 
--- Easier to type.
--- map("", "gh", '^', { desc = "To the first non-blank character of the line" })
--- map("", "gl", '$', { desc = "To the end of the line" })
-
 -- Focus previous / next buffer
 map({ "n", "i" }, "<M-Right>", "<cmd>bnext<CR>",    { silent = true })
 map({ "n", "i" }, "<M-Left>", "<cmd>bprevious<CR>", { silent = true })
@@ -89,21 +85,22 @@ map("n", "<S-l>", "<cmd>bnext<cr>",     { desc = "Next Buffer" })
 -- Search word under cursor and change it. n to go next and . to repeat.
 vim.keymap.set("n", "c*", "g*Ncgn", { noremap = true })
 
-map({ "x", "n" }, "gh", "0", { desc = "To first char",  remap = true })
-map({ "x", "n" }, "gl", "$", { desc = "To end of line", remap = true })
+map("", "H", 'g0', { desc = "To first non-blank character of the line", remap = true })
+map("", "L", 'g$', { desc = "To end of the line", remap = true  })
+-- map({ "x", "n" }, "gh", "0", { desc = "To first char",  remap = true })
+-- map({ "x", "n" }, "gl", "$", { desc = "To end of line", remap = true })
 
 -- Avoid accidentally pressing these.
-map({ "x", "n" }, "<S-Down>",  "j")
-map({ "x", "n" }, "<S-Up>",    "k")
-map({ "x", "n" }, "<S-Right>", "l")
-map({ "x", "n" }, "<S-Left>",  "h")
-
--- Windows
-map("n", "<C-c>",   "<C-W>c", { desc = "Close window", remap = true })
+-- map({ "x", "n" }, "<S-Down>",  "j")
+-- map({ "x", "n" }, "<S-Up>",    "k")
+-- map({ "x", "n" }, "<S-Right>", "l")
+-- map({ "x", "n" }, "<S-Left>",  "h")
 
 -- Window navigation
 
+map("n", "<C-c>",   "<C-W>c", { desc = "Close window", remap = true })
 -- With Kitty terminal, kitty-navigator plugin is used at it creates equivalent mappings.
+
 if not vim.env.KITTY_PID then
   map({'n', 't'}, '<C-H>', '<C-w>h', { desc = 'Focus on left window'  })
   map({'n', 't'}, '<C-J>', '<C-w>j', { desc = 'Focus on below window' })
@@ -144,8 +141,8 @@ map("i", "<A-Up>",   "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 map("v", "<A-Down>", "<cmd>m '>+1<cr>gv=gv", { silent = true, desc = "Move down" })
 map("v", "<A-Up>",   "<cmd>m '<-2<cr>gv=gv", { silent = true, desc = "Move up" })
 
-map("n", "<M-l>", "<cmd>bnext<CR>",     { silent = true })
-map("n", "<M-h>", "<cmd>bprevious<CR>", { silent = true })
+-- map("n", "<M-l>", "<cmd>bnext<CR>",     { silent = true })
+-- map("n", "<M-h>", "<cmd>bprevious<CR>", { silent = true })
 
 -- Expand to parent / child. Same shortcut as in Kakoune and Helix.
 map({ 'x', 'o' }, '<M-o>', 'an', { remap = true })
