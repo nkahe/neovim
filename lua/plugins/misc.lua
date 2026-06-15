@@ -49,6 +49,7 @@ return {
     opts = {
       views = {
         finder = {
+          close_on_select = false,
           win = {
             kinds = { split_left_most = { width = "40" } },
             win_opts = { cursorline = true },
