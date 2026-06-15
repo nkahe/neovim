@@ -1,9 +1,14 @@
 
--- Built-in Neovim behavior
 
+-- Built-in Neovim behavior
 -- stylua: ignore start
 -- The next part (until `-- stylua: ignore end`) is aligned manually for easier
 -- reading.
+
+
+if os.getenv("COLOR_SCHEME") == "light" then
+  vim.o.background = "light"
+end
 
 -- Editing ====================================================================
 vim.o.autoindent    = true      -- Use auto indent
