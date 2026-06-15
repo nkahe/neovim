@@ -1,5 +1,7 @@
 local M = {}
 
+-- Colorscheme for Neovim terminal colors.
+
 function M.setup()
 
   local colors = {
@@ -42,12 +44,11 @@ function M.setup()
     foreground = "#fcfcfc",
     foreground_faint = "#eff0f1",
     foreground_intense = "#ffffff",
-  }
+ }
 
   for i = 0, 7 do
     vim.g["terminal_color_" .. i] = colors["color" .. i]
-    vim.g["terminal_color_" .. (i + 8)] =
-      colors["color" .. i .. "_intense"]
+    vim.g["terminal_color_" .. (i + 8)] = colors["color" .. i .. "_intense"]
   end
 
 end

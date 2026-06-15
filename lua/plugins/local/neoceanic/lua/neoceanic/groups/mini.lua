@@ -2,7 +2,7 @@ local M = {}
 
 function M.get(_, c, _)
   local true_black = "#000000"
-  local mix = require("neoceanic.colors").mix
+  local mix = require("neoceanic.utils").mix
 
   return {
     MiniDiffSignAdd    = { fg = mix(c.green,  c.black, 50) },

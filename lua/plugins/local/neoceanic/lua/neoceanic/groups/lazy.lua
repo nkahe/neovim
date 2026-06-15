@@ -1,7 +1,7 @@
 local M = {}
 
 function M.get(theme, colors, _)
-local lighten = require("neoceanic.colors").change_hex_lightness
+local lighten = require("neoceanic.utils").change_hex_lightness
   -- stylua: ignore
   return {
     LazyButton = { bg = colors.one_bg, fg = lighten(colors.light_grey, vim.o.bg == "dark" and 10 or -20) },

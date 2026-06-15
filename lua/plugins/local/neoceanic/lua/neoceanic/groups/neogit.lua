@@ -1,7 +1,7 @@
 local M = {}
 
 function M.get(_, colors, _)
-  local lighten = require("neoceanic.colors").change_hex_lightness
+  local lighten = require("neoceanic.utils").change_hex_lightness
 
   return {
     NeogitGraphAuthor     = { fg = colors.orange  },

@@ -2,7 +2,7 @@ local M = {}
 -- Semantic tokens are in their own file.
 
 function M.get(_, colors, _)
-local colorize = require("neoceanic.colors").change_hex_lightness
+local colorize = require("neoceanic.utils").change_hex_lightness
   return {
     -- LSP References
     LspReferenceText  = { bg = colors.one_bg3 },

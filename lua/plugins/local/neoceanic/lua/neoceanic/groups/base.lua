@@ -2,7 +2,7 @@ local M = {}
 
 function M.get(theme, colors, _)
   -- stylua: ignore
-  local lighten = require("neoceanic.colors").change_hex_lightness
+  local lighten = require("neoceanic.utils").change_hex_lightness
 
   return {
     Added             = { fg   = colors.green        },

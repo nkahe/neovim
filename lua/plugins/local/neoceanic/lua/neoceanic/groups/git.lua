@@ -1,7 +1,7 @@
 local M = {}
 
 function M.get(theme, colors, _)
-  local mix = require("neoceanic.colors").mix
+  local mix = require("neoceanic.utils").mix
 
   return {
 

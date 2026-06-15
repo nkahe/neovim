@@ -4,7 +4,7 @@ function M.get(_, c, _)
 
   -- stylua: ignore
 
-  local mix = require("neoceanic.colors").mix
+  local mix = require("neoceanic.utils").mix
   local black = c.black
   local percent = 90
   -- local percent = 65

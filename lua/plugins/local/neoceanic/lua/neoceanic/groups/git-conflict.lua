@@ -2,7 +2,7 @@ local M = {}
 
 function M.get(_, colors, _)
   -- stylua: ignore
-  local mix_col = require("neoceanic.colors").mix
+  local mix_col = require("neoceanic.utils").mix
 
   -- Need to manually re-configure git-conflict.nvim to use these highlight groups.
   -- See: https://github.com/akinsho/git-conflict.nvim?tab=readme-ov-file#configuration
