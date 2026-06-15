@@ -76,10 +76,14 @@ local function clear_cmdarea()
   end, 800)
 end
 
+-- Autosave normal buffers.
 local timer = vim.uv.new_timer()
 local save_notification = false
+local ignore_filetypes = {
+  gitcommit = true,
+  gitrebase = true,
+}
 
--- Autosave normal buffers.
 vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
   group = augroup("autosave"),
 
@@ -88,6 +92,11 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
 
     -- skip invalid/special and unnamed buffers
     if vim.bo[buf].buftype ~= "" or vim.api.nvim_buf_get_name(buf) == "" then
+      return
+    end
+
+    -- skip special filetypes
+    if ignore_filetypes[vim.bo.filetype] then
       return
     end
 
@@ -107,7 +116,7 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
 
     timer:stop()
 
-    timer:start(3000, 0, vim.schedule_wrap(function()
+    timer:start(2000, 0, vim.schedule_wrap(function()
       -- write silently without changing current buffer
       local ok = pcall(vim.api.nvim_buf_call, buf, function()
         vim.cmd("silent! write")
@@ -139,7 +148,11 @@ if vim.fn.isdirectory(config_path) == 1 then
       local file = args.file
       if file:match("%.lua$") then
         vim.cmd("source " .. args.file)
-        vim.notify("Sourced " .. vim.fn.fnamemodify(file, ":t"))
+        vim.api.nvim_echo({
+          { "󰄳 ", "LazyProgressDone" },
+          { "Sourced " .. vim.fn.fnamemodify(file, ":t") },
+        }, false, {})
+        -- vim.notify("Sourced " .. vim.fn.fnamemodify(file, ":t"))
       end
     end,
   })
