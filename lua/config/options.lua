@@ -161,6 +161,8 @@ if vim.g.neovide then
   vim.g.neovide_cursor_animation_length = 0.03
   vim.g.neovide_cursor_trail_size = 0.08
   vim.g.neovide_cursor_smooth_blink = true
+  -- Distracting when autosave autocmd is enabled.
+  vim.g.neovide_progress_bar_enabled = false
 end
 
 -- Autocommands ===============================================================
