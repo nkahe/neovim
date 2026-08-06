@@ -42,18 +42,14 @@ return {
   },
 
   {
-    "A7Lavinraj/fyler.nvim",
+    "FylerOrg/fyler.nvim",
     dependencies = { "nvim-mini/mini.icons" },
     branch = "stable",  -- Use stable branch for production
     lazy = false, -- Necessary for `default_explorer` to work properly
     opts = {
-      views = {
-        finder = {
-          close_on_select = false,
-          win = {
-            kinds = { split_left_most = { width = "40" } },
-            win_opts = { cursorline = true },
-          },
+      kind_presets = {
+        split_left_most = {
+          width = "40",
         },
       },
     }
