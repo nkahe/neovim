@@ -16,59 +16,7 @@ return {
   opts = {
     bigfile = { enabled = true },
 
-    dashboard = {
-      enabled = true,
-      preset = {
-        keys = {
-          -- Same as in Lazyvim but change session manager to mini.sessions.
-          { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-          { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-          { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-          { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-          { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-          { icon = " ", key = "s", desc = "Load latest session",
-            action = function()
-              local MiniSessions = require("mini.sessions")
-              local latest = MiniSessions.get_latest()
-              if latest then
-                _G.Config.windowtitle = latest
-                MiniSessions.read(latest)
-              else
-                vim.notify("No sessions found", vim.log.levels.WARN)
-              end
-            end
-          },
-          -- Defaults
-          -- { icon = " ", key = "s", desc = "Restore last session", action = function() require("persistence").load({ last = true }) end },
-          -- { icon = " ", key = "S", desc = "Select session", action = function() require("persistence").select() end },
-          { icon = " ", key = "S", desc = "Select session", action = function()
-              require("mini.sessions").select("read")
-            end, },
-          { icon = "󰒲 ", key = "l", desc = "Open Lazy", action = ":Lazy" },
-          { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-          { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1,
-            action = function(project_dir)
-              local Sessions = require("mini.sessions")
-
-              -- turn /home/.../foo -> "foo"
-              local name = vim.fs.basename(project_dir)
-
-              -- if a session for that name exists, load it.
-              local detected = Sessions.detected
-              if detected[name] then
-                _G.Config.windowtitle = name
-                Sessions.read(name)
-                return
-              end
-
-              -- fallback: just open the directory and pick a file.
-              vim.cmd("cd " .. vim.fn.fnameescape(project_dir))
-              require("snacks").dashboard.pick("files")
-            end,
-          },
-        },
-      },
-    },
+    dashboard = require("plugins.snacks.dashboard"),
 
     -- Defaults:
     -- <leader>e	Explorer Snacks (root dir)
@@ -91,136 +39,7 @@ return {
       gap = 0, -- gap between notifications
     },
 
-    picker = {
-      enabled = true,
-      explorer = {
-        -- Doesn't work for input.
-        layout = { hidden = { "preview", "input" } },
-      },
-      layout = { preset = "ivy", preview = true },
-      sources = {
-        files = { hidden = true },
-        explorer = { diagnostics = false },
-      },
-      win = {
-        input = {
-          keys = {
-            -- Change nicer descriptions.
-
-            -- to close the picker on ESC instead of going to normal mode,
-            -- add the following keymap to your config
-            -- ["<Esc>"] = { "close", mode = { "n", "i" } },
-              ["/"] = { "toggle_focus", desc = "Toggle focus" },
-              ["<C-Down>"] = { "history_forward", mode = { "i", "n" }, desc = "History forward" },
-              ["<C-Up>"] = { "history_back", mode = { "i", "n" }, desc = "History back" },
-              ["<C-c>" ] = { "cancel", mode = "i", desc = "Cancel" },
-              ["<C-w>" ] = { "<c-s-w>", mode = { "i" }, expr = true, desc = "Delete word" },
-              ["<CR>"  ] = { "confirm", mode = { "n", "i" }, desc = "Confirm" },
-              ["<Down>"] = { "list_down", mode = { "i", "n" }, desc = "List down" },
-              ["<Esc>" ] = { "cancel", desc = "Cancel" },
-              ["<S-CR>"] = { { "pick_win", "jump" }, mode = { "n", "i" }, desc = "Pick win / jump" },
-              ["<S-Tab>"] = { "select_and_prev", mode = { "i", "n" }, desc = "Select and prev" },
-              ["<Tab>"] = { "select_and_next", mode = { "i", "n" }, desc = "Select and next" },
-              ["<Up>" ] = { "list_up", mode = { "i", "n" }, desc = "List up" },
-              ["<a-d>"] = { "inspect", mode = { "n", "i" }, desc = "Inspect" },
-              ["<a-f>"] = { "toggle_follow", mode = { "i", "n" }, desc = "Toggle follow" },
-              ["<a-h>"] = { "toggle_hidden", mode = { "i", "n" }, desc = "Toggle hidden" },
-              ["<a-i>"] = { "toggle_ignored", mode = { "i", "n" }, desc = "Toggle ignored" },
-              ["<a-r>"] = { "toggle_regex", mode = { "i", "n" }, desc = "Toggle regex" },
-              ["<a-m>"] = { "toggle_maximize", mode = { "i", "n" }, desc = "Toggle maximize" },
-              ["<a-p>"] = { "toggle_preview", mode = { "i", "n" }, desc = "Toggle preview" },
-              ["<a-w>"] = { "cycle_win", mode = { "i", "n" }, desc = "Cycle win" },
-              ["<c-a>"] = { "select_all", mode = { "n", "i" }, desc = "Select all" },
-              ["<c-b>"] = { "preview_scroll_up", mode = { "i", "n" }, desc = "Scroll preview up" },
-              ["<c-d>"] = { "list_scroll_down", mode = { "i", "n" }, desc = "Scroll list down" },
-              ["<c-f>"] = { "preview_scroll_down", mode = { "i", "n" }, desc = "Scroll preview down" },
-              ["<c-g>"] = { "toggle_live", mode = { "i", "n" }, desc = "Toggle live" },
-              ["<c-j>"] = { "list_down", mode = { "i", "n" }, desc = "List down" },
-              ["<c-k>"] = { "list_up", mode = { "i", "n" }, desc = "List up" },
-              ["<c-n>"] = { "list_down", mode = { "i", "n" }, desc = "List down" },
-              ["<c-p>"] = { "list_up", mode = { "i", "n" }, desc = "List up" },
-              ["<c-q>"] = { "qflist", mode = { "i", "n" }, desc = "Send to quickfix" },
-              ["<c-s>"] = { "edit_split", mode = { "i", "n" }, desc = "Edit split" },
-              ["<c-t>"] = { "tab", mode = { "n", "i" }, desc = "Tab" },
-              ["<c-u>"] = { "list_scroll_up", mode = { "i", "n" }, desc = "Scroll list up" },
-              ["<c-v>"] = { "edit_vsplit", mode = { "i", "n" }, desc = "Edit vsplit" },
-              ["<c-r>#"] = { "insert_alt", mode = "i", desc = "Insert alt" },
-              ["<c-r>%"] = { "insert_filename", mode = "i", desc = "Insert filename" },
-              ["<c-r><c-a>"] = { "insert_cWORD", mode = "i", desc = "Insert cWORD" },
-              ["<c-r><c-f>"] = { "insert_file", mode = "i", desc = "Insert file" },
-              ["<c-r><c-l>"] = { "insert_line", mode = "i", desc = "Insert line" },
-              ["<c-r><c-p>"] = { "insert_file_full", mode = "i", desc = "Insert file full" },
-              ["<c-r><c-w>"] = { "insert_cword", mode = "i", desc = "Insert cword" },
-              ["<c-w>H"] = { "layout_left", desc = "Layout left" },
-              ["<c-w>J"] = { "layout_bottom", desc = "Layout bottom" },
-              ["<c-w>K"] = { "layout_top", desc = "Layout top" },
-              ["<c-w>L"] = { "layout_right", desc = "Layout right" },
-              ["?" ] = { "toggle_help_input", desc = "Toggle help input" },
-              ["G" ] = { "list_bottom", desc = "List bottom" },
-              ["gg"] = { "list_top", desc = "List top" },
-              ["j" ] = { "list_down", desc = "List down" },
-              ["k" ] = { "list_up", desc = "List up" },
-              ["q" ] = { "cancel", desc = "Cancel" },
-          },
-        },
-        list = {
-            keys = {
-              -- Change nicer descriptions.
-              ["/"] = { "toggle_focus", desc = "Toggle focus between list and input" },
-              ["<2-LeftMouse>"] = { "confirm", desc = "Open or confirm selection" },
-              ["<CR>"  ] = { "confirm", desc = "Open or confirm selection" },
-              ["<Down>"] = { "list_down", desc = "Move down" },
-              ["<Esc>" ] = { "cancel", desc = "Close / cancel" },
-              ["<S-CR>"] = { { "pick_win", "jump" }, desc = "Pick window / jump" },
-              ["<S-Tab>"] = { "select_and_prev", mode = { "n", "x" }, desc = "Select & move up" },
-              ["<Tab>"] = { "select_and_next", mode = { "n", "x" }, desc = "Select & move down" },
-              ["<Up>" ] = { "list_up", desc = "Move up" },
-              ["<a-d>"] = { "inspect", desc = "Inspect item" },
-              ["<a-f>"] = { "toggle_follow", desc = "Toggle follow" },
-              ["<a-h>"] = { "toggle_hidden", desc = "Toggle hidden files" },
-              ["<a-i>"] = { "toggle_ignored", desc = "Toggle ignored files" },
-              ["<a-m>"] = { "toggle_maximize", desc = "Toggle maximize" },
-              ["<a-p>"] = { "toggle_preview", desc = "Toggle preview" },
-              ["<a-w>"] = { "cycle_win", desc = "Cycle window" },
-              ["<c-a>"] = { "select_all", desc = "Select all" },
-              ["<c-b>"] = { "preview_scroll_up",  desc = "Scroll preview up" },
-              ["<c-d>"] = { "list_scroll_down", desc = "Scroll list down" },
-              ["<c-f>"] = { "preview_scroll_down", desc = "Scroll preview down" },
-              ["<c-j>"] = { "list_down", desc = "Move down" },
-              ["<c-k>"] = { "list_up", desc = "Move up" },
-              ["<c-n>"] = { "list_down", desc = "Next item" },
-              ["<c-p>"] = { "list_up", desc = "Previous item" },
-              ["<c-q>"] = { "qflist", desc = "Send to quickfix" },
-              ["<c-g>"] = { "print_path", desc = "Print path" },
-              ["<c-s>"] = { "edit_split", desc = "Open in split" },
-              ["<c-t>"] = { "tab", desc = "Open in tab" },
-              ["<c-u>"] = { "list_scroll_up", desc = "Scroll up" },
-              ["<c-v>"] = { "edit_vsplit", desc = "Open in vertical split" },
-              ["<c-w>H"] = { "layout_left", desc = "Move layout left" },
-              ["<c-w>J"] = { "layout_bottom", desc = "Move layout bottom" },
-              ["<c-w>K"] = { "layout_top", desc = "Move layout top" },
-              ["<c-w>L"] = { "layout_right", desc = "Move layout right" },
-              ["?" ] = { "toggle_help_list", desc = "Toggle help list" },
-              ["G" ] = { "list_bottom", desc = "Go to bottom" },
-              ["gg"] = { "list_top", desc = "Go to top" },
-              ["i" ] = { "focus_input", desc = "Focus search input" },
-              ["j" ] = { "list_down", desc = "Move down" },
-              ["k" ] = { "list_up", desc = "Move up" },
-              ["q" ] = { "cancel", desc = "Cancel / close" },
-              ["zb"] = { "list_scroll_bottom", desc = "Scroll to bottom" },
-              ["zt"] = { "list_scroll_top", desc = "Scroll to top" },
-              ["zz"] = { "list_scroll_center", desc = "Scroll to center" },
-            }
-        },
-        preview = {
-          wo = {
-            wrap = true,
-            linebreak = true,
-            list = false
-          }
-        }
-      }
-    },
+    picker = require("plugins.snacks.picker"),
 
     quickfile = { enabled = true },
 
@@ -268,7 +87,7 @@ return {
       notification_history = {
         border = true,
         zindex = 100,
-        -- Make window bigger 
+        -- Make window bigger
         width = 0.8,
         height = 0.8,
         minimal = false,
