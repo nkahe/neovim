@@ -55,9 +55,6 @@ end, { desc = "Yank file name" })
 
 -- Misc ---------------------------------------------------
 
--- In Insert mode Tab is used for completion.
-map("n", "<Tab>", "za", { desc = "Toggle fold" })
-
 -- If making search while text is selected, insert selected text to search
 -- while doing escaping if needed.
 vim.keymap.set("x", "/", function()
