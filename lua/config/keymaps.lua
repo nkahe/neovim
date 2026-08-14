@@ -3,6 +3,11 @@
 local map = vim.keymap.set
 local has_snacks, Snacks = pcall(require, "snacks")
 
+vim.keymap.set("n", "<leader>Tn", "<cmd>TodoTxt new<cr>", { desc = "New todo entry" })
+vim.keymap.set("n", "<leader>Tt", "<cmd>TodoTxt<cr>", { desc = "Toggle todo.txt" })
+vim.keymap.set("n", "<leader>Td", "<cmd>DoneTxt<cr>", { desc = "Toggle done.txt" })
+vim.keymap.set("n", "<leader>Tg", "<cmd>TodoTxt ghost<cr>", { desc = "Toggle ghost text" })
+
 map("n", "<leader>e", function()
   require("fyler").toggle({ kind = "split_left_most" })
 end, { silent = true })

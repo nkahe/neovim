@@ -236,6 +236,26 @@ return {
   -- limited support sudo in Windows - https://github.com/lambdalisue/vim-suda
   { 'lambdalisue/vim-suda', cmd = { 'SudaRead', 'SudaWrite' } },
 
+  { "phrmendes/todotxt.nvim",
+    opts = {
+      todotxt = vim.env.HOME .. "/.todo/todo.txt",
+      donetxt = vim.env.HOME .. "/.todo/done.txt",
+      max_priority = "C",
+      metadata = {
+        tag = { sort = "asc" },
+        due = { sort = "asc" },
+      },
+      ghost_text = {
+        enable = false,
+        mappings = {
+          ["(A)"] = "today",
+          ["(B)"] = "tomorrow",
+          ["(C)"] = "this week",
+        },
+      },
+    }
+  },
+
   -- View your Neovim configuration insights, history, and heatmaps.
   -- https://github.com/aikhe/wrapped.nvim
   {
