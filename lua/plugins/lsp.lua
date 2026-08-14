@@ -41,9 +41,9 @@ return {
     -- Autoformatting
     "stevearc/conform.nvim",
   },
-  -- LSP server settings. Just setting true installs and enables.
+  -- NOTE: Just setting true installs and enables.
   -- Configure but don't autoinstall: manual_install = true.
-  -- NOTE use LSP server name, not language name. Names can be searched with Mason.
+  -- Use LSP server name, not language name. Names can be searched with Mason.
   opts = {
     servers = {
       bashls = true,
@@ -89,14 +89,13 @@ return {
             },
           },
         },
-      },
+      }, -- pyright
       ruff = true,
       ts_ls = true,
-    }
-  },
+    } --servers
+  }, -- opts
 
   config = function(_, opts)
-
     -- Non-LSP tools which are always installed but nothing else done with them.
     local ensure_installed = {
       "stylua",
@@ -113,19 +112,22 @@ return {
 
     local blink_capabilities = require('blink.cmp').get_lsp_capabilities()
 
-    local servers_to_install = vim.tbl_filter(function(key)
-      local t = opts.servers[key]
-      if type(t) == "table" then
-        return not t.manual_install
-      else
-        return t
-      end
-    end, vim.tbl_keys(opts.servers))
-
-    require("mason").setup()
+    local servers_to_install = vim.tbl_filter(
+      function(key)
+        local t = opts.servers[key]
+        if type(t) == "table" then
+          return not t.manual_install
+        else
+          return t
+        end
+      end, vim.tbl_keys(opts.servers)
+    )
 
     vim.list_extend(ensure_installed, servers_to_install)
-    require("mason-tool-installer").setup { ensure_installed = ensure_installed }
+    require("mason-tool-installer").setup({
+      ensure_installed = ensure_installed,
+      auto_update = true
+    })
 
     -- Set global capabilities for all LSP servers
     vim.lsp.config("*", { capabilities = blink_capabilities, })
