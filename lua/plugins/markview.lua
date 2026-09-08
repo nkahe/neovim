@@ -14,7 +14,7 @@ return  {
           buffer = event.buf,
           desc = "Toggle Markview for buffer"
         })
-        vim.keymap.set("n", { "<Leader>um" }, "<cmd>Markview Toggle<CR>",
+        vim.keymap.set("n", "<Leader>um", "<cmd>Markview Toggle<CR>",
           { desc = "Toggle markdown rendering" })
       end
     })
