@@ -12,7 +12,5 @@ vim.schedule(function()
     vim.opt_local.colorcolumn = ""
     vim.cmd("Wrapwidth 90")
     -- Color column doens't work with wrapped lines.
-  else
-    vim.notify("'Wrapwidth' is off", vim.log.levels.INFO)
   end
 end)
