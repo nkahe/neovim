@@ -1,3 +1,5 @@
+
+-- For a custom command to Ask Avante with cursor context"
 local function avante_context_prompt()
   local api = require("avante.api")
   local utils = require("avante.utils")
@@ -103,6 +105,8 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
+  { "ColinKennedy/mega.cmdparse", dependencies = { "ColinKennedy/mega.logging" } },
+    --- The below dependencies are optional,
     "folke/snacks.nvim",  -- for input provider snacks
     "nvim-tree/nvim-web-devicons",
   },
