@@ -10,7 +10,7 @@ vim.keymap.set("n", "<leader>Tg", "<cmd>TodoTxt ghost<cr>", { desc = "Toggle gho
 
 map("n", "<leader>e", function()
   require("fyler").toggle({ kind = "split_left_most" })
-end, { silent = true })
+end, { desc = "Explore", silent = true })
 
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
