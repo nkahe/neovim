@@ -86,7 +86,7 @@ return {
 
   opts = {
     legacy_commands = false,
-    picker = { name = 'snacks.pick' },
+    picker = { name = 'snacks.picker' },
     workspaces = {
       {
         name = "notes",
