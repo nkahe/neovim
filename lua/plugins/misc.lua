@@ -140,7 +140,7 @@ return {
 
   {
     -- 'stevearc/oil.nvim',
-    'barrettruth/canola.nvim',
+    'https://forge.barrettruth.com/barrettruth/canola.nvim',
     -- branch = "canola",
     -- before = function()
     --   vim.g.canola = {
