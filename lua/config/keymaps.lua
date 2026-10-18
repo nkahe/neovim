@@ -12,14 +12,27 @@ map("n", "<leader>e", function()
   require("fyler").toggle({ kind = "split_left_most" })
 end, { desc = "Explore", silent = true })
 
--- Clear search, diff update and redraw
--- taken from runtime/lua/_editor.lua
-map( "n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-  { desc = "Redraw / Clear hlsearch / Diff Update" }
-)
+local function clear_multicursors()
+    local mc_ns = vim.api.nvim_create_namespace("nvim.multicursor")
+    vim.api.nvim_buf_clear_namespace(0, mc_ns, 0, -1)
+end
 
--- Clear search with <esc>
-map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
+-- Make Esc do additionally what CTRL-L does by default, since that keymap is
+-- remapped to go to window on right.
+vim.keymap.set("n", "<Esc>", function()
+  vim.cmd("nohlsearch")
+    if vim.fn.has("nvim-0.13") == 1 then
+      clear_multicursors()
+    end
+  vim.cmd("redraw!")
+  return vim.api.nvim_replace_termcodes("<Esc>", true, false, true)
+end, {
+  expr = true,
+  desc = "Escape and clear highlights and multicursors",
+})
+
+-- Clear search with <esc>. Older implementation
+-- map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
 
 --keywordprg
 map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
