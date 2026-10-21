@@ -254,7 +254,7 @@ return {
       desc = "Neovim News",
       function()
         Snacks.win({
-          file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
+          file = vim.fs.joinpath(vim.env.VIMRUNTIME, "doc/news.txt"),
           width = 0.6,
           height = 0.6,
           window = {
