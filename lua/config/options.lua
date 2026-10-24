@@ -1,5 +1,4 @@
 
-
 -- Built-in Neovim behavior
 -- stylua: ignore start
 -- The next part (until `-- stylua: ignore end`) is aligned manually for easier

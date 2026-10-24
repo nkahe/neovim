@@ -13,6 +13,7 @@ M.colors = {
   grey_fg2      = "#576770",
   light_grey    = "#738490",
   white         = "#D8DEE9", -- Default fg color
+  lightbg       = "#2c3c45",
 
   red           = "#ec6770", -- "#EC5F67",
   baby_pink     = "#ff7d85",
@@ -50,5 +51,9 @@ M.theme = {
   base0E = M.colors.purple,
   base0F = M.colors.red
 }
+
+-- if vim.o.background == "light" then
+--   M.theme.base00 = M.colors.lightbg
+-- end
 
 return M

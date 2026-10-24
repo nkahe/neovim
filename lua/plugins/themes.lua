@@ -14,14 +14,13 @@ return {
     },
     config = function(_, opts)
       require("neoceanic").setup(opts)
-      if vim.o.background ~= "light" then
         vim.cmd.colorscheme("neoceanic")
-      end
     end,
   },
 
   {
     "folke/tokyonight.nvim",
+    enabled = false,
     lazy = false,
     priority = 1000,
     config = function()
