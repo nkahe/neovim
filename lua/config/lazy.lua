@@ -42,6 +42,9 @@ require("lazy").setup({
     -- import your plugins
     { import = "plugins" },
   },
+  git = {
+    timeout = 300, -- Avante build needs long timeout.
+  },
   defaults = {
     -- Only load enabled plugins in VSCode
     cond = vim.g.vscode and function(plugin)

@@ -47,10 +47,11 @@ end
 
 return {
   "yetone/avante.nvim",
+  -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
   enabled = true,
   build = vim.fn.has("win32") ~= 0
       and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-      or "make",
+      or "make BUILD_FROM_SOURCE=true",
   event = "VeryLazy",
   version = false, -- Never set this value to "*"! Never!
   opts = {
@@ -128,7 +129,7 @@ return {
   keys = {
     { "<leader>aa", ":AvanteAsk ", mode = { "n", "v" }, desc = "Ask Avante" },
     { "<leader>ac", "<cmd>AvanteChat<CR>", desc = "Chat with Avante" },
-    { "<leader>ae", function() require("avante.api").edit() end, mode = "v", desc = "Quick edit Avante" },
+    { "<leader>ae", function() require("avante.api").edit() end, mode = "v", desc = "Edit Avante" },
     { "<leader>aT", avante_context_prompt, mode = { "n", "v" }, desc = "Ask Avante with cursor context" },
     { "<leader>af", "<cmd>AvanteFocus<CR>", desc = "Focus Avante" },
     { "<leader>ah", "<cmd>AvanteHistory<CR>", desc = "Avante History" },
@@ -136,7 +137,7 @@ return {
     { "<leader>an", "<cmd>AvanteChatNew<CR>", desc = "New Avante Chat" },
     { "<leader>ap", "<cmd>AvanteSwitchProvider<CR>", desc = "Switch Avante Provider" },
     { "<leader>ar", "<cmd>AvanteRefresh<CR>", desc = "Refresh Avante" },
-    { "<leader>as", "<cmd>AvanteStop<CR>", desc = "Stop Avante" },
+    { "<leader>aS", "<cmd>AvanteStop<CR>", desc = "Stop Avante" },
     { "<leader>at", "<cmd>AvanteToggle<CR>", desc = "Toggle Avante" },
   },
 }
