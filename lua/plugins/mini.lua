@@ -201,6 +201,8 @@ return {
       mappings = { toggle = 'öa', split = '', join = '' }
     })
 
+    require('mini.statuscolumn').setup()
+
     require('mini.surround').setup({
       mappings = {
         add            = "ys", -- Add surrounding in Normal and Visual modes

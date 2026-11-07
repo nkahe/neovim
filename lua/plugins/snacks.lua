@@ -49,7 +49,7 @@ return {
 
     scroll = { enabled = true },
 
-    statuscolumn = { enabled = true },
+    statuscolumn = { enabled = false },
 
     terminal = {
       enabled = true,
