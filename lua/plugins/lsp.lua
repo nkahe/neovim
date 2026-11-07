@@ -50,6 +50,8 @@ return {
       lua_ls = {
         settings = {
           Lua = {
+            -- Recognizes "require" etc.
+            runtime = { version = 'LuaJIT' },
             -- Make LSP to know about global vim variable.
             diagnostics = {
               globals = { "vim" },
