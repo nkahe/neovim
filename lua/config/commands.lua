@@ -172,3 +172,28 @@ create_cmd('Trim', function()
   vim.fn.setpos(".", save_cursor)
   vim.fn.winrestview(save_view)
 end, { desc = "Trim trailing whitespace from the buffer" })
+
+
+-- Create a vertical split with the requested text width
+vim.api.nvim_create_user_command("VsplitWidth", function(opts)
+  local text_width = tonumber(opts.args)
+  if not text_width or text_width < 1 or text_width % 1 ~= 0 then
+    vim.notify("VsplitWidth expects a positive integer", vim.log.levels.ERROR)
+    return
+  end
+
+  vim.cmd("vsplit")
+  vim.cmd("wincmd l")
+  vim.cmd("enew")
+  vim.cmd("wincmd h")
+
+  local winid = vim.api.nvim_get_current_win()
+  local wininfo = vim.fn.getwininfo(winid)[1]
+  local text_offset = wininfo and wininfo.textoff or 0
+
+  -- textoff includes the number, sign, fold, and status columns.
+  vim.api.nvim_win_set_width(winid, text_width + text_offset)
+end, {
+  nargs = 1,
+  desc = "Create a vertical split with the requested text width",
+})
