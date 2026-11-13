@@ -1,0 +1,48 @@
+
+  -- Canola is more actively updated for of Oil file browser.
+  return {
+    -- 'stevearc/oil.nvim',
+    'https://forge.barrettruth.com/barrettruth/canola.nvim',
+    enabled = false,
+    -- branch = "canola",
+    -- before = function()
+    --   vim.g.canola = {
+    --     keymaps = {
+    --       [ "<BS>" ] = { callback = "actions.parent", mode = "n" },
+    --     }
+    --   }
+    -- end,
+    main = "oil",
+    cmd = "Oil",
+    opts = {
+      keymaps = {
+        [ "g?"  ] = { "actions.show_help", mode = "n" },
+        ["<CR>" ] = "actions.select",
+        ["<C-v>"] = { "actions.select", opts = { vertical = true } },
+        ["<C-s>"] = { "actions.select", opts = { horizontal = true } },
+        ["<C-t>"] = { "actions.select", opts = { tab = true } },
+        ["<M-p>"] = "actions.preview",
+        ["<C-c>"] = { "actions.close",  mode = "n" },
+        [ "q"   ] = { "actions.close",  mode = "n" },
+        ["<C-h>"] = false,
+        ["<C-l>"] = false,
+        ["<M-r>"] = "actions.refresh",
+        [ "-"   ] = { "actions.parent", mode = "n" },
+        ["<BS>" ] = { "actions.parent", mode = "n" },
+        [ "_"   ] = { "actions.open_cwd", mode = "n" },
+        [ "`"   ] = { "actions.cd", mode = "n" },
+        [ "~"   ] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
+        [ "gs"  ] = { "actions.change_sort", mode = "n" },
+        [ "gx"  ] = "actions.open_external",
+        [ "g."  ] = { "actions.toggle_hidden", mode = "n" },
+        [ "g\\" ] = { "actions.toggle_trash",  mode = "n" },
+      },
+    },
+    keys = {{ "-", "<CMD>Oil<CR>", desc = "Open Oil" }},
+    -- Optional dependencies
+    dependencies = { { "nvim-mini/mini.icons", opts = {} } },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+    lazy = false,
+  },
+

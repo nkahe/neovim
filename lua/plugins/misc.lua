@@ -43,14 +43,28 @@ return {
 
   {
     "FylerOrg/fyler.nvim",
-    dependencies = { "nvim-mini/mini.icons" },
     branch = "stable",  -- Use stable branch for production
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     lazy = false, -- Necessary for `default_explorer` to work properly
+    init = function()
+
+      vim.keymap.set("n", "<leader>e", function()
+        require("fyler").toggle({ kind = "split_left_most" })
+      end, { desc = "Explore sidebar", silent = true })
+
+      vim.keymap.set("n", "-", function()
+        require("fyler").toggle({})
+      end, { desc = "Explore", silent = true })
+
+    end,
     opts = {
+      integrations = {
+        -- Use nvim-web-devicons as the icon provider
+        icon = 'nvim_web_devicons'
+      },
       kind_presets = {
-        split_left_most = {
-          width = "40",
-        },
+        -- Don't split by percentage.
+        split_left_most = { width = "40" },
       },
     }
   },
@@ -138,50 +152,19 @@ return {
     }
   },
 
-  {
-    -- 'stevearc/oil.nvim',
-    'https://forge.barrettruth.com/barrettruth/canola.nvim',
-    -- branch = "canola",
-    -- before = function()
-    --   vim.g.canola = {
-    --     keymaps = {
-    --       [ "<BS>" ] = { callback = "actions.parent", mode = "n" },
-    --     }
-    --   }
-    -- end,
-    main = "oil",
-    cmd = "Oil",
-    opts = {
-      keymaps = {
-        [ "g?"  ] = { "actions.show_help", mode = "n" },
-        ["<CR>" ] = "actions.select",
-        ["<C-v>"] = { "actions.select", opts = { vertical = true } },
-        ["<C-s>"] = { "actions.select", opts = { horizontal = true } },
-        ["<C-t>"] = { "actions.select", opts = { tab = true } },
-        ["<M-p>"] = "actions.preview",
-        ["<C-c>"] = { "actions.close",  mode = "n" },
-        [ "q"   ] = { "actions.close",  mode = "n" },
-        ["<C-h>"] = false,
-        ["<C-l>"] = false,
-        ["<M-r>"] = "actions.refresh",
-        [ "-"   ] = { "actions.parent", mode = "n" },
-        ["<BS>" ] = { "actions.parent", mode = "n" },
-        [ "_"   ] = { "actions.open_cwd", mode = "n" },
-        [ "`"   ] = { "actions.cd", mode = "n" },
-        [ "~"   ] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
-        [ "gs"  ] = { "actions.change_sort", mode = "n" },
-        [ "gx"  ] = "actions.open_external",
-        [ "g."  ] = { "actions.toggle_hidden", mode = "n" },
-        [ "g\\" ] = { "actions.toggle_trash",  mode = "n" },
-      },
-    },
-    keys = {{ "-", "<CMD>Oil<CR>", desc = "Open Oil" }},
-    -- Optional dependencies
-    dependencies = { { "nvim-mini/mini.icons", opts = {} } },
-    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
-    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
-    lazy = false,
-  },
+
+{
+    "preservim/vim-pencil",
+    enabled = false,
+    ft = { "markdown", "text" },
+    cmd = { "Pencil", "NoPencil", "TogglePencil" },
+    init = function()
+      vim.g["pencil#wrapModeDefault"] = "soft"
+      vim.g["pencil#textwidth"] = 90
+      vim.g["pencil#conceallevel"] = 3
+      vim.g["pencil#autoformat"] = 0
+    end,
+ },
 
   -- Search and replace in the current buffer with incremental preview,
   -- a convenient UI, and modern regex syntax.

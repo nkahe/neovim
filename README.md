@@ -2,8 +2,9 @@
 
 ![Screenshot](images/screenshot.png)
 
-This is my Neovim configuration. It uses [Lazy.nvim](https://github.com/folke/lazy.nvim) as plugin manager. Many of the plugins and part of the plugin
-configurations are from [LazyVim](https://www.lazyvim.org) which mentioned in comments. However, LazyVim isn't used as a distribution.
+This is my Neovim configuration. It uses [Lazy.nvim](https://github.com/folke/lazy.nvim) as plugin manager. Takes capable Neovim text-editor and extends it to include more modern feature set and look while being fast.
+
+Part of the plugin configurations are from [LazyVim](https://www.lazyvim.org) distribution which is mentioned in comments. However, it isn't used as a distribution.
 
 ## Features
 
@@ -25,7 +26,8 @@ User commands
 - Clear oldfiles.
 - Copy file path to clipboard.
 - Trim trailing whitespace.
-- Setting window title prefix.
+- Set window title prefix.
+- Split window vertically at set width.
 
 Plugins:
 - Plugins are lazy loaded if possible to keep startup speed <50ms.
@@ -35,16 +37,16 @@ Custom:
 - Dynamic terminal title for Yakuake terminal.
 - Toggle window to center floating position.
 Other:
-- Lazy.nvim plugin manager.
+- Plugin manager: Lazy.nvim
 - [folke/snacks.nvim: 🍿 A collection of QoL plugins for Neovim](https://github.com/folke/snacks.nvim)
 - [nvim-mini/mini.nvim: Library of 40+ independent Lua modules improving Neovim experience with minimal effort](https://github.com/nvim-mini/mini.nvim)
 - UI: BufferLine, Lualine, Which-Key, Trouble, Noice, Nvim-web-devicons.
+- File management: [FylerOrg/fyler.nvim: edit file system like a buffer with tree view](https://github.com/FylerOrg/fyler.nvim)
 - AI: [Avante: Use your Neovim like using Cursor AI IDE](https://github.com/avante-corp/avante.nvim).
 - LSP and completion: Nvim-lspconfig, Blink, Lazydev, Mason.
 - Formatter: Conform
 - Treesitter code parsing: nvim-treesitter, nvim-treesitter-textobjects, ts-comments.
 - Git: Neogit, GitSigns, CodeDiff, Snacks.git
-- File management: Neotree, Canola.
 - Markdown: Markview, Markdown-Plus, Markdown-preview, Wrapwidth.
 - [obsidian-nvim/obsidian.nvim: Obsidian 🤝 Neovim ](https://github.com/obsidian-nvim/obsidian.nvim)
 - Various enhancements: Dial, Flash, Grug-FAR, inc-rename, Nvim-rip-substitute, Recover.vim, Vim-insert-append-single-character, Vim-Suda, ctrl-g.

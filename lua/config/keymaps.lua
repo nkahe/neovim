@@ -8,10 +8,6 @@ vim.keymap.set("n", "<leader>Tt", "<cmd>TodoTxt<cr>", { desc = "Toggle todo.txt"
 vim.keymap.set("n", "<leader>Td", "<cmd>DoneTxt<cr>", { desc = "Toggle done.txt" })
 vim.keymap.set("n", "<leader>Tg", "<cmd>TodoTxt ghost<cr>", { desc = "Toggle ghost text" })
 
-map("n", "<leader>e", function()
-  require("fyler").toggle({ kind = "split_left_most" })
-end, { desc = "Explore", silent = true })
-
 local function clear_multicursors()
     local mc_ns = vim.api.nvim_create_namespace("nvim.multicursor")
     vim.api.nvim_buf_clear_namespace(0, mc_ns, 0, -1)
