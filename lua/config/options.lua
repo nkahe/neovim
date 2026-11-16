@@ -162,19 +162,13 @@ if vim.g.neovide then
   vim.g.neovide_cursor_smooth_blink = true
   -- Distracting when autosave autocmd is enabled.
   vim.g.neovide_progress_bar_enabled = false
+  vim.g.neovide_padding_bottom = 0
 end
 
 -- Autocommands ===============================================================
 
 -- Don't auto-wrap comments and don't insert comment leader after hitting 'o'.
 -- Do on `FileType` to always override these changes from filetype plugins.
--- local f = function() vim.cmd('setlocal formatoptions-=c formatoptions-=o') end
--- _G.Config.new_autocmd('FileType', nil, f, "Proper 'formatoptions'")
-
-local function augroup(name)
-  return vim.api.nvim_create_augroup("Custom_" .. name, { clear = true })
-end
-
 vim.api.nvim_create_autocmd({ "FileType" }, {
   desc = "Proper 'formatoptions'",
   group = vim.api.nvim_create_augroup("Custom_formatoptions", { clear = true }),
@@ -188,14 +182,29 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
 -- Diagnostics ================================================================
 
-local diagnostic_opts = {
+local signs = {
   -- Show signs on top of any other sign, but only for warnings and errors
-  signs = { priority = 9999, severity = { min = 'WARN', max = 'ERROR' } },
+  priority = 9999, severity = { min = 'WARN', max = 'ERROR' }
+}
 
-  -- Show all diagnostics as underline (for their messages type `<Leader>cd`)
+if vim.g.have_nerd_font then  -- Set at start of the file.
+  -- TODO: Apply these in snacks.statuscolumn?
+  --https://github.com/folke/snacks.nvim/blob/main/docs/statuscolumn.md
+  signs.text = {
+    [vim.diagnostic.severity.ERROR] = "󰅚 ",
+    [vim.diagnostic.severity.WARN]  = "󰀪 ",
+    [vim.diagnostic.severity.INFO]  = "󰋽 ",
+    [vim.diagnostic.severity.HINT]  = "󰌶 ",
+  }
+end
+
+local diagnostic_opts = {
+  signs = signs,
+
+  -- Show all diagnostics as underline (Show messages with `<Leader>cd`)
   underline = { severity = { min = 'HINT', max = 'ERROR' } },
 
-  -- Show more details immediately for errors on the current line
+  -- Show more details immediately for errors on the current line.
   virtual_lines = false,
   virtual_text = {
     current_line = true,
@@ -206,36 +215,7 @@ local diagnostic_opts = {
   update_in_insert = false,
 }
 
--- safely apply diagnostics config
-local function apply_diagnostics()
-  if vim.g.have_nerd_font then  -- Set at start of the file.
-    -- TODO: Apple these in snacks.statuscolumn?
-    --https://github.com/folke/snacks.nvim/blob/main/docs/statuscolumn.md
-    diagnostic_opts.signs.text = {
-      [vim.diagnostic.severity.ERROR] = "󰅚 ",
-      [vim.diagnostic.severity.WARN]  = "󰀪 ",
-      [vim.diagnostic.severity.INFO]  = "󰋽 ",
-      [vim.diagnostic.severity.HINT]  = "󰌶 ",
-    }
-  end
-  vim.diagnostic.config(diagnostic_opts)
-end
-
--- Apply diagnostics. Use MiniDeps or Lazy.nvim if available, else fallback.
 -- Defer startup for speed.
-local ok_mini, MiniDeps = pcall(require, "mini.deps")
-if ok_mini and MiniDeps.later then
-  MiniDeps.later(apply_diagnostics)
-else
-  local ok_lazy, _ = pcall(require, "lazy")
-  if ok_lazy then
-    vim.schedule(apply_diagnostics)
-  else
-    apply_diagnostics()
-  end
-end
-
--- Default:
--- MiniDeps.later(function() vim.diagnostic.config(diagnostic_opts) end)
+vim.schedule(function() vim.diagnostic.config(diagnostic_opts) end)
 
 -- stylua: ignore end
