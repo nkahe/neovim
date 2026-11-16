@@ -112,6 +112,7 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
   cmd = {
+    "Avante",
     "AvanteAsk",
     "AvanteBuild",
     "AvanteChat",
@@ -124,7 +125,6 @@ return {
     "AvanteShowRepoMap",
     "AvanteStop",
     "AvanteSwitchProvider",
-    "AvanteToggle",
   },
   keys = {
     { "<leader>aa", ":AvanteAsk ", mode = { "n", "v" }, desc = "Ask Avante" },
@@ -138,6 +138,6 @@ return {
     { "<leader>ap", "<cmd>AvanteSwitchProvider<CR>", desc = "Switch Avante Provider" },
     { "<leader>ar", "<cmd>AvanteRefresh<CR>", desc = "Refresh Avante" },
     { "<leader>aS", "<cmd>AvanteStop<CR>", desc = "Stop Avante" },
-    { "<leader>at", "<cmd>AvanteToggle<CR>", desc = "Toggle Avante" },
+    { "<leader>at", "<cmd>Avante toggle<CR>", desc = "Toggle Avante" },
   },
 }
