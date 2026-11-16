@@ -101,7 +101,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-
 -- Fix conceallevel for json files.
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = augroup("json_conceal"),

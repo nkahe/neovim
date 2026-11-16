@@ -8,8 +8,8 @@ local localnotes_dir = vim.fn.expand('~/Documents/local_notes')
 return {
   "obsidian-nvim/obsidian.nvim",
   enabled = true,
-  version = "*",  -- recommended, use latest release instead of latest commit
   lazy = true,
+  version = "*",  -- recommended, use latest release instead of latest commit
   cmd = "Obsidian",
   ft = "markdown",
   -- ft = "markdown",
@@ -84,6 +84,8 @@ return {
     })
   end,
 
+  ---@module 'obsidian'
+  ---@type obsidian.config
   opts = {
     legacy_commands = false,
     picker = { name = 'snacks.picker' },

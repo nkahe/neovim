@@ -1,5 +1,5 @@
 
--- maximize height for help windows
+-- maximize height for help windows instead of 50% split.
 vim.cmd("wincmd _")
 
 -- optional: keep help at fixed height unless manually resized
