@@ -3,6 +3,9 @@ return {
   {
   'nvim-mini/mini.nvim', version = false,
   event = 'VeryLazy',
+  init = function()
+      vim.g.minipick_disable = true  -- Snacks.picker is used instead.
+    end,
   config = function()
 
     local set = vim.keymap.set
